@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+{
+    Schema::create('sous_sections', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('section_id')->constrained();
+        $table->string('titre');
+        $table->string('slug')->unique();
+        $table->text('contenu');
+        $table->integer('ordre');
+        $table->timestamps();
+    });
+}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('sous_sections');
+    }
+};
