@@ -14,7 +14,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'profile_image',
     ];
 
     protected $hidden = [
@@ -25,7 +26,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     /**
      * Vérifie si l'utilisateur a un rôle spécifique
      *

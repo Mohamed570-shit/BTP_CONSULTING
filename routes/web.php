@@ -1,7 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\JobController;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
@@ -18,150 +22,150 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.dashboard');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
+    Route::put('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+});
+
+// Route de gestion des utilisateurs
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::resource('users', UserController::class)->names('admin.users');
+});
+
+// Les offres d'emploi (keep this one)
+Route::get('/recrutement/offres-emploi', [JobController::class, 'offresEmploi'])->name('offres-emploi');
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::resource('jobs', JobController::class);
+});
+
+
+// Page authentification
+Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
+Route::post('/admin/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('admin.notifications.read');
+
 // Page d'accueil
 Route::get('/', function () {
     return view('pages.index');
-});
+})->name('welcome'); // Added name for consistency
+
+
 
 // Routes pour "Qui sommes-nous"
 Route::prefix('qui-sommes-nous')->group(function () {
-    
     Route::get('/apropos', function () {
         return view('pages.qui-sommes-nous.apropos');
     })->name('a-propos');
-    
-    
+
     Route::get('/directeur', function () {
         return view('pages.qui-sommes-nous.directeur');
     })->name('mot-directeur');
 
-    
     Route::get('/valeurs', function () {
         return view('pages.qui-sommes-nous.valeurs');
     })->name('nos-valeurs');
 
-    
     Route::get('/chiffres-cles', function () {
         return view('pages.qui-sommes-nous.chiffres-cles');
     })->name('chiffres-cles');
 
-    
     Route::get('/certifications', function () {
         return view('pages.qui-sommes-nous.certifications');
     })->name('certifications');
 
-    
     Route::get('/rayonnement', function () {
         return view('pages.qui-sommes-nous.rayonnement');
     })->name('rayonnement');
-
     
     Route::get('/gouvernance', function () {
         return view('pages.qui-sommes-nous.gouvernance');
     })->name('gouvernance');
 
-    
-    
-
-    
     Route::get('/organigramme', function () {
         return view('pages.qui-sommes-nous.organigramme');
     })->name('organigramme');
-    
 });
 
 // Routes pour "Domaines"
 Route::prefix('domaines')->group(function () {
-    
     Route::get('/liste', function () {
         return view('pages.domaines.liste');
-    })->name('');
+    })->name('domaines.liste'); // Added name
 });
 
 // Routes pour "Réalisations"
 Route::prefix('realisations')->group(function () {
-    
     Route::get('/politiques-humaines', function () {
         return view('pages.realisations.politiques-humaines');
     })->name('politiques-humaines');
 
-    
     Route::get('/projets-recents', function () {
         return view('pages.realisations.projets-recents');
     })->name('projets-recents');
 
-    
     Route::get('/tous-les-projets', function () {
         return view('pages.realisations.tous-les-projets');
     })->name('tous-les-projets');
-    
 });
 
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
-    
     Route::get('/etudes-techniques', function () {
         return view('pages.management.etudes-techniques');
     })->name('etudes-techniques');
 
-    
     Route::get('/suivi-controle', function () {
         return view('pages.management.suivi-controle');
     })->name('suivi-controle');
 
-    
     Route::get('/qualite-audit', function () {
         return view('pages.management.qualite-audit');
     })->name('qualite-audit');
 
-    
     Route::get('/innovation-digitale', function () {
         return view('pages.management.innovation-digitale');
     })->name('innovation-ia');
 
-    
     Route::get('/commercial-marketing', function () {
         return view('pages.management.commercial-marketing');
     })->name('commercial-marketing');
 
-    
     Route::get('/rh-competences', function () {
         return view('pages.management.rh-competences');
     })->name('rh-competences');
 
-    
     Route::get('/financier-comptabilite', function () {
         return view('pages.management.financier-comptabilite');
     })->name('financier-comptabilite');
 
-    
     Route::get('/logistique-moyens', function () {
         return view('pages.management.logistique-moyens');
     })->name('logistique-moyens');
-    
 });
 
 // Routes pour "Recrutement"
 Route::prefix('recrutement')->group(function () {
-    Route::get('/offres-emploi', function () {
-        return view('pages.recrutement.offres-emploi');
-    })->name('offres-emploi');
-    
+    // Remove this conflicting route
+    // Route::get('/offres-emploi', function () {
+    //     return view('pages.recrutement.offres-emploi');
+    // })->name('offres-emploi');
+
     Route::get('/candidature-spontanee', function () {
         return view('pages.recrutement.candidature-spontanee');
     })->name('candidature-spontanee');
 });
 
-// Route pour "Contact" (je suppose qu'il manque un fichier contact.blade.php)
+// Route pour "Contact"
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
 
-// Routes pour "Register" et "Login"
+// Routes pour "Register" et "Login" (overridden by auth routes above, so remove or adjust)
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Route pour les offres de stage (incomplete in your input, assuming placeholder)
+Route::get('/recrutement/offres-stage', function () {
+    return view('pages.recrutement.offres-stage');
+})->name('offres-stage');

@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row mt-4">
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body text-center">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body text-center">
@@ -42,6 +42,30 @@
                     <h5 class="card-title">Offres d'emploi</h5>
                     <p class="card-text">Gérez les offres d'emploi</p>
                     <a href="{{ route('admin.jobs') }}" class="btn btn-sm btn-primary">Accéder</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ajout de la section Notifications -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-bell fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Notifications</h5>
+                    <p class="card-text">Consultez et gérez les notifications</p>
+                    <a href="{{ route('admin.notifications') }}" class="btn btn-sm btn-primary">Accéder</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ajout de la section Candidatures Spontanées -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-file-upload fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Candidatures Spontanées</h5>
+                    <p class="card-text">Gérez les candidatures spontanées</p>
+                    <a href="{{ route('admin.spontaneous-applications') }}" class="btn btn-sm btn-primary">Accéder</a>
                 </div>
             </div>
         </div>

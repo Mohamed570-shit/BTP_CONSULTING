@@ -9,15 +9,30 @@ use Carbon\Carbon;
 
 class OffreEmploiSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $offres = [
-            ['titre' => 'Ingénieur civil', 'description' => 'Nous recherchons un ingénieur civil expérimenté...', 'date_expiration' => Carbon::now()->addMonths(2)],
-            ['titre' => 'Architecte', 'description' => 'Poste d\'architecte pour nos projets résidentiels...', 'date_expiration' => Carbon::now()->addMonths(1)],
-            ['titre' => 'Chef de chantier', 'description' => 'Chef de chantier pour superviser nos projets...', 'date_expiration' => Carbon::now()->addMonths(3)],
+            [
+                'titre' => 'Ingénieur civil',
+                'description' => 'Nous recherchons un ingénieur civil expérimenté...',
+                'location' => 'Tétouan',
+                'type' => 'CDI',
+                'date_expiration' => Carbon::now()->addMonths(2),
+            ],
+            [
+                'titre' => 'Architecte',
+                'description' => 'Poste d\'architecte pour nos projets résidentiels...',
+                'location' => 'Tanger',
+                'type' => 'CDD',
+                'date_expiration' => Carbon::now()->addMonths(1),
+            ],
+            [
+                'titre' => 'Chef de chantier',
+                'description' => 'Chef de chantier pour superviser nos projets...',
+                'location' => 'Rabat',
+                'type' => 'Freelance',
+                'date_expiration' => Carbon::now()->addMonths(3),
+            ],
         ];
 
         foreach ($offres as $offre) {
@@ -25,6 +40,8 @@ class OffreEmploiSeeder extends Seeder
                 'titre' => $offre['titre'],
                 'slug' => Str::slug($offre['titre']),
                 'description' => $offre['description'],
+                'location' => $offre['location'],
+                'type' => $offre['type'],
                 'date_expiration' => $offre['date_expiration'],
             ]);
         }

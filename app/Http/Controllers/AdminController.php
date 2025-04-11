@@ -13,33 +13,47 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
+
+    // Méthode pour la page des notifications
+    public function notifications()
+    {
+        return view('admin.notifications'); // À créer
+    }
+
+    // Méthode pour la page des candidatures spontanées
+    public function spontaneousApplications()
+    {
+        return view('admin.spontaneous-applications'); // À créer
+    }
+
     
     public function users()
     {
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
-    
+
     public function about()
     {
         return view('admin.about');
     }
-    
+
     public function domains()
     {
         return view('admin.domains');
     }
-    
+
     public function projects()
     {
         return view('admin.projects');
     }
-    
+
     public function departments()
     {
         return view('admin.departments');
     }
-    
+
     public function jobs()
     {
         return view('admin.jobs');

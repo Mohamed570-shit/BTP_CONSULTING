@@ -3,24 +3,22 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OffresEmploi>
- */
 class OffreEmploiFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = \App\Models\OffreEmploi::class;
+
     public function definition()
-{
-    return [
-        'titre' => $this->faker->jobTitle(),
-        'slug' => $this->faker->slug(),
-        'description' => $this->faker->paragraphs(5, true),
-        'date_expiration' => $this->faker->dateTimeBetween('now', '+1 year'),
-    ];
-}
+    {
+        $titre = $this->faker->jobTitle;
+        return [
+            'titre' => $titre,
+            'slug' => Str::slug($titre),
+            'description' => $this->faker->paragraph,
+            'location' => $this->faker->city,
+            'type' => $this->faker->randomElement(['CDI', 'CDD', 'Stage', 'Freelance']),
+            'date_expiration' => $this->faker->dateTimeBetween('now', '+1 month'),
+        ];
+    }
 }

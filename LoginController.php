@@ -22,12 +22,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
+            
             if ($user->role === 'admin') {
                 $request->session()->regenerate();
                 return redirect()->intended('/admin/dashboard');
             }
-
+            
             // Si l'utilisateur n'est pas un admin, on le déconnecte
             Auth::logout();
             return back()->withErrors([
