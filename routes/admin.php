@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
         return response($file, 200)->header("Content-Type", $type);
     });
        // les routes pour projets recents
-       Route::get('/projects', [ProjectController::class, 'projetsRecents'])->name('pages.realisations.projets-recents');
+       
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
 
