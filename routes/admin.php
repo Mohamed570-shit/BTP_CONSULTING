@@ -1,7 +1,8 @@
 <?php
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\ProjectController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -26,7 +27,28 @@ Route::middleware(['auth'])->group(function () {
 
     // Projets
     Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');
+    
+    Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+    Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('admin.projects.show');
+    Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('admin.projects.edit');
+    Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
+   
+    // route pour images des projets
+    Route::get('/project-image/{filename}', function ($filename) {
+        $path = storage_path('app/public/projets/' . $filename);
 
+        if (!\Illuminate\Support\Facades\File::exists($path)) {
+            abort(404);
+        }
+        $file = \Illuminate\Support\Facades\File::get($path);
+        $type = \Illuminate\Support\Facades\File::mimeType($path);
+        return response($file, 200)->header("Content-Type", $type);
+    });
+       // les routes pour projets recents
+       Route::get('/projects', [ProjectController::class, 'projetsRecents'])->name('pages.realisations.projets-recents');
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
 

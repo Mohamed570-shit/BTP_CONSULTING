@@ -251,5 +251,12 @@
             });
         });
     </script>
+        // ... existing code ...
+    <script src="{{ asset('asset/lib/lightbox/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('asset/js/main.js') }}"></script>
+    <!-- ADD THIS LINE FOR AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    @stack('scripts')
+</body>
 </body>
 </html>

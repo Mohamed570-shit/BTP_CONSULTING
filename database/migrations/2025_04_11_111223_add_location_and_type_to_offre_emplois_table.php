@@ -8,16 +8,11 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('offre_emplois', function (Blueprint $table) {
-            $table->string('location')->nullable()->after('description');
-            $table->enum('type', ['CDI', 'CDD', 'Stage', 'Freelance'])->nullable()->after('location');
-        });
+        // Do nothing as these columns are already added in the create_offres_emplois_table migration
     }
 
     public function down()
     {
-        Schema::table('offre_emplois', function (Blueprint $table) {
-            $table->dropColumn(['location', 'type']);
-        });
+        // Do nothing
     }
 };
