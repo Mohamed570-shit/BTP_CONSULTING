@@ -28,7 +28,7 @@ class ProjectController extends Controller
         $projets = Projet::all();
         return view('admin.projects', compact('projets'));
     }
-    
+
     /**
      * Affiche le formulaire pour créer un nouveau projet.
      *
@@ -101,11 +101,11 @@ class ProjectController extends Controller
 public function show($id)
 {
     $projet = Projet::findOrFail($id);
-    
+
     if (request()->expectsJson() || request()->ajax()) {
         return response()->json($projet);
     }
-    
+
     return response()->view('admin.projects.show', compact('projet'));
 }
 
@@ -188,11 +188,11 @@ public function show($id)
     public function destroy($id)
     {
         $projet = Projet::findOrFail($id);
-        
+
         if ($projet->image) {
             Storage::delete('public/' . $projet->image);
         }
-        
+
         $projet->delete();
 
         return redirect()->route('admin.projects')->with('success', 'Projet supprimé avec succès !');
