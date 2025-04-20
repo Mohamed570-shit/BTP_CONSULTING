@@ -3,14 +3,21 @@
 @section('title', 'Offres d\'Emploi')
 
 @section('content')
+<style>
+    .bg-breadcrumb {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/736x/af/77/f2/af77f2fd13ce500cad7278924690cad3.jpg'); /* Remplacez par votre image */
+        background-size: cover;
+        background-position: center;
+    }
+    </style>
     <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb">
         <div class="container text-center py-5" style="max-width: 900px;">
             <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">OFFRES D’EMPLOI</h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('contact') }}">Contact</a></li>
-                <li class="breadcrumb-item active text-primary">Offres d’emploi</li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/qui-sommes-nous') }}">Contact</a></li>
+                <li class="breadcrumb-item active text-primary">OFFRES D’EMPLOI</li>
             </ol>
         </div>
     </div>
@@ -29,28 +36,90 @@
                 </p>
             </div>
 
-            <div class="row g-5">
-                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.2s">
-                    <h2 class="mb-4">Postes disponibles</h2>
-                    @if ($offres->isEmpty())
-                        <p class="text-muted">Aucune offre d'emploi disponible pour le moment.</p>
-                    @else
-                        @foreach ($offres as $offre)
-                            <div class="card mb-3">
-                                <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="row g-4">
+                @if ($offres->isEmpty())
+                    <div class="col-12">
+                        <p class="text-muted text-center">Aucune offre d'emploi disponible pour le moment.</p>
+                    </div>
+                @else
+                    @foreach ($offres as $offre)
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="card h-100">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">{{ $offre->titre }}</h5>
-                                    <p class="card-text">
+                                    <p class="card-text flex-grow-1">
                                         Description : {{ \Illuminate\Support\Str::limit($offre->description, 100) }} <br>
                                         Lieu : {{ $offre->location ?? 'Non spécifié' }} <br>
                                         Type : {{ $offre->type ?? 'Non spécifié' }} <br>
-                                        Date limite : {{ $offre->date_expiration ? \Carbon\Carbon::parse($offre->date_expiration)->format('d/m/Y') : 'Pas de limite' }}
+                                        Date limite : {{ $offre->date_expiration ? $offre->date_expiration->format('d/m/Y') : 'Pas de limite' }}
                                     </p>
-                                    <a href="#" class="btn btn-primary">Postuler</a>
+                                    <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#applyModal{{ $offre->id }}">
+                                        Postuler
+                                    </button>
                                 </div>
                             </div>
-                        @endforeach
-                    @endif
-                </div>
+                        </div>
+
+                        <!-- Modal for application form -->
+                        <div class="modal fade" id="applyModal{{ $offre->id }}" tabindex="-1" aria-labelledby="applyModalLabel{{ $offre->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="applyModalLabel{{ $offre->id }}">Postuler pour {{ $offre->titre }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('offres.apply', $offre->id) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="name{{ $offre->id }}" class="form-label">Nom complet</label>
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name{{ $offre->id }}" name="name" value="{{ old('name') }}" required>
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email{{ $offre->id }}" class="form-label">Email</label>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email{{ $offre->id }}" name="email" value="{{ old('email') }}" required>
+                                                @error('email')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="cv{{ $offre->id }}" class="form-label">Télécharger votre CV (PDF)</label>
+                                                <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv{{ $offre->id }}" name="cv" accept=".pdf" required>
+                                                @error('cv')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="message{{ $offre->id }}" class="form-label">Message (optionnel)</label>
+                                                <textarea class="form-control @error('message') is-invalid @enderror" id="message{{ $offre->id }}" name="message" rows="4">{{ old('message') }}</textarea>
+                                                @error('message')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Envoyer la candidature</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

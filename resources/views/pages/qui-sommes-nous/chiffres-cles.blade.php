@@ -3,15 +3,18 @@
 @section('title', 'Chiffres Clés')
 
 @section('content')
+    <!-- Inclure Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb">
         <div class="container text-center py-5" style="max-width: 900px;">
             <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Chiffres Clés</h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('/qui-sommes-nous/apropos') }}">Qui Sommes-Nous</a></li>
-                <li class="breadcrumb-item active text-primary">Chiffres Clés</li>
-            </ol>    
+                <li class="breadcrumb-item active text-orange">Chiffres Clés</li>
+            </ol>
         </div>
     </div>
     <!-- Header End -->
@@ -21,9 +24,9 @@
         <div class="container py-5">
             <!-- Titre et Description -->
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Chiffres Clés</h4>
+                <h4 class="text-orange">Chiffres Clés</h4>
                 <h1 class="display-5 mb-4">
-                    <i class="fas fa-chart-bar text-primary me-2"></i> Nos Réalisations en Chiffres
+                    <i class="fas fa-chart-bar text-orange me-2"></i> Nos Réalisations en Chiffres
                 </h1>
                 <p class="mb-0">
                     Chez <strong>BTP Consulting</strong>, nos chiffres témoignent de notre engagement et de notre expertise dans le domaine de l’ingénierie et du diagnostic structurel.
@@ -31,51 +34,56 @@
             </div>
 
             <!-- Grille des Statistiques -->
-            <div class="row g-4 flex-nowrap">
-                <!-- Chiffre d'affaires -->
-                <div class="col stats-item-container wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="stats-item">
-                        <i class="fas fa-money-bill-wave text-primary"></i>
-                        <h3 data-count="600">0+ M</h3>
-                        <p>Chiffre d'affaires (en millions de dirhams)</p>
-                    </div>
-                </div>
+            <div class="row g-4">
+                @php
+                    $stats = [
+                        [
+                            'icon' => 'money-bill-wave',
+                            'count' => 600,
+                            'suffix' => 'M',
+                            'label' => 'Chiffre d\'affaires (en millions de dirhams)',
+                            'delay' => '0.2s',
+                        ],
+                        [
+                            'icon' => 'clipboard-check',
+                            'count' => 100,
+                            'suffix' => 'M',
+                            'label' => 'Carnet de commandes (en millions de dirhams)',
+                            'delay' => '0.6s',
+                        ],
+                        [
+                            'icon' => 'project-diagram',
+                            'count' => 500,
+                            'suffix' => '',
+                            'label' => 'Projets réalisés avec succès',
+                            'delay' => '0.2s',
+                        ],
+                        [
+                            'icon' => 'history',
+                            'count' => 300,
+                            'suffix' => '',
+                            'label' => 'Références',
+                            'delay' => '0.4s',
+                        ],
+                        [
+                            'icon' => 'users',
+                            'count' => 100,
+                            'suffix' => '',
+                            'label' => 'Nombre de salariés mobilisés',
+                            'delay' => '0.6s',
+                        ],
+                    ];
+                @endphp
 
-                <!-- Carnet de commandes -->
-                <div class="col stats-item-container wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="stats-item">
-                        <i class="fas fa-clipboard-check text-primary"></i>
-                        <h3 data-count="100">0+ M</h3>
-                        <p>Carnet de commandes (en millions de dirhams)</p>
+                @foreach ($stats as $stat)
+                    <div class="col-md-4 col-lg-2-4 stats-item-container wow fadeInUp" data-wow-delay="{{ $stat['delay'] }}">
+                        <div class="stats-item">
+                            <i class="fas fa-{{ $stat['icon'] }} text-orange"></i>
+                            <h3 data-count="{{ $stat['count'] }}">0{{ $stat['suffix'] ? '+' . $stat['suffix'] : '+' }}</h3>
+                            <p>{{ $stat['label'] }}</p>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Projets réalisés -->
-                <div class="col stats-item-container wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="stats-item">
-                        <i class="fas fa-project-diagram text-primary"></i>
-                        <h3 data-count="500">0+</h3>
-                        <p>Projets réalisés avec succès</p>
-                    </div>
-                </div>
-
-                <!-- Références -->
-                <div class="col stats-item-container wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="stats-item">
-                        <i class="fas fa-history text-primary"></i>
-                        <h3 data-count="300">0+</h3>
-                        <p>Références</p>
-                    </div>
-                </div>
-
-                <!-- Nombre de salariés -->
-                <div class="col stats-item-container wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="stats-item">
-                        <i class="fas fa-users text-primary"></i>
-                        <h3 data-count="100">0+</h3>
-                        <p>Nombre de salariés mobilisés</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -83,55 +91,114 @@
 
     <!-- Styles CSS -->
     <style>
-        /* Conteneur de la grille */
-        .row.flex-nowrap {
+        /* Background Header with BTP Consulting Logo */
+        .bg-breadcrumb {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(' https://images.unsplash.com/photo-1591696205602-2f950c417cb9');
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
             display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Conteneur de chaque élément */
-        .stats-item-container {
-            flex: 1;
-            min-width: 200px;
-            margin: 0 10px;
+        /* Orange Color */
+        .text-orange {
+            color: #ff6200 !important;
         }
 
         /* Style des éléments statistiques */
+        .stats-item-container {
+            flex: 1;
+            min-width: 200px;
+        }
+
         .stats-item {
             text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            transition: transform 0.5s ease;
+            padding: 25px;
+            background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
+            border-radius: 16px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 20px rgba(255, 98, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            min-height: 220px;
         }
 
         /* Effet au survol */
         .stats-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 98, 0, 0.2);
         }
 
         /* Icônes */
         .stats-item i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #ff6200;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background-color: #fff3e6;
+            padding: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .stats-item:hover i {
+            transform: scale(1.2) rotate(5deg);
         }
 
         /* Chiffres */
         .stats-item h3 {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #007bff;
-            margin: 10px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2a50ce;
+            margin: 15px 0 10px;
         }
 
         /* Texte descriptif */
         .stats-item p {
             font-size: 1rem;
-            color: #666;
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .bg-breadcrumb {
+                min-height: 250px;
+            }
+
+            .stats-item {
+                padding: 20px;
+                min-height: 200px;
+            }
+
+            .stats-item h3 {
+                font-size: 2rem;
+            }
+
+            .stats-item p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .bg-breadcrumb {
+                min-height: 200px;
+            }
+
+            .stats-item {
+                padding: 15px;
+                min-height: 180px;
+            }
+
+            .stats-item h3 {
+                font-size: 1.8rem;
+            }
+
+            .stats-item p {
+                font-size: 0.9rem;
+            }
+
+            .stats-item i {
+                font-size: 2rem;
+            }
         }
     </style>
 
