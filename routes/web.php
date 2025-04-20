@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\ProjetRecentsController;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
@@ -93,20 +94,21 @@ Route::prefix('domaines')->group(function () {
     })->name('domaines.liste'); // Added name
 });
 
+
 // Routes pour "Réalisations"
 Route::prefix('realisations')->group(function () {
     Route::get('/politiques-humaines', function () {
         return view('pages.realisations.politiques-humaines');
     })->name('politiques-humaines');
 
-    Route::get('/projets-recents', function () {
-        return view('pages.realisations.projets-recents');
-    })->name('projets-recents');
-
+    
+    Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
     Route::get('/tous-les-projets', function () {
         return view('pages.realisations.tous-les-projets');
     })->name('tous-les-projets');
 });
+    Route::get('/secure-image/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'secureImage']);
+    Route::get('/ajax/projet/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'ajaxShow']);
 
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
@@ -169,3 +171,5 @@ Route::get('/register', function () {
 Route::get('/recrutement/offres-stage', function () {
     return view('pages.recrutement.offres-stage');
 })->name('offres-stage');
+
+
