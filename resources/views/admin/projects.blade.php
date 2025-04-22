@@ -340,7 +340,7 @@
                                     <th>Lieu d'exécution</th>
                                     <td><input type="text" class="form-control" id="edit_lieu_execution" name="lieu_execution"></td>
                                 </tr>
-                                // ... existing code ...
+                            
                                 <tr>
                                     <th>Coordonnée X (Latitude)</th>
                                     <td>
@@ -353,7 +353,7 @@
                                         <input type="number" step="0.0000001" class="form-control" id="edit_coordonnee_y" name="coordonnee_y">
                                     </td>
                                 </tr>
-                                // ... existing code ...
+                            
                                 <tr>
                                     <th>Type de marché</th>
                                     <td>
@@ -460,12 +460,12 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-        
+
         // Afficher les détails du projet
         $('.view-project').on('click', function() {
             var projectId = $(this).data('id');
             console.log('ID du projet:', projectId); // Debug
-            
+
             // Utiliser Axios pour récupérer les détails du projet
             axios.get('/projects/' + projectId, {
                 headers: {
@@ -475,44 +475,44 @@
             })
             .then(function(response) {
                 console.log('Données reçues:', response.data); // Debug
-                
+
                 // Récupérer les données du projet
                 const projet = response.data;
-                
+
                 // Remplir les champs du modal avec les données du projet
                 $('#view_titre').text(projet.titre || 'Non défini');
                 $('#view_description').text(projet.description || 'Non défini');
-                
+
                 // Afficher le statut avec le badge approprié
                 if (projet.status === 'en cours') {
                     $('#view_status').html('<span class="badge bg-primary">En cours</span>');
                 } else {
                     $('#view_status').html('<span class="badge bg-success">Terminé</span>');
                 }
-                
+
                 $('#view_num_marche_interne').text(projet.num_marche_interne || 'Non défini');
                 $('#view_num_marche_externe').text(projet.num_marche_externe || 'Non défini');
                 $('#view_maitre_ouvrage').text(projet.maitre_ouvrage || 'Non défini');
                 $('#view_objet_marche').text(projet.objet_marche || 'Non défini');
-                
+
                 // Formater la date si elle existe
                 if (projet.date_osc) {
                     var date = new Date(projet.date_osc);
-                    var formattedDate = date.getDate().toString().padStart(2, '0') + '/' + 
-                                    (date.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                    var formattedDate = date.getDate().toString().padStart(2, '0') + '/' +
+                                    (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
                                     date.getFullYear();
                     $('#view_date_osc').text(formattedDate);
                 } else {
                     $('#view_date_osc').text('Non défini');
                 }
-                
+
                 $('#view_delai_execution').text(projet.delai_execution ? projet.delai_execution + ' mois' : 'Non défini');
                 $('#view_lieu_execution').text(projet.lieu_execution || 'Non défini');
                 $('#view_type_marche').text(projet.type_marche || 'Non défini');
                 $('#view_domaine').text(projet.domaine || 'Non défini');
                 $('#view_coordonnee_x').text(projet.coordonnee_x !== null && projet.coordonnee_x !== undefined ? projet.coordonnee_x : 'Non défini');
                 $('#view_coordonnee_y').text(projet.coordonnee_y !== null && projet.coordonnee_y !== undefined ? projet.coordonnee_y : 'Non défini');
-                
+
                 // Afficher l'image si elle existe
                 if (projet.image) {
                     // ila projet.image fih "projets/ism.jpg" khod ghi smiya
@@ -522,7 +522,7 @@
                 } else {
                     $('#view_image_container').hide();
                 }
-               
+
             })
             .catch(function(error) {
                 console.error('Erreur Axios:', error);
@@ -579,7 +579,7 @@
         });
 
     });
-     
+
 </script>
 @endpush
 @endsection

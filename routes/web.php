@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjetRecentsController;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\CandidatureController;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
@@ -39,9 +41,7 @@ Route::get('/recrutement/offres-emploi', [JobController::class, 'offresEmploi'])
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('jobs', JobController::class);
 });
-// ... code li kayn ...
-Route::post('/offres/{id}/apply', [\App\Http\Controllers\OffreController::class, 'apply'])->name('offres.apply');
-// ... code li kayn ...
+
 
 // Page authentification
 Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
@@ -105,9 +105,7 @@ Route::prefix('realisations')->group(function () {
 
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-    // Route::get('/tous-les-projets', function () {
-    //     return view('pages.realisations.tous-les-projets');
-    // })->name('tous-les-projets');
+
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
     Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
@@ -160,9 +158,7 @@ Route::prefix('recrutement')->group(function () {
         return view('pages.recrutement.candidature-spontanee');
     })->name('candidature-spontanee');
 });
-// ... existing code ...
-Route::post('/candidature-spontanee', [\App\Http\Controllers\CandidatureController::class, 'store'])->name('candidature.store');
-// ... existing code ...
+
 // Route pour "Contact"
 Route::get('/contact', function () {
     return view('pages.contact');
@@ -176,9 +172,24 @@ Route::get('/register', function () {
 // Route pour les offres de stage (incomplete in your input, assuming placeholder)
 Route::get('/recrutement/offres-stage', function () {
     return view('pages.recrutement.offres-stage');
-})->name('offres-stage');Route::get('/admin/spontaneous-applications', [AdminSpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
+})->name('offres-stage');
 
 
-Route::get('/admin/spontaneous-applications', [\App\Http\Controllers\AdminSpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');// ... existing code ...
-Route::post('/offres/{id}/apply', [\App\Http\Controllers\CandidatureController::class, 'store'])->name('offres.apply');
+// ... existing code ...
+
+// Les offres d'emploi (keep this one)
+Route::get('/recrutement/offres-emploi', [JobController::class, 'offresEmploi'])->name('offres-emploi');
+Route::post('/recrutement/offres/{id}/apply', [OffreController::class, 'apply'])->name('offres.apply');
+
+// ... existing code ...
+
+// Routes pour "Recrutement"
+Route::prefix('recrutement')->group(function () {
+    Route::get('/candidature-spontanee', function () {
+        return view('pages.recrutement.candidature-spontanee');
+    })->name('candidature-spontanee');
+
+    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidature.store');
+});
+
 // ... existing code ...

@@ -28,6 +28,7 @@
 
         <!-- Template Stylesheet -->
         <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
+        @stack('styles')
     </head>
 
     <body>
@@ -46,19 +47,25 @@
                 <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-flex flex-wrap">
                         <a href="https://www.bing.com/maps?where=Avenue+Ali+Yaeta+Center%2C+3%C3%A9me+%C3%89tage%2C+N%C2%B0+29.%2C+Tetouan%2C+Tetouan+91020%2C+MA&cp=35.57018%7E-5.374267&lvl=16.0#" target="_blank" class="text-muted small me-4">
-                            <i class="fas fa-map-marker-alt text-primary me-2"></i> Trouver un emplacement
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>Trouver notre emplacement
                         </a>
                         <a href="tel:0708080807" class="text-muted small me-4"><i class="fas fa-phone-alt text-primary me-2"></i>Tel:07 08 08 08 07</a>
                         <a href="tel:05 39 71 38 10" class="text-muted small me-4"><i class="fas fa-phone-alt text-primary me-2"></i> Fixe: 05 39 71 38 10</a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@btpconsulting.gmail.com" target="_blank" class="text-muted small me-0">
-                            <i class="fas fa-envelope text-primary me-2"></i>
-                            contact@btpconsulting.gmail.com
-                        </a>
-                </div>
+                        <a href="mailto:contact@btpconsulting.gmail.com" class="text-muted small me-0"><i class="fas fa-envelope text-primary me-2"></i>contact@btpconsulting.gmail.com</a>                    </div>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
                         <a href="{{ route('login') }}"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt text-primary me-2"></i>Login</small></a>
+                        <!-- <div class="dropdown">
+                            <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fa fa-home text-primary me-2"></i> My Dashboard</small></a>
+                            <div class="dropdown-menu rounded">
+                                <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -69,7 +76,7 @@
         <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <img src="{{ asset('asset/img/Logo Central BTP CONSULTING.png') }}"   alt="Logo"  width="150px" height="250px">
+                    <img src="{{ asset('asset/img/Logo Central BTP CONSULTING.png') }}"   alt="Logo"  width="150px" height="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -83,7 +90,7 @@
                             </a>
                             <div class="dropdown-menu m-0 custom-dropdown">
                                 <a href="{{ route('a-propos') }}" class="dropdown-item">
-                                    <i class="fas fa-info-circle me-2"></i> À propos de BTP CONSULTING
+                                    <i class="fas fa-info-circle me-2"></i> À propos de BTP-CONSULTING
                                 </a>
                                 <a href="{{ route('mot-directeur') }}" class="dropdown-item">
                                     <i class="fas fa-user-tie me-2"></i> Mot du Directeur Général
@@ -123,7 +130,8 @@
                             }
                             </style>
                         </div>
-                        
+                        <!-- <a href="about.html" class="nav-item nav-link">About</a> -->
+                        <!-- <a href="service.html" class="nav-item nav-link">Services</a> -->
 
 
 <!-- HTML -->
@@ -195,7 +203,7 @@
 
             <div>
                 <h4 style="color: #333;">Prestations</h4>
-                <p>BTP CONSULTING assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>
+                <p>BTP Consulting assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>
                 <img src="{{ asset('asset/img/carousel-3.jpg') }}" alt=""  width="300px" height="200px">
             </div>
         </div>
@@ -251,7 +259,6 @@
         color: #ff6f00;
     }
 </style>
-
 
 
 
@@ -347,7 +354,8 @@
 }
     </style>
 
-    <!-- HTML -->
+
+<!-- HTML -->
 <div class="nav-item dropdown">
     <a href="#" class="nav-link" data-bs-toggle="dropdown">
         <span class="dropdown-toggle">NOS REALISATIONS</span>
@@ -366,8 +374,7 @@
             Carte de Projet
         </a>
         <a href="{{ route('organigramme') }}" class="dropdown-item">
-            <img src="{{ asset('asset/img/organigrame.jpg') }}" alt="Icone Carte" class="dropdown-icon">
-            Organigramme
+            <img src="{{ asset('asset/img/organigrame.jpg') }}" alt="Icone Carte" class="dropdown-icon"> Organigramme
         </a>
     </div>
 </div>
@@ -389,8 +396,8 @@
                                 <span class="dropdown-toggle"> RECRUTEMENT</span>
                             </a>
                             <div class="dropdown-menu m-0">
-                                <a href="{{ route('offres-emploi') }}" class="dropdown-item"><i class="fas fa-briefcase  me-2"></i>Offres d’emploi</a>
-                                <a href="{{ route('candidature-spontanee') }}" class="dropdown-item"><i class="fas fa-user-plus  me-2"></i>Candidature Spontanée</a>
+                                <a href="{{ route('offres-emploi') }}" class="dropdown-item"><img src="{{ asset('asset/img/ofrre.jpg') }}" alt="Icone Carte" class="dropdown-icon">Offres d’emploi</a>
+                                <a href="{{ route('candidature-spontanee') }}" class="dropdown-item"><img src="{{ asset('asset/img/org.jpg') }}" alt="Icone Carte" class="dropdown-icon">Candidature Spontanée</a>
                             </div>
                         </div>
 
@@ -405,18 +412,18 @@
         @yield('content')
     </main>
 
-
-    <!-- Footer Start -->
-    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+    <!-- Footer -->
+     <!-- Footer Start -->
+     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
         <div class="container py-5 border-start-0 border-end-0" style="border: 1px solid; border-color: #ff6f00;">
             <div class="row g-5">
                 <div class="col-md-6 col-lg-6 col-xl-4">
                     <div class="footer-item">
                         <a href="index.html" class="p-0">
-                            <h4 class="text-white">BTP CONSULTING</h4>
+                            <h4 class="text-white">BTP-CONSULTING</h4>
                             <!-- <img src="img/logo.png" alt="Logo"> -->
                         </a>
-                        <p class="mb-4">BTP Consulting est une entreprise spécialisée dans le conseil et la gestion de projets dans le secteur du BTP. Nous offrons des services d’accompagnement, d’expertise et de gestion pour garantir la réussite de vos projets..</p>
+                        <p class="mb-4">BTP-CONSULTING est une entreprise spécialisée dans le conseil et la gestion de projets dans le secteur du BTP. Nous offrons des services d’accompagnement, d’expertise et de gestion pour garantir la réussite de vos projets..</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-2">
@@ -461,7 +468,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa fa-phone-alt text-primary me-3"></i>
-                            <p class="text-white mb-0">(+212) 07 08 08 08 07</p>
+                            <p class="text-white mb-0"> 07 08 08 08 07</p>
                         </div>
                         <div class="d-flex align-items-center mb-4">
                             <i class="fab fa-firefox-browser text-primary me-3"></i>
@@ -486,7 +493,7 @@
     <div class="row g-4 align-items-center">
         <div class="col-md-6 text-center text-md-start mb-md-0">
             <span class="text-body">
-                <a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>BTP CONSULTING</a>, All rights reserved.
+                <a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>BTP-CONSULTING</a>, All rights reserved.
             </span>
         </div>
         <div class="col-md-6 text-center text-md-end text-body">

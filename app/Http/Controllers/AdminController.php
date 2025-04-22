@@ -31,7 +31,11 @@ class AdminController extends Controller
         return view('admin.spontaneous-applications'); // À créer
     }
 
-
+public function spontaneousApplications()
+{
+    $applications = SpontaneousApplication::latest()->get();
+    return view('admin.spontaneous-applications', compact('applications'));
+}
     public function users()
     {
         $users = User::all();

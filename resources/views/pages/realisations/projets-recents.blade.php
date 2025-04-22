@@ -49,7 +49,7 @@
             <div class="header-content-page mb-4">
                 <h2 class="fw-bold" style="color:#0d6efd;">Nos Projets Récents</h2>
                 <p class="mb-0" style="color:#444;">Découvrez nos réalisations par domaine de compétence</p>
-            </div>      
+            </div>
             <div class="row" id="projectsList" >
                 @foreach($projects as $project)
                     <div class="col-md-4 mb-4 project-card" data-domain="{{ Str::slug($project->domaine) }}">
@@ -57,12 +57,12 @@
                         <img src="{{ $project->image ? url('/secure-image/'.$project->id) : 'https://via.placeholder.com/400x250?text=Projet' }}" class="card-img-top" alt="{{ $project->titre }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $project->titre }}</h5>
-                                <span class="badge bg-primary mb-2">{{ $project->domaine }}</span>  
+                                <span class="badge bg-primary mb-2">{{ $project->domaine }}</span>
                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100 show-project-modal"
                                     data-id="{{ $project->id }}">
                                     Voir détails
                                 </button>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -91,63 +91,6 @@
         </div>
     </div>
 @endsection
-
-@push('styles')
-<style>
-    /* Background image for BTP ambiance */
-    .bgtop-btp {
-        background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
-        background-size: cover;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 180px;
-        z-index: 0;
-        opacity: 0.45;
-        pointer-events: none;
-    }
-    body {
-        background: #f8f9fa;
-    }
-    .navbar, .navbar * {
-        position: relative;
-        z-index: 2;
-    }
-    .header-content-page {
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-    .list-group-item.active {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-        color: #fff;
-    }
-    .list-group-item {
-        cursor: pointer;
-        transition: background 0.2s;
-        font-size: 1rem;
-    }
-    .list-group-item:hover {
-        background: #e7f1ff;
-    }
-    .card-img-top {
-        height: 180px;
-        object-fit: cover;
-    }
-    .badge {
-        font-size: 0.85em;
-        padding: 0.4em 0.7em;
-    }
-    @media (max-width: 991.98px) {
-        .bgtop-btp { height: 120px; }
-    }
-    @media (max-width: 767.98px) {
-        .bgtop-btp { height: 80px; }
-        .list-group-item { font-size: 0.9rem; }
-    }
-</style>
-@endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -197,7 +140,7 @@
             loadProjectModal($(this).data('id'));
         });
 
-        // Function to load project details in modal       
+        // Function to load project details in modal
         function loadProjectModal(id) {
             axios.get('/ajax/projet/' + id)
                 .then(function(response) {
@@ -241,7 +184,7 @@
                 .catch(function(error) {
                     alert('Erreur lors du chargement du projet');
                 });
-            }  
+            }
 </script>
 @endpush
 
