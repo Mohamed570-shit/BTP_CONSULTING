@@ -48,4 +48,13 @@ class ProjetRecentsController extends Controller
                 'similar' => $similar,
             ]);
         }
+        // ... existing code ...
+    // ... existing code ...
+    public function carteProjets()
+    {
+        $projects = \App\Models\Projet::whereNotNull('coordonnee_x')
+            ->whereNotNull('coordonnee_y')
+            ->get(['id', 'titre', 'domaine', 'coordonnee_x as x', 'coordonnee_y as y', 'image']);
+        return view('pages.realisations.tous-les-projets', compact('projects'));
+    }
 }

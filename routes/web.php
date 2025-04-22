@@ -103,13 +103,13 @@ Route::prefix('realisations')->group(function () {
 
     
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-    Route::get('/tous-les-projets', function () {
-        return view('pages.realisations.tous-les-projets');
-    })->name('tous-les-projets');
+    
 });
-    Route::get('/secure-image/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'secureImage']);
-    Route::get('/ajax/projet/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'ajaxShow']);
-
+    Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
+    Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
+/// ... existing code ...
+Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
+// ... existing code ...
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
     Route::get('/etudes-techniques', function () {

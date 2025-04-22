@@ -92,63 +92,6 @@
     </div>
 @endsection
 
-@push('styles')
-<style>
-    /* Background image for BTP ambiance */
-    .bgtop-btp {
-        background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
-        background-size: cover;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 180px;
-        z-index: 0;
-        opacity: 0.45;
-        pointer-events: none;
-    }
-    body {
-        background: #f8f9fa;
-    }
-    .navbar, .navbar * {
-        position: relative;
-        z-index: 2;
-    }
-    .header-content-page {
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-    .list-group-item.active {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-        color: #fff;
-    }
-    .list-group-item {
-        cursor: pointer;
-        transition: background 0.2s;
-        font-size: 1rem;
-    }
-    .list-group-item:hover {
-        background: #e7f1ff;
-    }
-    .card-img-top {
-        height: 180px;
-        object-fit: cover;
-    }
-    .badge {
-        font-size: 0.85em;
-        padding: 0.4em 0.7em;
-    }
-    @media (max-width: 991.98px) {
-        .bgtop-btp { height: 120px; }
-    }
-    @media (max-width: 767.98px) {
-        .bgtop-btp { height: 80px; }
-        .list-group-item { font-size: 0.9rem; }
-    }
-</style>
-@endpush
-
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>

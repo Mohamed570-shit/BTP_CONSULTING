@@ -28,6 +28,7 @@
 
         <!-- Template Stylesheet -->
         <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
+        @stack('styles')
     </head>
 
     <body>
@@ -55,7 +56,6 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="{{ route('register') }}"><small class="me-3 text-dark"><i class="fa fa-user text-primary me-2"></i>Register</small></a>
                         <a href="{{ route('login') }}"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt text-primary me-2"></i>Login</small></a>
                         <!-- <div class="dropdown">
                             <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fa fa-home text-primary me-2"></i> My Dashboard</small></a>
@@ -104,9 +104,6 @@
                                 </a>
                                 <a href="{{ route('certifications') }}" class="dropdown-item">
                                     <i class="fas fa-certificate me-2"></i> Certifications ISO 9001 V2015 et Agrément
-                                </a>
-                                <a href="{{ route('rayonnement') }}" class="dropdown-item">
-                                    <i class="fas fa-globe me-2"></i> Rayonnement
                                 </a>
                                 <a href="{{ route('gouvernance') }}" class="dropdown-item">
                                     <i class="fas fa-balance-scale me-2"></i> Gouvernance
