@@ -488,7 +488,7 @@
                     <div>
                         <h4 class="text-primary">À propos de nous</h4>
                         <h1 class="display-5 mb-4">Découvrez notre entreprise</h1>
-                        <p class="mb-4">BTP Consulting est un bureau d’études spécialisé dans le conseil et la gestion de projets BTP. Nous proposons des solutions sur mesure pour garantir qualité, sécurité et rentabilité à vos projets. Notre équipe d’experts vous accompagne de la conception à la réalisation de vos projets de construction et d’infrastructure.</p>
+                        <p class="mb-4">BTP CONSULTING est un bureau d’études spécialisé dans le conseil et la gestion de projets BTP CONSULTING. Nous proposons des solutions sur mesure pour garantir qualité, sécurité et rentabilité à vos projets. Notre équipe d’experts vous accompagne de la conception à la réalisation de vos projets de construction et d’infrastructure.</p>
 
                         <div class="row g-4">
                             <div class="col-md-6 col-lg-6 col-xl-6">
@@ -505,7 +505,7 @@
                                     <div><i class="bi bi-bookmark-heart-fill fa-3x text-primary"></i></div>
                                     <div class="ms-4">
                                         <h4>Expertise confirmée</h4>
-                                        <p>Avec des années d’expérience dans le BTP, nous mettons notre savoir-faire à votre service pour garantir la réussite de vos projets.</p>
+                                        <p>Avec des années d’expérience dans le BTP CONSULTING, nous mettons notre savoir-faire à votre service pour garantir la réussite de vos projets.</p>
                                     </div>
                                 </div>
                             </div>
@@ -534,90 +534,6 @@
     </div>
     <!-- À Propos End -->
 
-    <!-- Offres Start -->
-    <div class="container-fluid offer-section pb-5">
-        <div class="container pb-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Notre expertise</h4>
-                <h1 class="display-6 mb-4">Nos domaines de compétence</h1>
-                <p class="mb-0">BTP Consulting excelle dans une vaste gamme de domaines en génie civil, combinant expertise technique et innovation pour offrir des solutions adaptées à vos besoins.</p>
-            </div>
-            <div class="row g-5 align-items-center">
-                <div class="col-xl-5 wow fadeInLeft" data-wow-delay="0.2s">
-                    <div class="nav nav-pills bg-light rounded p-5">
-                        <a class="accordion-link p-4 active mb-4" data-bs-toggle="pill" href="#collapseOne">
-                            <h5 class="mb-0">Bâtiments et structures</h5>
-                        </a>
-                        <a class="accordion-link p-4 mb-4" data-bs-toggle="pill" href="#collapseTwo">
-                            <h5 class="mb-0">Géotechnique et ouvrages spéciaux</h5>
-                        </a>
-                        <a class="accordion-link p-4 mb-4" data-bs-toggle="pill" href="#collapseThree">
-                            <h5 class="mb-0">Hydraulique et assainissement</h5>
-                        </a>
-                        <a class="accordion-link p-4 mb-0" data-bs-toggle="pill" href="#collapseFour">
-                            <h5 class="mb-0">Innovation et transition digitale</h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-7 wow fadeInRight" data-wow-delay="0.4s">
-                    <div class="tab-content">
-                        <!-- Bâtiments et Structures -->
-                        <div id="collapseOne" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="col-md-7">
-                                    <img src="{{ asset('asset/img/a1.jpg') }}" class="img-fluid w-100 rounded" alt="">
-                                </div>
-                                <div class="col-md-5">
-                                    <h1 class="display-5 mb-6">Conception architecturale et structurale</h1>
-                                    <p class="mb-4">Expertise dans les bâtiments, charpentes spéciales et ouvrages d’art, avec une approche innovante axée sur la stabilité et l’esthétique.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Géotechnique et Ouvrages Spéciaux -->
-                        <div id="collapseTwo" class="tab-pane fade show p-0">
-                            <div class="row g-4">
-                                <div class="col-md-7">
-                                    <img src="{{ asset('asset/img/a2.jpg') }}" class="img-fluid w-100 rounded" alt="">
-                                </div>
-                                <div class="col-md-5">
-                                    <h1 class="display-5 mb-6">Études de sol et ouvrages techniques</h1>
-                                    <p class="mb-4">Nous réalisons des études géotechniques approfondies et concevons des ouvrages souterrains selon les normes les plus strictes.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Hydraulique et Assainissement -->
-                        <div id="collapseThree" class="tab-pane fade show p-0">
-                            <div class="row g-4">
-                                <div class="col-md-7">
-                                    <img src="{{ asset('asset/img/a3.jpg') }}" class="img-fluid w-100 rounded" alt="">
-                                </div>
-                                <div class="col-md-5">
-                                    <h1 class="display-5 mb-6">Gestion des eaux et environnement</h1>
-                                    <p class="mb-4">Nos services incluent l’assainissement, la gestion hydrologique, les stations de pompage et les études d’impact environnemental.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Innovation et Transition Digitale -->
-                        <div id="collapseFour" class="tab-pane fade show p-0">
-                            <div class="row g-4">
-                                <div class="col-md-7">
-                                    <img src="{{ asset('asset/img/a4.jpg') }}" class="img-fluid w-100 rounded" alt="">
-                                </div>
-                                <div class="col-md-5">
-                                    <h1 class="display-5 mb-6">Technologies avancées et BIM</h1>
-                                    <p class="mb-4">Nous intégrons le BIM, l’IA, la photogrammétrie par drones et l’ingénierie bas carbone pour une gestion intelligente des projets.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Offres End -->
 
     <!-- FAQ Start -->
     <section class="faq-section container-fluid py-5">

@@ -13,7 +13,11 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
-
+    public function index()
+{
+    $applications = \App\Models\SpontaneousApplication::latest()->get();
+    return view('admin.spontaneous-applications', compact('applications'));
+}
 
     // Méthode pour la page des notifications
     public function notifications()
@@ -27,7 +31,7 @@ class AdminController extends Controller
         return view('admin.spontaneous-applications'); // À créer
     }
 
-    
+
     public function users()
     {
         $users = User::all();

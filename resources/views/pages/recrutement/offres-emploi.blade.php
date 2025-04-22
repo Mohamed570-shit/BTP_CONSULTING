@@ -3,35 +3,28 @@
 @section('title', 'Offres d\'Emploi')
 
 @section('content')
-<style>
-    .bg-breadcrumb {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/736x/af/77/f2/af77f2fd13ce500cad7278924690cad3.jpg'); /* Remplacez par votre image */
-        background-size: cover;
-        background-position: center;
-    }
-    </style>
     <!-- Header Start -->
-    <div class="container-fluid bg-breadcrumb">
-        <div class="container text-center py-5" style="max-width: 900px;">
-            <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">OFFRES D’EMPLOI</h4>
+    <div class="bg-breadcrumb">
+        <div class="container text-center py-5">
+            <h4 class="display-4 mb-4 text-accent wow fadeInDown" data-wow-delay="0.1s">OFFRES D’EMPLOI</h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('/qui-sommes-nous') }}">Contact</a></li>
-                <li class="breadcrumb-item active text-primary">OFFRES D’EMPLOI</li>
+                <li class="breadcrumb-item active text-accent">OFFRES D’EMPLOI</li>
             </ol>
         </div>
     </div>
     <!-- Header End -->
 
     <!-- Offres d'emploi Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-5 offres-container">
         <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Offres d’emploi</h4>
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s">
+                <h4 class="text-accent">Offres d’emploi</h4>
                 <h1 class="display-5 mb-4">
-                    <i class="fas fa-briefcase text-primary me-2"></i> Rejoignez notre équipe
+                    <i class="fas fa-briefcase text-accent me-2"></i> Rejoignez notre équipe
                 </h1>
-                <p class="mb-0">
+                <p class="text-muted mb-0">
                     Découvrez nos opportunités de carrière et postulez pour faire partie de BTP Consulting.
                 </p>
             </div>
@@ -57,16 +50,16 @@
                 @else
                     @foreach ($offres as $offre)
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="card h-100">
+                            <div class="card h-100 offre-card">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">{{ $offre->titre }}</h5>
-                                    <p class="card-text flex-grow-1">
+                                    <p class="card-text flex-grow-1 text-muted">
                                         Description : {{ \Illuminate\Support\Str::limit($offre->description, 100) }} <br>
                                         Lieu : {{ $offre->location ?? 'Non spécifié' }} <br>
                                         Type : {{ $offre->type ?? 'Non spécifié' }} <br>
                                         Date limite : {{ $offre->date_expiration ? $offre->date_expiration->format('d/m/Y') : 'Pas de limite' }}
                                     </p>
-                                    <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#applyModal{{ $offre->id }}">
+                                    <button type="button" class="btn btn-outline-accent mt-auto" data-bs-toggle="modal" data-bs-target="#applyModal{{ $offre->id }}">
                                         Postuler
                                     </button>
                                 </div>
@@ -76,10 +69,10 @@
                         <!-- Modal for application form -->
                         <div class="modal fade" id="applyModal{{ $offre->id }}" tabindex="-1" aria-labelledby="applyModalLabel{{ $offre->id }}" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content modal-professional">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="applyModalLabel{{ $offre->id }}">Postuler pour {{ $offre->titre }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title text-accent" id="applyModalLabel{{ $offre->id }}">Postuler pour {{ $offre->titre }}</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form action="{{ route('offres.apply', $offre->id) }}" method="POST" enctype="multipart/form-data">
@@ -112,7 +105,7 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Envoyer la candidature</button>
+                                            <button type="submit" class="btn btn-accent">Envoyer la candidature</button>
                                         </form>
                                     </div>
                                 </div>
@@ -125,3 +118,7 @@
     </div>
     <!-- Offres d'emploi End -->
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/offres.css') }}">
+@endpush

@@ -6,17 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
-    {
-        Schema::create('offre_emplois', function (Blueprint $table) {
-            $table->id();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('location')->nullable();
-            $table->enum('type', ['CDI', 'CDD', 'Stage', 'Freelance'])->nullable();
-            $table->timestamps();
-        });
-    }
+    // ... existing code ...
+public function up()
+{
+    Schema::create('offre_emplois', function (Blueprint $table) {
+        $table->id();
+        $table->string('titre'); // <-- add this line if missing
+        $table->string('slug')->nullable();
+        $table->text('description')->nullable();
+        $table->string('location')->nullable();
+        $table->string('type')->nullable();
+        $table->date('date_expiration')->nullable();
+        // ... other columns ...
+        $table->timestamps();
+    });
+}
+
 
     public function down()
     {

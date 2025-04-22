@@ -1,28 +1,46 @@
-<?php
+@extends('layouts.admin')
 
-namespace App\Http\Controllers;
+@section('title', 'Candidatures Spontanées')
 
-use App\Models\User;
-use App\Notifications\AdminActionNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
+@section('content')
+<div class="container py-4">
+    <h2 class="mb-4">Candidatures Spontanées</h2>
 
-class SpontaneousApplicationController extends Controller
-{
-    public function store(Request $request)
-    {
-        // Valider et traiter la candidature (exemple simplifié)
-        $request->validate([
-            'file' => 'required|file|max:2048',
-        ]);
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-        // Logique pour sauvegarder la candidature ici...
-
-        // Envoyer une notification à tous les admins
-        $message = "L'utilisateur {$request->user()->name} a soumis une candidature spontanée.";
-        $admins = User::where('is_admin', true)->get();
-        Notification::send($admins, new AdminActionNotification($message));
-
-        return redirect()->back()->with('success', 'Candidature envoyée avec succès !');
-    }
-}
+    @if($applications->isEmpty())
+        <div class="alert alert-info">Aucune candidature spontanée pour le moment.</div>
+    @else
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>CV</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($applications as $app)
+                    <tr>
+                        <td>{{ $app->name }}</td>
+                        <td>{{ $app->email }}</td>
+                        <td>
+                            @if($app->cv)
+                                <a href="{{ asset('storage/' . $app->cv) }}" target="_blank">Voir CV</a>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>{{ $app->message }}</td>
+                        <td>{{ $app->created_at->format('d/m/Y H:i') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</div>
+@endsection

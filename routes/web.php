@@ -39,7 +39,9 @@ Route::get('/recrutement/offres-emploi', [JobController::class, 'offresEmploi'])
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('jobs', JobController::class);
 });
-
+// ... code li kayn ...
+Route::post('/offres/{id}/apply', [\App\Http\Controllers\OffreController::class, 'apply'])->name('offres.apply');
+// ... code li kayn ...
 
 // Page authentification
 Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
@@ -77,7 +79,7 @@ Route::prefix('qui-sommes-nous')->group(function () {
     Route::get('/rayonnement', function () {
         return view('pages.qui-sommes-nous.rayonnement');
     })->name('rayonnement');
-    
+
     Route::get('/gouvernance', function () {
         return view('pages.qui-sommes-nous.gouvernance');
     })->name('gouvernance');
@@ -101,15 +103,17 @@ Route::prefix('realisations')->group(function () {
         return view('pages.realisations.politiques-humaines');
     })->name('politiques-humaines');
 
-    
-    Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-    Route::get('/tous-les-projets', function () {
-        return view('pages.realisations.tous-les-projets');
-    })->name('tous-les-projets');
-});
-    Route::get('/secure-image/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'secureImage']);
-    Route::get('/ajax/projet/{id}', [App\Http\Controllers\ProjetRecentsController::class, 'ajaxShow']);
 
+    Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
+    // Route::get('/tous-les-projets', function () {
+    //     return view('pages.realisations.tous-les-projets');
+    // })->name('tous-les-projets');
+});
+    Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
+    Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
+/// ... existing code ...
+Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
+// ... existing code ...
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
     Route::get('/etudes-techniques', function () {
@@ -156,7 +160,9 @@ Route::prefix('recrutement')->group(function () {
         return view('pages.recrutement.candidature-spontanee');
     })->name('candidature-spontanee');
 });
-
+// ... existing code ...
+Route::post('/candidature-spontanee', [\App\Http\Controllers\CandidatureController::class, 'store'])->name('candidature.store');
+// ... existing code ...
 // Route pour "Contact"
 Route::get('/contact', function () {
     return view('pages.contact');
@@ -170,6 +176,9 @@ Route::get('/register', function () {
 // Route pour les offres de stage (incomplete in your input, assuming placeholder)
 Route::get('/recrutement/offres-stage', function () {
     return view('pages.recrutement.offres-stage');
-})->name('offres-stage');
+})->name('offres-stage');Route::get('/admin/spontaneous-applications', [AdminSpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
 
 
+Route::get('/admin/spontaneous-applications', [\App\Http\Controllers\AdminSpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');// ... existing code ...
+Route::post('/offres/{id}/apply', [\App\Http\Controllers\CandidatureController::class, 'store'])->name('offres.apply');
+// ... existing code ...
