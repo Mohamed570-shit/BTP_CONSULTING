@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SpontaneousApplication; // Ajout de l'import manquant
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,12 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+    
     public function index()
-{
-    $applications = \App\Models\SpontaneousApplication::latest()->get();
-    return view('admin.spontaneous-applications', compact('applications'));
-}
+    {
+        $applications = \App\Models\SpontaneousApplication::latest()->get();
+        return view('admin.spontaneous-applications', compact('applications'));
+    }
 
     // Méthode pour la page des notifications
     public function notifications()
@@ -28,14 +30,10 @@ class AdminController extends Controller
     // Méthode pour la page des candidatures spontanées
     public function spontaneousApplications()
     {
-        return view('admin.spontaneous-applications'); // À créer
+        $applications = SpontaneousApplication::latest()->get();
+        return view('admin.spontaneous-applications', compact('applications'));
     }
-
-public function spontaneousApplications()
-{
-    $applications = SpontaneousApplication::latest()->get();
-    return view('admin.spontaneous-applications', compact('applications'));
-}
+    
     public function users()
     {
         $users = User::all();

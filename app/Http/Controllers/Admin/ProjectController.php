@@ -44,52 +44,70 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'required|string|in:en cours,terminé',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'num_marche_interne' => 'nullable|integer',
-            'num_marche_externe' => 'nullable|string|max:255',
-            'maitre_ouvrage' => 'nullable|string|max:255',
-            'objet_marche' => 'nullable|string',
-            'date_osc' => 'nullable|date',
-            'delai_execution' => 'nullable|integer',
-            'lieu_execution' => 'nullable|string|max:255',
-            'type_marche' => 'nullable|string|max:255',
-            'domaine' => 'nullable|string|max:255',
-            'coordonnee_x' => 'nullable|numeric',
-            'coordonnee_y' => 'nullable|numeric',
-        ]);
+    /**
+ * Enregistre un nouveau projet.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\RedirectResponse
+ */
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'titre' => 'required|string|max:255',
+        'description' => 'required|string',
+        'status' => 'required|string|in:en cours,terminé',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'num_marche_interne' => 'nullable|integer',
+        'num_marche_externe' => 'nullable|string|max:255',
+        'maitre_ouvrage' => 'nullable|string|max:255',
+        'objet_marche' => 'nullable|string',
+        'date_osc' => 'nullable|date',
+        'delai_execution' => 'nullable|integer',
+        'lieu_execution' => 'nullable|string|max:255',
+        'type_marche' => 'nullable|string|max:255',
+        'domaine' => 'nullable|string|max:255',
+        'coordonnee_x' => 'nullable|numeric',
+        'coordonnee_y' => 'nullable|numeric',
+    ]);
 
-        $projet = new Projet();
-        $projet->titre = $validated['titre'];
-        $projet->slug = Str::slug($validated['titre']);
-        $projet->description = $validated['description'];
-        $projet->status = $validated['status'];
-        $projet->num_marche_interne = $validated['num_marche_interne'];
-        $projet->num_marche_externe = $validated['num_marche_externe'];
-        $projet->maitre_ouvrage = $validated['maitre_ouvrage'];
-        $projet->objet_marche = $validated['objet_marche'];
-        $projet->date_osc = $validated['date_osc'];
-        $projet->delai_execution = $validated['delai_execution'];
-        $projet->lieu_execution = $validated['lieu_execution'];
-        $projet->type_marche = $validated['type_marche'];
-        $projet->domaine = $validated['domaine'];
-        $projet->coordonnee_x = $validated['coordonnee_x'];
-        $projet->coordonnee_y = $validated['coordonnee_y'];
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('projets', 'public');
-            $projet->image = $path;
-        }
-
-        $projet->save();
-
-        return redirect()->route('admin.projects')->with('success', 'Projet créé avec succès !');
+    $projet = new Projet();
+    $projet->titre = $validated['titre'];
+    
+    // Génération d'un slug unique
+    $baseSlug = Str::slug($validated['titre']);
+    $slug = $baseSlug;
+    $counter = 1;
+    
+    // Vérifier si le slug existe déjà et ajouter un compteur si nécessaire
+    while (Projet::where('slug', $slug)->exists()) {
+        $slug = $baseSlug . '-' . $counter;
+        $counter++;
     }
+    
+    $projet->slug = $slug;
+    $projet->description = $validated['description'];
+    $projet->status = $validated['status'];
+    $projet->num_marche_interne = $validated['num_marche_interne'];
+    $projet->num_marche_externe = $validated['num_marche_externe'];
+    $projet->maitre_ouvrage = $validated['maitre_ouvrage'];
+    $projet->objet_marche = $validated['objet_marche'];
+    $projet->date_osc = $validated['date_osc'];
+    $projet->delai_execution = $validated['delai_execution'];
+    $projet->lieu_execution = $validated['lieu_execution'];
+    $projet->type_marche = $validated['type_marche'];
+    $projet->domaine = $validated['domaine'];
+    $projet->coordonnee_x = $validated['coordonnee_x'];
+    $projet->coordonnee_y = $validated['coordonnee_y'];
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('projets', 'public');
+        $projet->image = $path;
+    }
+
+    $projet->save();
+
+    return redirect()->route('admin.projects')->with('success', 'Projet créé avec succès !');
+}
 
   /**
  * Affiche les détails d'un projet.
@@ -132,60 +150,49 @@ public function show($id)
     $validated = $request->validate([
         'titre' => 'required|string|max:255',
         'description' => 'required|string',
-        'status' => 'required|string|in:en cours,terminé',
+        'status' => 'required|in:en cours,terminé',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'num_marche_interne' => 'nullable|integer',
         'num_marche_externe' => 'nullable|string|max:255',
         'maitre_ouvrage' => 'nullable|string|max:255',
-        'objet_marche' => 'required|string',
-        'date_osc' => 'required|date',
-        'delai_execution' => 'required|string',
-        'lieu_execution' => 'required|string',
-        'type_marche' => 'required|string',
-        'domaine' => 'required|string',
-        'coordonnee_x' => 'required|numeric',
-        'coordonnee_y' => 'required|numeric',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        'objet_marche' => 'nullable|string',
+        'date_osc' => 'nullable|date',
+        'delai_execution' => 'nullable|integer',
+        'lieu_execution' => 'nullable|string|max:255',
+        'type_marche' => 'nullable|string|max:255',
+        'domaine' => 'nullable|string|max:255',
+        'coordonnee_x' => 'nullable|numeric',
+        'coordonnee_y' => 'nullable|numeric',
     ]);
 
+    if ($validated['titre'] !== $projet->titre) {
+        $baseSlug = Str::slug($validated['titre']);
+        $slug = $baseSlug;
+        $counter = 1;
 
-    $baseSlug = Str::slug($validated['titre']);
-    $slug = $baseSlug;
-    $counter = 1;
-
-    while (Projet::where('slug', $slug)->where('id', '!=', $projet->id)->exists()) {
-        $slug = $baseSlug . '-' . $counter;
-        $counter++;
+        while (Projet::where('slug', $slug)->where('id', '!=', $projet->id)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        $validated['slug'] = $slug;
     }
-
-    $projet->titre = $validated['titre'];
-    $projet->slug = $slug;
-    $projet->description = $validated['description'];
-    $projet->status = $validated['status'];
-    $projet->num_marche_interne = $validated['num_marche_interne'];
-    $projet->num_marche_externe = $validated['num_marche_externe'];
-    $projet->maitre_ouvrage = $validated['maitre_ouvrage'];
-    $projet->objet_marche = $validated['objet_marche'];
-    $projet->date_osc = $validated['date_osc'];
-    $projet->delai_execution = $validated['delai_execution'];
-    $projet->lieu_execution = $validated['lieu_execution'];
-    $projet->type_marche = $validated['type_marche'];
-    $projet->domaine = $validated['domaine'];
-    $projet->coordonnee_x = $validated['coordonnee_x'];
-    $projet->coordonnee_y = $validated['coordonnee_y'];
 
     if ($request->hasFile('image')) {
-        if ($projet->image) {
-            Storage::delete('public/' . $projet->image);
+        if ($projet->image && Storage::disk('public')->exists($projet->image)) {
+            Storage::disk('public')->delete($projet->image);
         }
         $path = $request->file('image')->store('projets', 'public');
-        $projet->image = $path;
+        $validated['image'] = $path;
     }
 
-    $projet->save();
+    $projet->update($validated);
+
+    if ($request->expectsJson()) {
+        return response()->json(['message' => 'Projet mis à jour avec succès !', 'projet' => $projet]);
+    }
 
     return redirect()->route('admin.projects')->with('success', 'Projet mis à jour avec succès !');
-}
-    /**
+}    /**
      * Supprime un projet.
      *
      * @param  int  $id

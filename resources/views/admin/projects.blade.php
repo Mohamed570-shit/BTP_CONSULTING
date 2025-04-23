@@ -450,136 +450,99 @@
 
 
 
-    @push('scripts')
+  @push('scripts')
 <script>
-    $(document).ready(function() {
-        // Recherche
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#projectsTable tbody tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+$(document).ready(function() {
+    // Recherche
+    $("#searchInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#projectsTable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-
-        // Afficher les détails du projet
-        $('.view-project').on('click', function() {
-            var projectId = $(this).data('id');
-            console.log('ID du projet:', projectId); // Debug
-
-            // Utiliser Axios pour récupérer les détails du projet
-            axios.get('/projects/' + projectId, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(function(response) {
-                console.log('Données reçues:', response.data); // Debug
-
-                // Récupérer les données du projet
-                const projet = response.data;
-
-                // Remplir les champs du modal avec les données du projet
-                $('#view_titre').text(projet.titre || 'Non défini');
-                $('#view_description').text(projet.description || 'Non défini');
-
-                // Afficher le statut avec le badge approprié
-                if (projet.status === 'en cours') {
-                    $('#view_status').html('<span class="badge bg-primary">En cours</span>');
-                } else {
-                    $('#view_status').html('<span class="badge bg-success">Terminé</span>');
-                }
-
-                $('#view_num_marche_interne').text(projet.num_marche_interne || 'Non défini');
-                $('#view_num_marche_externe').text(projet.num_marche_externe || 'Non défini');
-                $('#view_maitre_ouvrage').text(projet.maitre_ouvrage || 'Non défini');
-                $('#view_objet_marche').text(projet.objet_marche || 'Non défini');
-
-                // Formater la date si elle existe
-                if (projet.date_osc) {
-                    var date = new Date(projet.date_osc);
-                    var formattedDate = date.getDate().toString().padStart(2, '0') + '/' +
-                                    (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-                                    date.getFullYear();
-                    $('#view_date_osc').text(formattedDate);
-                } else {
-                    $('#view_date_osc').text('Non défini');
-                }
-
-                $('#view_delai_execution').text(projet.delai_execution ? projet.delai_execution + ' mois' : 'Non défini');
-                $('#view_lieu_execution').text(projet.lieu_execution || 'Non défini');
-                $('#view_type_marche').text(projet.type_marche || 'Non défini');
-                $('#view_domaine').text(projet.domaine || 'Non défini');
-                $('#view_coordonnee_x').text(projet.coordonnee_x !== null && projet.coordonnee_x !== undefined ? projet.coordonnee_x : 'Non défini');
-                $('#view_coordonnee_y').text(projet.coordonnee_y !== null && projet.coordonnee_y !== undefined ? projet.coordonnee_y : 'Non défini');
-
-                // Afficher l'image si elle existe
-                if (projet.image) {
-                    // ila projet.image fih "projets/ism.jpg" khod ghi smiya
-                    let imgName = projet.image.split('/').pop();
-                    $('#view_image').attr('src', '/project-image/' + imgName);
-                    $('#view_image_container').show();
-                } else {
-                    $('#view_image_container').hide();
-                }
-
-            })
-            .catch(function(error) {
-                console.error('Erreur Axios:', error);
-                if (error.response) {
-                    console.error('Réponse d\'erreur:', error.response.data);
-                }
-                alert('Une erreur est survenue lors de la récupération des détails du projet.');
-            });
-        });
-        // Afficher les données dans le modal modifier
-        $('.edit-project').on('click', function() {
-            var projectId = $(this).data('id');
-            // Charger les données du projet
-            axios.get('/projects/' + projectId, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(function(response) {
-                const projet = response.data;
-                // Remplir les champs
-                $('#edit_titre').val(projet.titre || '');
-                $('#edit_description').val(projet.description || '');
-                $('#edit_status').val(projet.status || 'en cours');
-                $('#edit_num_marche_interne').val(projet.num_marche_interne || '');
-                $('#edit_num_marche_externe').val(projet.num_marche_externe || '');
-                $('#edit_maitre_ouvrage').val(projet.maitre_ouvrage || '');
-                $('#edit_objet_marche').val(projet.objet_marche || '');
-                $('#edit_date_osc').val(projet.date_osc || '');
-                $('#edit_delai_execution').val(projet.delai_execution || '');
-                $('#edit_lieu_execution').val(projet.lieu_execution || '');
-                $('#edit_type_marche').val(projet.type_marche || 'S.Etude');
-                $('#edit_domaine').val(projet.domaine || 'Infrastructure');
-                $('#edit_coordonnee_x').val(projet.coordonnee_x || '');
-                $('#edit_coordonnee_y').val(projet.coordonnee_y || '');
-                if (projet.image) {
-                    let imgName = projet.image.split('/').pop();
-                    $('#edit_image_preview').attr('src', '/project-image/' + imgName).show();
-                } else {
-                    $('#edit_image_preview').hide();
-                }
-                // Modifier l'action du form dynamiquement
-                $('#editProjectForm').attr('action', '/projects/' + projectId);
-            })
-            .catch(function(error) {
-                alert('Erreur lors du chargement du projet à modifier.');
-            });
-        });
-        // Dynamically set delete form action
-        $('.delete-project').on('click', function() {
-            var projectId = $(this).data('id');
-            $('#deleteProjectForm').attr('action', '/projects/' + projectId);
-        });
-
     });
 
+    // Afficher les détails du projet (inchangé)
+    $('.view-project').on('click', function() {
+        var projectId = $(this).data('id');
+        axios.get('/projects/' + projectId, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(function(response) {
+            const projet = response.data;
+            $('#view_titre').text(projet.titre || 'Non défini');
+            $('#view_description').text(projet.description || 'Non défini');
+            $('#view_status').html(projet.status === 'en cours' ? '<span class="badge bg-primary">En cours</span>' : '<span class="badge bg-success">Terminé</span>');
+            $('#view_num_marche_interne').text(projet.num_marche_interne || 'Non défini');
+            $('#view_num_marche_externe').text(projet.num_marche_externe || 'Non défini');
+            $('#view_maitre_ouvrage').text(projet.maitre_ouvrage || 'Non défini');
+            $('#view_objet_marche').text(projet.objet_marche || 'Non défini');
+            $('#view_date_osc').text(projet.date_osc ? new Date(projet.date_osc).toLocaleDateString('fr-FR') : 'Non défini');
+            $('#view_delai_execution').text(projet.delai_execution ? projet.delai_execution + ' mois' : 'Non défini');
+            $('#view_lieu_execution').text(projet.lieu_execution || 'Non défini');
+            $('#view_type_marche').text(projet.type_marche || 'Non défini');
+            $('#view_domaine').text(projet.domaine || 'Non défini');
+            $('#view_coordonnee_x').text(projet.coordonnee_x ?? 'Non défini');
+            $('#view_coordonnee_y').text(projet.coordonnee_y ?? 'Non défini');
+            if (projet.image) {
+                let imgName = projet.image.split('/').pop();
+                $('#view_image').attr('src', '/project-image/' + imgName);
+                $('#view_image_container').show();
+            } else {
+                $('#view_image_container').hide();
+            }
+        })
+        .catch(function(error) {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la récupération des détails du projet.');
+        });
+    });
+
+    // Charger les données dans le modal de modification
+       // Modifier un projet
+    $('.edit-project').on('click', function() {
+        var projectId = $(this).data('id');
+        
+        // Mettre à jour l'URL du formulaire avec l'ID du projet
+        $('#editProjectForm').attr('action', '{{ route("admin.projects.update", "") }}/' + projectId);
+        $('#edit_project_id').val(projectId);
+        
+        // Charger les données du projet
+        $.ajax({
+            url: '{{ route("admin.projects.show", "") }}/' + projectId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#edit_titre').val(data.titre);
+                $('#edit_description').val(data.description);
+                $('#edit_status').val(data.status);
+                $('#edit_num_marche_interne').val(data.num_marche_interne);
+                $('#edit_num_marche_externe').val(data.num_marche_externe);
+                $('#edit_maitre_ouvrage').val(data.maitre_ouvrage);
+                $('#edit_objet_marche').val(data.objet_marche);
+                $('#edit_date_osc').val(data.date_osc);
+                $('#edit_delai_execution').val(data.delai_execution);
+                $('#edit_lieu_execution').val(data.lieu_execution);
+                $('#edit_type_marche').val(data.type_marche);
+                $('#edit_domaine').val(data.domaine);
+                $('#edit_coordonnee_x').val(data.coordonnee_x);
+                $('#edit_coordonnee_y').val(data.coordonnee_y);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors du chargement des données du projet:', error);
+                alert('Une erreur est survenue lors du chargement des données du projet. Veuillez réessayer.');
+            }
+        });
+    });
+
+    // Supprimer un projet
+    $('.delete-project').on('click', function() {
+        var projectId = $(this).data('id');
+        $('#deleteProjectForm').attr('action', '/projects/' + projectId);
+    });
+});
 </script>
 @endpush
 @endsection

@@ -106,6 +106,11 @@ Route::prefix('realisations')->group(function () {
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
 
+
+    
+    Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
+    
+
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
     Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
@@ -192,4 +197,17 @@ Route::prefix('recrutement')->group(function () {
     Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidature.store');
 });
 
-// ... existing code ...
+use App\Http\Controllers\Admin\ProjectController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+    Route::get('/projects/{projet}', [ProjectController::class, 'show'])->name('admin.projects.show');
+    Route::put('/projects/{projet}', [ProjectController::class, 'update'])->name('admin.projects.update');
+    Route::delete('/projects/{projet}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
+});
+
+// Routes pour les requêtes AJAX (alignées avec le Blade)
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::put('/projects/{projet}', [ProjectController::class, 'update']);
+Route::delete('/projects/{projet}', [ProjectController::class, 'destroy']);
