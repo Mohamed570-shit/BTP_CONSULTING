@@ -313,11 +313,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
             <div class="modal-body text-center">
-                <!-- Description -->
-                <p id="modalProjectDescription" class="mb-4 text-muted">Description du projet ici...</p>
 
                 <!-- Image du projet -->
                 <img id="modalProjectImage" src="" class="img-fluid mb-3 rounded shadow-sm" alt="Image projet">
+<!-- Description -->
+<p id="modalProjectDescription" class="mb-4 text-muted">Description du projet ici...</p>
 
                 <!-- Domaine -->
 

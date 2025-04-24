@@ -21,7 +21,7 @@
                         <!-- Profile Picture and Info -->
                         <div class="col-md-4 text-center">
                             <img src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('asset/img/user.jpg') }}"
-                                 alt="Profil" class="rounded-circle mb-3" width="150">
+                                    alt="Profil" class="rounded-circle mb-3" width="150">
                             <h4>{{ Auth::user()->name }}</h4>
                             <p class="text-muted">{{ Auth::user()->email }}</p>
                         </div>

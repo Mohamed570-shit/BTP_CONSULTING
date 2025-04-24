@@ -254,7 +254,7 @@
 
 
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+    <a href="#" class="nav-link " data-bs-toggle="dropdown">
         <span class="dropdown-toggle">
             <!-- <i class="fas fa-cogs me-2"></i> -->
             NOTRE MANAGEMENT
@@ -383,7 +383,7 @@
 
 </style>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <a href="#" class="nav-link " data-bs-toggle="dropdown">
                                 <span class="dropdown-toggle"> RECRUTEMENT</span>
                             </a>
                             <div class="dropdown-menu m-0">

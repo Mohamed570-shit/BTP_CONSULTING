@@ -1,0 +1,357 @@
+/* projects.css */
+
+/* Variables */
+:root {
+    --primary-color: #4f46e5; /* indigo-600 */
+    --primary-color-light: #818cf8; /* indigo-400 */
+    --success-color: #10b981; /* emerald-500 */
+    --danger-color: #ef4444; /* red-500 */
+    --warning-color: #f59e0b; /* amber-500 */
+    --text-color: #111827; /* gray-900 */
+    --muted-color: #6b7280; /* gray-500 */
+    --bg-light: #f9fafb; /* gray-50 */
+    --bg-white: #ffffff;
+    --border-color: #e5e7eb; /* gray-200 */
+    --radius: 0.75rem;
+    --transition: all 0.3s ease;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Général */
+body {
+    background: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Carte */
+.card.border-0.shadow-sm {
+    border-radius: var(--radius);
+    background: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+}
+
+.card-header h5 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Tableau */
+.table-responsive {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+    background: var(--bg-white);
+}
+
+.table thead th {
+    background: var(--bg-light);
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table tbody tr {
+    transition: var(--transition);
+}
+
+.table tbody tr:hover {
+    background: var(--bg-light);
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Badges */
+.badge.bg-primary {
+    background: var(--primary-color) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.badge.bg-success {
+    background: var(--success-color) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+}
+
+/* Boutons */
+.btn {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background: #3b82f6; /* blue-500 */
+    border-color: #3b82f6;
+}
+
+.btn-info:hover {
+    background: #2563eb; /* blue-600 */
+    border-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-warning {
+    background: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.btn-warning:hover {
+    background: #d97706; /* amber-600 */
+    border-color: #d97706;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+    background: #dc2626; /* red-600 */
+    border-color: #dc2626;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-outline-secondary {
+    border-color: var(--border-color);
+    color: var(--muted-color);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--bg-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Champ de recherche */
+.input-group .form-control {
+    border-radius: 0.5rem 0 0 0.5rem;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.input-group .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    outline: none;
+}
+
+.input-group .btn-outline-secondary {
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Modals */
+.modal-content {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    border: none;
+    background: var(--bg-white);
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal-header {
+    background: var(--primary-color);
+    color: #fff;
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+}
+
+/* Formulaires dans les modals */
+.form-control,
+.form-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    outline: none;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Tableau dans les modals */
+.modal .table {
+    background: var(--bg-light);
+}
+
+.modal .table th {
+    background: var(--bg-white);
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal .table td {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Images */
+.img-fluid.rounded {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    max-width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .card-header .d-flex {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .input-group {
+        margin-right: 0 !important;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        padding: 1rem;
+    }
+
+    .table tbody td {
+        display: block;
+        text-align: left;
+        padding: 0.5rem 0;
+        border: none;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--muted-color);
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+
+    .modal-title {
+        font-size: 1.1rem;
+    }
+}

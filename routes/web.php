@@ -1,17 +1,23 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\OffreController;
 use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetRecentsController;
+use Illuminate\Support\Facades\Route;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
+// Routes protégées pour l'administration
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
 
 // Routes d'authentification
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -19,11 +25,11 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Routes protégées pour l'administration
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/admin/dashboard', function () {
+//         return view('admin.dashboard');
+//     })->name('admin.dashboard');
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
@@ -107,9 +113,9 @@ Route::prefix('realisations')->group(function () {
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
 
 
-    
+
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-    
+
 
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
@@ -197,7 +203,7 @@ Route::prefix('recrutement')->group(function () {
     Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidature.store');
 });
 
-use App\Http\Controllers\Admin\ProjectController;
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');

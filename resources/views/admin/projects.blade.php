@@ -340,7 +340,7 @@
                                     <th>Lieu d'exécution</th>
                                     <td><input type="text" class="form-control" id="edit_lieu_execution" name="lieu_execution"></td>
                                 </tr>
-                            
+
                                 <tr>
                                     <th>Coordonnée X (Latitude)</th>
                                     <td>
@@ -353,7 +353,7 @@
                                         <input type="number" step="0.0000001" class="form-control" id="edit_coordonnee_y" name="coordonnee_y">
                                     </td>
                                 </tr>
-                            
+
                                 <tr>
                                     <th>Type de marché</th>
                                     <td>
@@ -504,11 +504,11 @@ $(document).ready(function() {
        // Modifier un projet
     $('.edit-project').on('click', function() {
         var projectId = $(this).data('id');
-        
+
         // Mettre à jour l'URL du formulaire avec l'ID du projet
         $('#editProjectForm').attr('action', '{{ route("admin.projects.update", "") }}/' + projectId);
         $('#edit_project_id').val(projectId);
-        
+
         // Charger les données du projet
         $.ajax({
             url: '{{ route("admin.projects.show", "") }}/' + projectId,
