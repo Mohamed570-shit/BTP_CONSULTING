@@ -200,9 +200,8 @@
         <div class="notification-area me-3">
             <a href="{{ route('admin.notifications') }}" class="notification-bell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>
-            </a>
-        </div>
+                
+<span class="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>        </div>
         <!-- Logout -->
         <div class="me-3">
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-icon">

@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\SpontaneousApplicationController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -60,4 +61,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
     Route::delete('/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('admin.jobs.show');
+
+
+
+
+
+    // Khlli hadchi:
+    
 });
+

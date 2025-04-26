@@ -24,6 +24,7 @@ class AdminController extends Controller
     // Méthode pour la page des notifications
     public function notifications()
     {
+        Auth::user()->unreadNotifications->markAsRead();
         return view('admin.notifications'); // À créer
     }
 

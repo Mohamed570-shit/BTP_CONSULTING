@@ -2,44 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Candidature;
 use App\Models\User;
+use App\Models\Candidature;
+use App\Models\OffreEmploi;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Notifications\NewCandidatureNotification;
-// ... existing code ...
+
 class CandidatureController extends Controller
 {
     public function store(Request $request)
     {
-        // Validation
+        // Validate the request
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'cv' => 'required|file|mimes:pdf',
-            'message' => 'nullable|string',
-            'offre_id' => 'required|exists:offre_emplois,id', // hna zidt validation dyal offre_id
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telephone' => 'required|string|max:30',
+            'post' => 'required|string|max:255',
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'lettre_motivation' => 'required|string',
         ]);
 
-        // T7et CV f dossier storage/public/cvs
-        $cvPath = $request->file('cv')->store('cvs', 'public');
-
-        // Tssajjal candidature f la base
-        $candidature = Candidature::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'cv' => $cvPath,
-            'message' => $validated['message'] ?? null,
-            'offre_id' => $validated['offre_id'], // hna zidt offre_id
-        ]);
-
-        // T3ayet l-admin w tsift lih notification
-        $admin = User::where('role', 'admin')->first();
-        if ($admin) {
-            $admin->notify(new NewCandidatureNotification($candidature));
+        // Handle CV upload
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
+        } else {
+            $cvPath = null;
         }
 
-        // Redirect b message de succès
-        return redirect()->back()->with('success', 'Votre candidature a été envoyée avec succès !');
+        // Generate slug (optional)
+        $slug = Str::slug($request->nom . '-' . now()->timestamp);
+
+        // Save to database
+        $candidature = new Candidature();
+        $candidature->nom = $request->nom;
+        $candidature->email = $request->email;
+        $candidature->telephone = $request->telephone;
+        $candidature->post = $request->post;
+        $candidature->cv = $cvPath;
+        $candidature->lettre_motivation = $request->lettre_motivation;
+        $candidature->slug = $slug;
+        $candidature->save();
+       
+
+  
+       
+            // Save the candidature first!
+            $candidature = Candidature::create([
+                'nom' => $request->nom,
+                'email' => $request->email,
+                // ... other fields ...
+            ]);
+        
+            // Now send the notification with the saved candidature
+            $admins = User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new \App\Notifications\NewCandidatureNotification($candidature));
+            }
+        
+            // ... redirect or return ...
+        
+
+    // ... existing code ...
+
+        return redirect()->back()->with('success', 'Votre candidature a été envoyée avec succès.');
     }
+    
+
+public function create()
+{
+    $offres = OffreEmploi::all(); // Jib kol offres men base
+    return view('pages.recrutement.candidature-spontanee', compact('offres'));
 }
-// ... existing code ...
+}

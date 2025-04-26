@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
-use App\Http\Controllers\NotificationController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffreController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CandidatureController;
+
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProjetRecentsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\SpontaneousApplicationController;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
@@ -50,10 +52,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 // Page authentification
-Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-Route::post('/admin/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('admin.notifications.read');
 
-// Page d'accueil
+
+Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');// Page d'accueil
 Route::get('/', function () {
     return view('pages.index');
 })->name('welcome'); // Added name for consistency
@@ -194,15 +195,16 @@ Route::post('/recrutement/offres/{id}/apply', [OffreController::class, 'apply'])
 
 // ... existing code ...
 
-// Routes pour "Recrutement"
-Route::prefix('recrutement')->group(function () {
-    Route::get('/candidature-spontanee', function () {
-        return view('pages.recrutement.candidature-spontanee');
-    })->name('candidature-spontanee');
+/// ... existing code ...
 
-    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidature.store');
+Route::prefix('recrutement')->group(function () {
+    // Afficher le formulaire (GET)
+    Route::get('/candidature-spontanee', [CandidatureController::class, 'create'])->name('candidature-spontanee');
+    // Traiter le formulaire (POST)
+    Route::post('/candidature-spontanee', [CandidatureController::class, 'store'])->name('candidature.store');
 });
 
+// ... existing code ...
 
 
 Route::prefix('admin')->group(function () {
@@ -217,3 +219,11 @@ Route::prefix('admin')->group(function () {
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::put('/projects/{projet}', [ProjectController::class, 'update']);
 Route::delete('/projects/{projet}', [ProjectController::class, 'destroy']);
+
+
+
+
+Route::get('/admin/spontaneous-applications', [SpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
+// ... existing code ...
+Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'downloadCv'])->name('admin.cv.download');
+// ... existing code ...

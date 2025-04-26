@@ -45,13 +45,14 @@
                     </div>
                 @endif
 
+                
+
                 <form action="{{ route('candidature.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <!-- Informations personnelles -->
                     <div class="mb-4">
-                        <input type="text" name="name" class="form-control" placeholder="Votre Nom" value="{{ old('name') }}" required>
-                        @error('name')
+                        <input type="text" name="nom" class="form-control" placeholder="Votre Nom" value="{{ old('nom') }}" required>
+                        @error('nom')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -67,7 +68,20 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    <!-- Poste à choisir -->
+<div class="mb-4">
+    <select name="post" class="form-control" required>
+        <option value="">Choisissez un poste</option>
+        @foreach($offres as $offre)
+            <option value="{{ $offre->titre }}" {{ old('post') == $offre->titre ? 'selected' : '' }}>
+                {{ $offre->titre }}
+            </option>
+        @endforeach
+    </select>
+    @error('post')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+</div>
                     <!-- Documents à télécharger -->
                     <div class="mb-4">
                         <label class="form-label">Ajouter votre CV</label>
