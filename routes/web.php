@@ -52,8 +52,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 // Page authentification
-
-
 Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');// Page d'accueil
 Route::get('/', function () {
     return view('pages.index');
@@ -224,6 +222,13 @@ Route::delete('/projects/{projet}', [ProjectController::class, 'destroy']);
 
 
 Route::get('/admin/spontaneous-applications', [SpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
-// ... existing code ...
 Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'downloadCv'])->name('admin.cv.download');
-// ... existing code ...
+
+
+
+//hada code li zidt db ana :
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/candidatures', [CandidatureController::class, 'index'])->name('candidatures.index');
+    Route::delete('/candidatures/{id}', [CandidatureController::class, 'destroy'])->name('candidatures.destroy');
+    Route::get('/candidatures/export', [CandidatureController::class, 'export'])->name('candidatures.export');
+});
