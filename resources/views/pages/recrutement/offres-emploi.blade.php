@@ -62,58 +62,25 @@
                                         <p><strong>Type :</strong> {{ $offre->type ?? 'Non spécifié' }}</p>
                                         <p><strong>Date limite :</strong> {{ $offre->date_expiration ? $offre->date_expiration->format('d/m/Y') : 'Pas de limite' }}</p>
                                     </div>
-                                    <button type="button" class="btn btn-outline-accent mt-auto" data-bs-toggle="modal" data-bs-target="#applyModal{{ $offre->id }}">
+                                    {{-- <button type="button" class="btn btn-outline-accent mt-auto" data-bs-toggle="modal" data-bs-target="#applyModal{{ $offre->id }}">
+                                        Postuler
+                                    </button> --}}
+
+
+                                    <button onclick="window.location.href='{{ route('candidature-spontanee') }}'" type="button" class="btn btn-outline-accent mt-auto">
                                         Postuler
                                     </button>
+
+
+
+
                                 </div>
                             </article>
                         </div>
 
                         <!-- Application Modal -->
-                        <div class="modal fade" id="applyModal{{ $offre->id }}" tabindex="-1" aria-labelledby="applyModalLabel{{ $offre->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content modal-professional">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title text-accent" id="applyModalLabel{{ $offre->id }}">Postuler pour {{ $offre->titre }}</h3>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{ route('offres.apply', $offre->id) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="name{{ $offre->id }}" class="form-label">Nom complet</label>
-                                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name{{ $offre->id }}" name="name" value="{{ old('name') }}" required>
-                                                @error('name')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email{{ $offre->id }}" class="form-label">Email</label>
-                                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email{{ $offre->id }}" name="email" value="{{ old('email') }}" required>
-                                                @error('email')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="cv{{ $offre->id }}" class="form-label">Télécharger votre CV (PDF)</label>
-                                                <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv{{ $offre->id }}" name="cv" accept=".pdf" required>
-                                                @error('cv')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="message{{ $offre->id }}" class="form-label">Message (optionnel)</label>
-                                                <textarea class="form-control @error('message') is-invalid @enderror" id="message{{ $offre->id }}" name="message" rows="4">{{ old('message') }}</textarea>
-                                                @error('message')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <button type="submit" class="btn btn-accent w-100">Envoyer la candidature</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
                     @endforeach
                 @endif
             </div>
@@ -135,7 +102,8 @@
 
         /* Breadcrumb Section */
         .bg-breadcrumb {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/736x/52/46/86/524686f2e54da722a2d6375ed87b0cf0.jpg');
+
             color: var(--white);
             padding: 60px 0;
         }

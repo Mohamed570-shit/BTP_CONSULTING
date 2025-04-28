@@ -8,6 +8,8 @@ use App\Models\OffreEmploi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Notifications\NewCandidatureNotification;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CandidaturesExport;
 
 class CandidatureController extends Controller
 {
@@ -43,35 +45,42 @@ class CandidatureController extends Controller
         $candidature->lettre_motivation = $request->lettre_motivation;
         $candidature->slug = $slug;
         $candidature->save();
-       
 
-  
-       
-            // Save the candidature first!
-            $candidature = Candidature::create([
-                'nom' => $request->nom,
-                'email' => $request->email,
-                // ... other fields ...
-            ]);
-        
-            // Now send the notification with the saved candidature
-            $admins = User::where('role', 'admin')->get();
-            foreach ($admins as $admin) {
-                $admin->notify(new \App\Notifications\NewCandidatureNotification($candidature));
-            }
-        
-            // ... redirect or return ...
-        
+        // Save the candidature first!
+        $candidature = Candidature::create([
+            'nom' => $request->nom,
+            'email' => $request->email,
+            // ... other fields ...
+        ]);
 
-    // ... existing code ...
+        // Now send the notification with the saved candidature
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new \App\Notifications\NewCandidatureNotification($candidature));
+        }
 
         return redirect()->back()->with('success', 'Votre candidature a été envoyée avec succès.');
     }
-    
 
-public function create()
-{
-    $offres = OffreEmploi::all(); // Jib kol offres men base
-    return view('pages.recrutement.candidature-spontanee', compact('offres'));
-}
+    public function create()
+    {
+        $offres = OffreEmploi::all(); // Jib kol offres men base
+        return view('pages.recrutement.candidature-spontanee', compact('offres'));
+    }
+
+    // Uncomment this method if you want to use it
+    public function destroy($id)
+    {
+        $candidature = Candidature::findOrFail($id);
+        $candidature->delete();
+
+        return redirect()->back()->with('success', 'Candidature supprimée avec succès.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new CandidaturesExport, 'candidatures.xlsx');
+    }
+
+
 }
