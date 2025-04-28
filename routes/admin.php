@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
 
 Route::middleware(['auth'])->group(function () {
@@ -20,9 +21,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/admin/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
 
-    // Qui sommes-nous
-    Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
-
+    
+    
     // Nos domaines
     Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
 
@@ -65,8 +65,25 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+// Qui sommes-nous admin
+        //propos
+        Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
+        Route::get('/apropos-image/{filename}', [AdminController::class, 'showAproposImage'])->name('apropos.image');
+        Route::put('/admin/apropos/update', [QuiSommesNousController::class, 'update'])->name('admin.apropos.update');
 
-    // Khlli hadchi:
-    
+        //mot directeur général
+        Route::put('/motdg/update', [QuiSommesNousController::class, 'updateMotdg'])->name('admin.motdg.update');
+        Route::get('/motdg-image/{filename}', [AdminController::class, 'showMotdgImage'])->name('motdg.image');
+        
+        // valeurs
+        Route::post('/valeurs/store', [QuiSommesNousController::class, 'storeValeur'])->name('admin.valeurs.store');
+        Route::delete('/valeurs/{id}', [QuiSommesNousController::class, 'destroyValeur'])->name('admin.valeurs.destroy');
+        Route::put('/valeurs/{id}', [QuiSommesNousController::class, 'updateValeur'])->name('admin.valeurs.update');
+
+        // chiffres
+        Route::post('/chiffres/store', [QuiSommesNousController::class, 'storeChiffre'])->name('admin.chiffres.store');
+        Route::put('/chiffres/{id}', [QuiSommesNousController::class, 'updateChiffre'])->name('admin.chiffres.update');
+        Route::delete('/chiffres/{id}', [QuiSommesNousController::class, 'destroyChiffre'])->name('admin.chiffres.destroy');
+        
 });
 

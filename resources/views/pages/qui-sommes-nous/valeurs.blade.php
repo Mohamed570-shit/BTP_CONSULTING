@@ -30,23 +30,18 @@
                 <p class="mb-0">
                     Chez <strong>BTP Consulting</strong>, nous plaçons nos clients et partenaires au cœur de nos préoccupations, en nous appuyant sur des valeurs d’excellence et de responsabilité pour garantir des projets d’ingénierie de qualité.
                 </p>
-            </div>
+            </div>           
             <div class="row g-4">
-                @foreach([
-                    ['icon' => 'balance-scale', 'title' => 'Éthique', 'text' => 'Nous cultivons une culture d’intégrité et de transparence pour mériter la confiance de nos clients et partenaires dans chaque projet d’ingénierie.', 'delay' => '0.2s'],
-                    ['icon' => 'users', 'title' => 'Esprit d’équipe', 'text' => 'La réussite de nos projets repose sur la collaboration et l’engagement de nos équipes, mobilisées pour offrir des solutions techniques optimales.', 'delay' => '0.4s'],
-                    ['icon' => 'smile', 'title' => 'Satisfaction Client', 'text' => 'Nous nous engageons à fournir des solutions d’ingénierie qui répondent aux attentes de nos clients en termes de qualité, de coût et de délais.', 'delay' => '0.6s'],
-                    ['icon' => 'chart-line', 'title' => 'Performance', 'text' => 'Grâce à une maîtrise des techniques modernes et une gestion rigoureuse, nous assurons des performances élevées dans nos diagnostics et études techniques.', 'delay' => '0.2s'],
-                    ['icon' => 'leaf', 'title' => 'Développement Durable', 'text' => 'Nous intégrons des pratiques durables dans nos projets, de l’étude à la réalisation, pour préserver l’environnement et assurer un avenir responsable.', 'delay' => '0.4s'],
-                    ['icon' => 'lightbulb', 'title' => 'Innovation', 'text' => 'Nous recherchons constamment des solutions innovantes pour optimiser nos diagnostics structurels et répondre aux défis de l’ingénierie moderne.', 'delay' => '0.6s']
-                ] as $value)
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="{{ $value['delay'] }}">
+                @php $delay = 0.2; @endphp
+                @foreach($valeurs as $valeur)
+                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="{{ number_format($delay, 1) }}s">
                         <div class="value-item text-center p-4 bg-light rounded shadow-sm">
-                            <i class="fas fa-{{ $value['icon'] }} fa-3x text-primary mb-3"></i>
-                            <h3>{{ $value['title'] }}</h3>
-                            <p>{{ $value['text'] }}</p>
+                            <i class="fas fa-{{ $valeur->icon }} fa-3x text-primary mb-3"></i>
+                            <h3>{{ $valeur->title }}</h3>
+                            <p>{{ $valeur->description }}</p>
                         </div>
                     </div>
+                    @php $delay += 0.2; @endphp
                 @endforeach
             </div>
         </div>

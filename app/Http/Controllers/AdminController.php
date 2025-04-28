@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\SpontaneousApplication; // Ajout de l'import manquant
+use App\Models\Motdg;
+use App\Models\Valeur;
+use App\Models\Apropos;
+use App\Models\Chiffre;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Models\SpontaneousApplication; // Ajout de l'import manquant
 
 class AdminController extends Controller
 {
@@ -41,10 +46,37 @@ class AdminController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    public function about()
-    {
-        return view('admin.about');
-    }
+        // quisommenous (admin)
+        
+        public function about()
+        {
+            $apropos = Apropos::first();
+            $motdg = Motdg::first();
+            $valeurs = Valeur::all();
+            $chiffres = Chiffre::all();
+
+            return view('admin.about', compact('apropos', 'motdg', 'valeurs', 'chiffres'));
+        }
+        public function showAproposImage($filename) //image de propos
+        {
+            $path = 'apropos/' . $filename;
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+            return response($file, 200)->header('Content-Type', $type);
+        }     
+        public function showMotdgImage($filename) //image du mot du directeur
+        {
+            $path = 'motdg/' . $filename;
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+            return response($file, 200)->header('Content-Type', $type);
+        }
 
     public function domains()
     {

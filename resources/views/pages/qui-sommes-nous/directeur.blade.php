@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Inclure Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb">
@@ -26,10 +26,10 @@
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                 <h4 class="text-primary">Mot du Directeur Général</h4>
                 <h1 class="display-5 mb-4">
-                    <i class="fas fa-user-tie text-primary me-2"></i> Vision et Engagement
+                    <i class="fas fa-user-tie text-primary me-2"></i> {{ $motdg->title ?? '' }}
                 </h1>
                 <p class="mb-0">
-                    Découvrez la vision et les valeurs portées par le Directeur Général de <strong>BTP Consulting</strong>, au service de l’excellence et de l’innovation en ingénierie.
+                    {{ $motdg->subtitle ?? '' }}
                 </p>
             </div>
 
@@ -42,43 +42,38 @@
                         <i class="fas fa-quote-left quote-icon left"></i>
                         <i class="fas fa-quote-right quote-icon right"></i>
 
-                        @php
-                            $sections = [
-                                [
-                                    'icon' => 'handshake',
-                                    'title' => 'Bienvenue à Tous',
-                                    'text' => '<strong>Chers partenaires, clients et amis,</strong><br>
-                                        Au nom de <strong>BTP Consulting</strong>, j’ai l’honneur de vous accueillir avec une profonde gratitude. Depuis nos débuts, nous nous engageons à faire de l’excellence, de l’innovation et de la durabilité les fondements de notre réussite.',
-                                ],
-                                [
-                                    'icon' => 'bullseye',
-                                    'title' => 'Notre Mission',
-                                    'text' => 'Chez BTP Consulting, nous croyons que chaque projet est une opportunité pour construire un avenir meilleur. Grâce à notre expertise en études techniques, diagnostics structurels et réhabilitation, nous offrons des solutions d’ingénierie fiables et durables qui répondent aux besoins de nos clients.',
-                                ],
-                                [
-                                    'icon' => 'shield-alt',
-                                    'title' => 'Notre Engagement',
-                                    'text' => 'Nous nous engageons à garantir la sécurité, la qualité et le respect des normes environnementales dans tous nos projets. Je tiens à remercier nos clients et partenaires pour leur confiance, ainsi que notre équipe pour son engagement et son professionnalisme.',
-                                ],
-                                [
-                                    'icon' => 'hands-helping',
-                                    'title' => 'Ensemble pour l’Avenir',
-                                    'text' => 'Ensemble, continuons à bâtir des projets qui marquent l’avenir. N’hésitez pas à nous contacter pour toute collaboration ou demande d’information.',
-                                ],
-                            ];
-                        @endphp
-
-                        @foreach ($sections as $section)
+                        <div class="mb-4">
                             <h3 class="mb-3">
-                                <i class="fas fa-{{ $section['icon'] }} text-primary me-2"></i> {{ $section['title'] }}
+                                <i class="fas fa-handshake text-primary me-2"></i> Bienvenue à Tous
                             </h3>
-                            <p class="mb-4">{!! $section['text'] !!}</p>
-                        @endforeach
+                            <p class="mb-4">{!! $motdg->welcome ?? '' !!}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="mb-3">
+                                <i class="fas fa-bullseye text-primary me-2"></i> Notre Mission
+                            </h3>
+                            <p class="mb-4">{!! $motdg->mission ?? '' !!}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="mb-3">
+                                <i class="fas fa-shield-alt text-primary me-2"></i> Notre Engagement
+                            </h3>
+                            <p class="mb-4">{!! $motdg->engagement ?? '' !!}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="mb-3">
+                                <i class="fas fa-hands-helping text-primary me-2"></i> Ensemble pour l’Avenir
+                            </h3>
+                            <p class="mb-4">{!! $motdg->future ?? '' !!}</p>
+                        </div>
 
                         <!-- Signature -->
                         <p class="director-signature mt-4">
-                            <strong>M.Mourad LJAZOULI</strong><br>
-                            Directeur Général de BTP Consulting
+                            <strong>{{ $motdg->director_name ?? '' }}</strong><br>
+                            {{ $motdg->director_title ?? '' }}
                         </p>
 
                         <!-- Bouton d'action -->
@@ -91,12 +86,12 @@
                 <!-- Section image -->
                 <div class="col-lg-4 wow fadeInRight text-center" data-wow-delay="0.4s">
                     <div class="director-image">
-                        <img src="{{ asset('asset/img/morad.png') }}" class="img-fluid rounded-circle shadow-lg" alt="Directeur Général de BTP Consulting">
+                        <img src="{{ route('motdg.image', basename($motdg->image)) }}" class="img-fluid director-img-circle shadow-lg" alt="Directeur Général de BTP Consulting">
                     </div>
                 </div>
             </div>
         </div>
-    </div>.
+    </div>
     <!-- Mot du Directeur Général End -->
 
     <!-- Styles CSS Internes -->
@@ -159,13 +154,24 @@
         }
 
         /* Image Styles */
-        .director-image img {
-            max-width: 250px;
-            height: auto;
+        .director-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .director-img-circle {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+            background: #fff;
+            border: 6px solid #fff;
             transition: transform 0.3s ease;
         }
-
-        .director-image img:hover {
+        .director-img-circle:hover {
             transform: scale(1.05);
         }
 
@@ -190,8 +196,9 @@
                 padding: 15px;
             }
 
-            .director-image img {
-                max-width: 200px;
+            .director-img-circle {
+                width: 180px;
+                height: 180px;
             }
 
             h3 {
@@ -212,8 +219,9 @@
                 padding: 10px;
             }
 
-            .director-image img {
-                max-width: 150px;
+            .director-img-circle {
+                width: 120px;
+                height: 120px;
             }
 
             h3 {
