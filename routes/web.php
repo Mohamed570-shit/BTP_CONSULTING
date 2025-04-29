@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProjetRecentsController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\SpontaneousApplicationController;
 
 // Inclure les routes admin
@@ -63,23 +64,21 @@ Route::get('/', function () {
 
 
 // Routes pour "Qui sommes-nous"
+// ... existing code ...
 Route::prefix('qui-sommes-nous')->group(function () {
-    Route::get('/apropos', function () {
-        return view('pages.qui-sommes-nous.apropos');
-    })->name('a-propos');
+    
 
-    Route::get('/directeur', function () {
-        return view('pages.qui-sommes-nous.directeur');
-    })->name('mot-directeur');
+    // Add this dynamic route:
+    Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
+    Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
+    
+    Route::get('/directeur', [QuiSommesNousController::class, 'directeurPublic'])->name('mot-directeur');
+    Route::get('/motdg/image/{filename}', [QuiSommesNousController::class, 'showMotdgImage'])->name('motdg.image');
 
-    Route::get('/valeurs', function () {
-        return view('pages.qui-sommes-nous.valeurs');
-    })->name('nos-valeurs');
-
-    Route::get('/chiffres-cles', function () {
-        return view('pages.qui-sommes-nous.chiffres-cles');
-    })->name('chiffres-cles');
-
+    Route::get('/valeurs', [QuiSommesNousController::class, 'valeursPublic'])->name('nos-valeurs');
+    
+    Route::get('/qui-sommes-nous/chiffres-cles', [QuiSommesNousController::class, 'chiffresPublic'])->name('chiffres-cles');
+ 
     Route::get('/certifications', function () {
         return view('pages.qui-sommes-nous.certifications');
     })->name('certifications');

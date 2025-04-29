@@ -32,62 +32,22 @@
                     Chez <strong>BTP Consulting</strong>, nos chiffres témoignent de notre engagement et de notre expertise dans le domaine de l’ingénierie et du diagnostic structurel.
                 </p>
             </div>
-
             <!-- Grille des Statistiques -->
             <div class="row g-4">
-                @php
-                    $stats = [
-                        [
-                            'icon' => 'money-bill-wave',
-                            'count' => 600,
-                            'suffix' => 'M',
-                            'label' => 'Chiffre d\'affaires (en millions de dirhams)',
-                            'delay' => '0.2s',
-                        ],
-                        [
-                            'icon' => 'clipboard-check',
-                            'count' => 100,
-                            'suffix' => 'M',
-                            'label' => 'Carnet de commandes (en millions de dirhams)',
-                            'delay' => '0.6s',
-                        ],
-                        [
-                            'icon' => 'project-diagram',
-                            'count' => 500,
-                            'suffix' => '',
-                            'label' => 'Projets réalisés avec succès',
-                            'delay' => '0.2s',
-                        ],
-                        [
-                            'icon' => 'history',
-                            'count' => 300,
-                            'suffix' => '',
-                            'label' => 'Références',
-                            'delay' => '0.4s',
-                        ],
-                        [
-                            'icon' => 'users',
-                            'count' => 100,
-                            'suffix' => '',
-                            'label' => 'Nombre de salariés mobilisés',
-                            'delay' => '0.6s',
-                        ],
-                    ];
-                @endphp
-
-                @foreach ($stats as $stat)
-                    <div class="col-md-4 col-lg-2-4 stats-item-container wow fadeInUp" data-wow-delay="{{ $stat['delay'] }}">
+            <div class="row g-4">
+                @php $delay = 0.2; @endphp
+                @foreach($chiffres as $chiffre)
+                    <div class="col-md-4 col-lg-2-4 stats-item-container wow fadeInUp" data-wow-delay="{{ number_format($delay, 1) }}s">
                         <div class="stats-item">
-                            <i class="fas fa-{{ $stat['icon'] }} text-orange"></i>
-                            <h3 data-count="{{ $stat['count'] }}">0{{ $stat['suffix'] ? '+' . $stat['suffix'] : '+' }}</h3>
-                            <p>{{ $stat['label'] }}</p>
+                            <i class="fas fa-{{ $chiffre->icon }} text-orange"></i>
+                            <h3 data-count="{{ preg_replace('/\D/', '', $chiffre->value) }}">0{{ preg_replace('/[0-9]/', '', $chiffre->value) ?: '+' }}</h3>
+                            <p>{{ $chiffre->label }}</p>
                         </div>
                     </div>
+                    @php $delay += 0.2; @endphp
                 @endforeach
             </div>
-        </div>
-    </div>
-    <!-- Fin Chiffres Clés Section -->
+            
 
     <!-- Styles CSS -->
     <style>
