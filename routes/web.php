@@ -16,6 +16,9 @@ use App\Http\Controllers\SpontaneousApplicationController;
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
+
+// Inclure les routes rh
+require __DIR__.'/rh.php';
 // Routes protégées pour l'administration
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');

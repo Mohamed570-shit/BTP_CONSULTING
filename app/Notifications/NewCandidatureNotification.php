@@ -25,9 +25,10 @@ class NewCandidatureNotification extends Notification
 {
     return [
         'candidature_id' => $this->candidature->id,
-        'nom' => $this->candidature->nom, // Make sure this is not null
-        'email' => $this->candidature->email,
+        'nom' => $this->candidature->nom ?? 'N/A', // Example of null check
+        'email' => $this->candidature->email ?? 'N/A',
+        'telephone' => $this->candidature->telephone ?? 'N/A', // Ensure telephone is not null
         'created_at' => $this->candidature->created_at,
     ];
 }
-    }
+}

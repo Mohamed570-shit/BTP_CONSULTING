@@ -5,8 +5,24 @@ use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
 
-Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
+    // Route::middleware(['auth', 'role:admin'])->group(function () {
+    //     Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    //     Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    //     Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    //     Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+
+    // Route::middleware(['auth', 'role:admin'])->group(function () {
+    //     // User management routes
+    //     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    //     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    //     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    //     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    //     Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+
 
     // Gestion des utilisateurs
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
@@ -28,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Projets
     Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');
-    
+
     Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
     Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
@@ -36,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('admin.projects.edit');
     Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
-   
+
     // route pour images des projets
     Route::get('/project-image/{filename}', function ($filename) {
         $path = storage_path('app/public/projets/' . $filename);
@@ -49,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
         return response($file, 200)->header("Content-Type", $type);
     });
        // les routes pour projets recents
-       
+
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
 
@@ -67,6 +83,5 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Khlli hadchi:
-    
-});
 
+});

@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +11,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id(); // Utiliser `id()` pour une clé primaire auto-incrémentée
             $table->string('type');
-            $table->morphs('notifiable');
+            $table->morphs('notifiable'); // Les colonnes notifiable_id et notifiable_type
             $table->text('data');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
