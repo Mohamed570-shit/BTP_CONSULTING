@@ -84,9 +84,14 @@
                 </div>
 
                 <!-- Section image -->
+            
                 <div class="col-lg-4 wow fadeInRight text-center" data-wow-delay="0.4s">
                     <div class="director-image">
-                        <img src="{{ route('motdg.image', basename($motdg->image)) }}" class="img-fluid director-img-circle shadow-lg" alt="Directeur Général de BTP Consulting">
+                        @if(isset($motdg) && $motdg && isset($motdg->image))
+                            <img src="{{ route('motdg.image', basename($motdg->image)) }}" class="img-fluid director-img-circle shadow-lg" alt="Directeur Général de BTP Consulting">
+                        @else
+                            <img src="{{ asset('images/default-director.jpg') }}" class="img-fluid director-img-circle shadow-lg" alt="Directeur Général de BTP Consulting">
+                        @endif
                     </div>
                 </div>
             </div>

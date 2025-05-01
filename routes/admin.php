@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
+use App\Http\Controllers\Admin\UserController; // Add this import
 
     Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

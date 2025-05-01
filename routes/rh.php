@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RHController;
+use App\Http\Controllers\Admin\UserController; // Add this import
 
 // Routes pour le rôle RH
 Route::middleware(['auth', 'role:rh'])->prefix('rh')->group(function () {

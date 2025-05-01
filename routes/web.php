@@ -1,19 +1,30 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\OffreController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
-
-use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\SpontaneousApplicationController;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
+
+Route::get('/test-email', function() {
+    $name = "BTP_CONSULTING";
+    Mail::to('ahaddouchhajar8@gmail.com')->send(new ContactMail($name));
+});
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+
 
 // Inclure les routes admin
 require __DIR__.'/admin.php';
@@ -66,19 +77,19 @@ Route::get('/', function () {
 // Routes pour "Qui sommes-nous"
 // ... existing code ...
 Route::prefix('qui-sommes-nous')->group(function () {
-    
+
 
     // Add this dynamic route:
     Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
     Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
-    
+
     Route::get('/directeur', [QuiSommesNousController::class, 'directeurPublic'])->name('mot-directeur');
     Route::get('/motdg/image/{filename}', [QuiSommesNousController::class, 'showMotdgImage'])->name('motdg.image');
 
     Route::get('/valeurs', [QuiSommesNousController::class, 'valeursPublic'])->name('nos-valeurs');
-    
+
     Route::get('/qui-sommes-nous/chiffres-cles', [QuiSommesNousController::class, 'chiffresPublic'])->name('chiffres-cles');
- 
+
     Route::get('/certifications', function () {
         return view('pages.qui-sommes-nous.certifications');
     })->name('certifications');
