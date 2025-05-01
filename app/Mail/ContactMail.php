@@ -1,10 +1,7 @@
 <?php
 namespace App\Mail;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactMail extends Mailable
@@ -21,28 +18,15 @@ class ContactMail extends Mailable
         $this->messageContent = $messageContent;
     }
 
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Nouvelle demande de contact',
-        );
-    }
-
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mail.test-email',
-            with: [
-                'name' => $this->name,
-                'email' => $this->email,
-                'subject' => $this->subject,
-                'messageContent' => $this->messageContent,
-            ],
-        );
-    }
-
-    public function attachments(): array
-    {
-        return [];
+        return $this->subject("Message: $this->subject")
+                    ->view('mail.test-email')
+                    ->with([
+                        'name' => $this->name,
+                        'email' => $this->email,
+                        'subject' => $this->subject,
+                        'messageContent' => $this->messageContent,
+                    ]);
     }
 }
