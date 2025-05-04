@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
 use App\Http\Controllers\Admin\UserController; // Add this import
@@ -90,8 +91,23 @@ use App\Http\Controllers\Admin\UserController; // Add this import
 
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
+// ... existing code ...
 
-    // Offres d'emploi
+// Départements
+Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
+Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
+Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('admin.departments.update');
+Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
+
+// Cartes Département
+Route::post('/cart-departements', [DepartmentController::class, 'storeCart'])->name('admin.cartdepartements.store');
+Route::put('/cart-departements/{id}', [DepartmentController::class, 'updateCart'])->name('admin.cartdepartements.update');
+Route::delete('/cart-departements/{id}', [DepartmentController::class, 'destroyCart'])->name('admin.cartdepartements.destroy');
+// ... existing code ...
+Route::get('/cart-image/{filename}', [App\Http\Controllers\AdminController::class, 'showCartImage'])->name('admin.cart.image');
+// ... existing code ...
+
+// Offres d'emploi
     Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs');
     Route::get('/jobs/create', [JobController::class, 'create'])->name('admin.jobs.create');
     Route::post('/jobs', [JobController::class, 'store'])->name('admin.jobs.store');

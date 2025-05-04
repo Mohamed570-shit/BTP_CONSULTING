@@ -9,7 +9,7 @@ class CartDepartement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['departement_id', 'title', 'icon','subtitle', 'description', 'image'];
+    protected $fillable = ['departement_id', 'title', 'icon', 'description', 'image'];
 
     public function departement()
     {

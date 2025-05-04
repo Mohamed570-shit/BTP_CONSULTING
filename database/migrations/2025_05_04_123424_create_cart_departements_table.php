@@ -15,7 +15,6 @@ return new class extends Migration
         $table->id();
         $table->unsignedBigInteger('departement_id');
         $table->string('title');
-        $table->string('subtitle');
         $table->string('icon')->nullable();
         $table->text('description')->nullable();
         $table->string('image')->nullable();

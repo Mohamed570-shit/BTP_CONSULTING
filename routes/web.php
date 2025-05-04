@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\QuiSommesNousController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\Auth\LoginController;
-
-use App\Http\Controllers\CandidatureController;
-use App\Http\Controllers\OffreController;
-use App\Http\Controllers\ProfileController;
-
-
-
-use App\Http\Controllers\Front\DomainFrontController;
-
-
-use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\SpontaneousApplicationController;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OffreController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\JobController;
+
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CandidatureController;
+
+
+
+use App\Http\Controllers\Admin\ProjectController;
+
+
+use App\Http\Controllers\ProjetRecentsController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\DepartementFrontController;
+use App\Http\Controllers\Front\DomainFrontController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
+use App\Http\Controllers\SpontaneousApplicationController;
 
 Route::get('/test-email', function() {
     $name = "BTP_CONSULTING";
@@ -247,6 +248,11 @@ Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'do
 Route::get('/domaines/{id}', [DomainFrontController::class, 'show'])->name('Front.domain.show');
 Route::get('/domaines/image/{filename}', [App\Http\Controllers\Front\DomainFrontController::class, 'showDomainImage'])->name('front.domain.image');
 
+// ... existing code ...
+
+
+Route::get('/departement/{id}', [DepartementFrontController::class, 'show'])->name('front.departement.show');
+// ... existing code ...
 
 //hada code li zidt db ana :
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
