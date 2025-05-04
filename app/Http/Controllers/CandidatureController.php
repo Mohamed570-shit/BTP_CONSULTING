@@ -56,7 +56,7 @@ class CandidatureController extends Controller
         // Now send the notification with the saved candidature
         $admins = User::where('role', 'admin')->get();
         foreach ($admins as $admin) {
-            $admin->notify(new \App\Notifications\NewCandidatureNotification($candidature));
+            $admin->notify(new NewCandidatureNotification($candidature));
         }
 
         return redirect()->back()->with('success', 'Votre candidature a été envoyée avec succès.');

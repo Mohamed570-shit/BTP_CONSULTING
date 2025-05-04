@@ -130,68 +130,16 @@
     <a href="#" class="nav-link" data-bs-toggle="dropdown">
         <span class="dropdown-toggle">NOS DOMAINES DE COMPÉTENCE</span>
     </a>
-
     <div class="dropdown-menu custom-dropdown m-6 p-lg-10">
         <div class="dropdown-container">
             <div class="dropdown-column">
                 <p style="color: #007bff;">Domaines de compétences</p>
-                <a href="hydraulique-urbaine.html" class="dropdown-item">
-                    <i class="fas fa-tint icon"></i> Hydraulique urbaine
-                </a>
-                <a href="ouvrages-art.html" class="dropdown-item">
-                    <i class="fas fa-archway icon"></i> Ouvrages d’art
-                </a>
-                <a href="travaux-maritimes-fluviaux.html" class="dropdown-item">
-                    <i class="fas fa-ship icon"></i> Travaux maritimes et fluviaux
-                </a>
-                <a href="etudes-agricoles.html" class="dropdown-item">
-                    <i class="fas fa-seedling icon"></i> Etudes agricoles
-                </a>
-                <a href="etudes-generales.html" class="dropdown-item">
-                    <i class="fas fa-book icon"></i> Etudes générales
-                </a>
-                <a href="courant-fort-faible.html" class="dropdown-item">
-                    <i class="fas fa-plug icon"></i> Courant fort et courant faible
-                </a>
-                <a href="voirie-reseaux-assainissement.html" class="dropdown-item">
-                    <i class="fas fa-road icon"></i> Voirie, réseaux d’assainissement et eau potable
-                </a>
-                <a href="etudes-impact-environnement.html" class="dropdown-item">
-                    <i class="fas fa-leaf icon"></i> Etudes d’impact sur l’environnement
-                </a>
+                @foreach($domaines as $domaine)
+                    <a href="{{ route('Front.domain.show', $domaine->id) }}" class="dropdown-item">
+                        <i class="{{ $domaine->icon ?? 'fas fa-cube' }} icon"></i> {{ $domaine->title }}
+                    </a>
+                @endforeach
             </div>
-
-            <div class="dropdown-column">
-                <a href="routes-autoroutes-transport.html" class="dropdown-item">
-                    <i class="fas fa-road icon"></i> Routes, autoroutes, transport
-                </a>
-                <a href="barrages.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i> Barrages
-                </a>
-                <a href="barrages.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i>  Ordonnancement, Pilotage et Coordination
-                </a>
-
-                <a href="genie-defense.html" class="dropdown-item">
-                    <i class="fas fa-shield-alt icon"></i> Travaux du génie de défense
-                </a>
-                <a href="industrie-energie.html" class="dropdown-item">
-                    <i class="fas fa-bolt icon"></i> Industrie et énergie
-                </a>
-                <a href="calcul-structures-batiments.html" class="dropdown-item">
-                    <i class="fas fa-building icon"></i> Calcul de structures pour bâtiments
-                </a>
-                <a href="reseaux-fluides-batiments.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i> Réseaux des fluides pour bâtiments
-                </a>
-                <a href="reseau-electricite-telephonique.html" class="dropdown-item">
-                    <i class="fas fa-broadcast-tower icon"></i> Réseau d’électricité et téléphoniques
-                </a>
-                <a href="geologie-geophysique-hydrogie.html" class="dropdown-item">
-                    <i class="fas fa-mountain icon"></i> Géologie, géophysique, hydrogéologie
-                </a>
-            </div>
-
             <div>
                 <h4 style="color: #333;">Prestations</h4>
                 <p>BTP Consulting assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>

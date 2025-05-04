@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CandidatureController;
 
+use App\Http\Controllers\Front\DomainFrontController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProjetRecentsController;
 use App\Http\Controllers\AdminDashboardController;
@@ -223,6 +224,9 @@ Route::delete('/projects/{projet}', [ProjectController::class, 'destroy']);
 Route::get('/admin/spontaneous-applications', [SpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
 Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'downloadCv'])->name('admin.cv.download');
 
+// les domaines front
+Route::get('/domaines/{id}', [DomainFrontController::class, 'show'])->name('Front.domain.show');
+Route::get('/domaines/image/{filename}', [App\Http\Controllers\Front\DomainFrontController::class, 'showDomainImage'])->name('front.domain.image');
 
 
 //hada code li zidt db ana :
@@ -231,3 +235,4 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/candidatures/{id}', [CandidatureController::class, 'destroy'])->name('candidatures.destroy');
     Route::get('/candidatures/export', [CandidatureController::class, 'export'])->name('candidatures.export');
 });
+
