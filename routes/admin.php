@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
@@ -39,9 +40,29 @@ use App\Http\Controllers\Admin\UserController; // Add this import
     Route::get('/admin/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
 
 
+    
+    
+    
+        // Nos domaines
+        Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
+        Route::post('/domaines', [DomaineController::class, 'store'])->name('admin.domaines.store');
+        Route::put('/domaines/{id}', [DomaineController::class, 'update'])->name('admin.domaines.update');
+        Route::delete('/domaines/{id}', [DomaineController::class, 'destroy'])->name('admin.domaines.destroy');
 
-    // Nos domaines
-    Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
+        Route::post('/cartes', [DomaineController::class, 'storeCarte'])->name('admin.cartes.store');
+        Route::put('/cartes/{id}', [DomaineController::class, 'updateCarte'])->name('admin.cartes.update');
+        Route::delete('/cartes/{id}', [DomaineController::class, 'destroyCarte'])->name('admin.cartes.destroy');
+
+        Route::post('/images', [DomaineController::class, 'storeImage'])->name('admin.images.store');
+        Route::put('/images/{id}', [DomaineController::class, 'updateImage'])->name('admin.images.update');
+        Route::delete('/images/{id}', [DomaineController::class, 'destroyImage'])->name('admin.images.destroy');
+
+        Route::get('/domain-image/{filename}', [AdminController::class, 'showDomainImage'])->name('admin.domain.image');
+
+
+
+
+   
 
     // Projets
     Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');

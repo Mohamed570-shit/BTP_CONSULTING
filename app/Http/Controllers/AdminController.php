@@ -7,6 +7,7 @@ use App\Models\Motdg;
 use App\Models\Valeur;
 use App\Models\Apropos;
 use App\Models\Chiffre;
+use App\Models\Domaine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -78,10 +79,24 @@ class AdminController extends Controller
             return response($file, 200)->header('Content-Type', $type);
         }
 
-    public function domains()
-    {
-        return view('admin.domains');
-    }
+   
+        // les domaine
+        public function domains()
+        {
+            $domaines = Domaine::with(['cartes', 'images'])->get();
+            return view('admin.domains', compact('domaines'));
+        }
+        public function showDomainImage($filename)
+        {
+            $path = 'domaines/' . $filename;
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+            return response($file, 200)->header('Content-Type', $type);
+        }
+
 
     public function projects()
     {
