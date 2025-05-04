@@ -6,9 +6,26 @@ use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
+use App\Http\Controllers\Admin\UserController; // Add this import
 
-Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
+    // Route::middleware(['auth', 'role:admin'])->group(function () {
+    //     Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    //     Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    //     Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    //     Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+
+    // Route::middleware(['auth', 'role:admin'])->group(function () {
+    //     // User management routes
+    //     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    //     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    //     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    //     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    //     Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+
 
     // Gestion des utilisateurs
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
@@ -22,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/admin/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
 
+<<<<<<< HEAD
     
     
     
@@ -41,10 +59,16 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/domain-image/{filename}', [AdminController::class, 'showDomainImage'])->name('admin.domain.image');
 
+=======
+
+
+    // Nos domaines
+    Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
+>>>>>>> 87de13e6900bb7a90bf716f87f3c8727350396bf
 
     // Projets
     Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');
-    
+
     Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
     Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
@@ -52,7 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('admin.projects.edit');
     Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
-   
+
     // route pour images des projets
     Route::get('/project-image/{filename}', function ($filename) {
         $path = storage_path('app/public/projets/' . $filename);
@@ -65,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
         return response($file, 200)->header("Content-Type", $type);
     });
        // les routes pour projets recents
-       
+
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
 
@@ -87,10 +111,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/apropos-image/{filename}', [AdminController::class, 'showAproposImage'])->name('apropos.image');
         Route::put('/admin/apropos/update', [QuiSommesNousController::class, 'update'])->name('admin.apropos.update');
 
+
+    // Khlli hadchi:
+
         //mot directeur général
         Route::put('/motdg/update', [QuiSommesNousController::class, 'updateMotdg'])->name('admin.motdg.update');
         Route::get('/motdg-image/{filename}', [AdminController::class, 'showMotdgImage'])->name('motdg.image');
-        
+
         // valeurs
         Route::post('/valeurs/store', [QuiSommesNousController::class, 'storeValeur'])->name('admin.valeurs.store');
         Route::delete('/valeurs/{id}', [QuiSommesNousController::class, 'destroyValeur'])->name('admin.valeurs.destroy');
@@ -100,6 +127,5 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/chiffres/store', [QuiSommesNousController::class, 'storeChiffre'])->name('admin.chiffres.store');
         Route::put('/chiffres/{id}', [QuiSommesNousController::class, 'updateChiffre'])->name('admin.chiffres.update');
         Route::delete('/chiffres/{id}', [QuiSommesNousController::class, 'destroyChiffre'])->name('admin.chiffres.destroy');
-        
-});
 
+});

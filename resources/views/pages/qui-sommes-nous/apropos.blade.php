@@ -62,7 +62,11 @@
                 <!-- Section Image -->
                 <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
                     <div class="bg-light rounded position-relative overflow-hidden shadow-sm">
-                        <img src="{{ route('apropos.image', basename($apropos->image)) }}" class="img-fluid rounded w-100" alt="À propos de BTP Consulting">
+                        @if(isset($apropos) && $apropos && isset($apropos->image))
+                            <img src="{{ route('apropos.image', basename($apropos->image)) }}" class="img-fluid rounded w-100" alt="À propos de BTP Consulting">
+                        @else
+                            <img src="{{ asset('images/default-about.jpg') }}" class="img-fluid rounded w-100" alt="À propos de BTP Consulting">
+                        @endif
                     </div>
                 </div>
             </div>

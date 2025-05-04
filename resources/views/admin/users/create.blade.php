@@ -37,10 +37,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="role" class="form-label">Rôle</label>
-                    <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
+                    {{-- <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                         <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Utilisateur</option>
-                    </select>
+                    </select> --}}
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="rh" {{ old('role') == 'rh' ? 'selected' : '' }}>RH</option>
+                        <option value="assistant" {{ old('role') == 'assistant' ? 'selected' : '' }}>Assistant</option>
+                        </select>
+
                     @error('role')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

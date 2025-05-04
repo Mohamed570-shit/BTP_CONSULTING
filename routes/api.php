@@ -1,3 +1,3 @@
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('pages', 'App\Http\Controllers\Api\PageController');
+Route::apiResource('pages', 'App\Http\Controllers\Api\PageController');
 });

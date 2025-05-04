@@ -44,34 +44,60 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+//     public function store(Request $request)
+// {
+//     try {
+//         $validated = $request->validate([
+//             'name' => 'required|string|max:255',
+//             'email' => 'required|string|email|max:255|unique:users',
+//             'password' => 'required|string|min:8|confirmed',
+//             'role' => 'required|string|in:admin,user',
+//             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+//         ]);
+//     } catch (ValidationException $e) {
+//         dd($e->errors()); // هنا غادي نشوفو واش الخطأ ف 'role'
+//     }
+
+//     $user = new User();
+//     $user->name = $validated['name'];
+//     $user->email = $validated['email'];
+//     $user->password = bcrypt($validated['password']);
+//     $user->role = $validated['role'];
+
+//     if ($request->hasFile('profile_image')) {
+//         $path = $request->file('profile_image')->store('profiles', 'public');
+//         $user->profile_image = $path;
+//     }
+
+//     $user->save();
+
+//     return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès !');
+// }
+public function store(Request $request)
 {
-    try {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:admin,user',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-    } catch (ValidationException $e) {
-        dd($e->errors()); // هنا غادي نشوفو واش الخطأ ف 'role'
-    }
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|confirmed|min:8',
+        'role' => 'required|in:admin,rh,assistant',
+    ]);
 
-    $user = new User();
-    $user->name = $validated['name'];
-    $user->email = $validated['email'];
-    $user->password = bcrypt($validated['password']);
-    $user->role = $validated['role'];
+    $userData = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role' => $request->role,
+    ];
 
+    // Only add profile_image if a file was uploaded
     if ($request->hasFile('profile_image')) {
-        $path = $request->file('profile_image')->store('profiles', 'public');
-        $user->profile_image = $path;
+        $userData['profile_image'] = $request->file('profile_image')->store('profile_images', 'public');
     }
 
-    $user->save();
+    // Create the user
+    User::create($userData);
 
-    return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès !');
+    return redirect()->route('admin.users.index')->with('success', 'Utilisateur ajouté avec succès');
 }
     /**
      * Affiche le formulaire pour modifier un utilisateur.
@@ -92,38 +118,80 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
+    // public function update(Request $request, $id)
+    // {
+    //     $user = User::findOrFail($id);
+
+    //     $validated = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+    //         'password' => 'nullable|string|min:8|confirmed',
+    //         'role' => 'required|string|in:admin,user',
+    //         'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $user->name = $validated['name'];
+    //     $user->email = $validated['email'];
+    //     $user->role = $validated['role'];
+
+    //     if ($request->filled('password')) {
+    //         $user->password = bcrypt($validated['password']);
+    //     }
+
+    //     if ($request->hasFile('profile_image')) {
+    //         if ($user->profile_image) {
+    //             Storage::delete('public/' . $user->profile_image);
+    //         }
+    //         $path = $request->file('profile_image')->store('profiles', 'public');
+    //         $user->profile_image = $path;
+    //     }
+
+    //     $user->save();
+
+    //     return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès !');
+    // }
+
     public function update(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|string|in:admin,user',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->role = $validated['role'];
-
-        if ($request->filled('password')) {
-            $user->password = bcrypt($validated['password']);
-        }
-
-        if ($request->hasFile('profile_image')) {
-            if ($user->profile_image) {
-                Storage::delete('public/' . $user->profile_image);
-            }
-            $path = $request->file('profile_image')->store('profiles', 'public');
-            $user->profile_image = $path;
-        }
-
-        $user->save();
-
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès !');
+{
+    // Vérification que l'utilisateur connecté est un admin
+    if (auth()->user()->role !== 'admin') {
+        return redirect()->route('admin.dashboard')->with('error', 'Vous n\'êtes pas autorisé à modifier des utilisateurs.');
     }
+
+    $user = User::findOrFail($id);
+
+    // Validation des données
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'password' => 'nullable|string|min:8|confirmed',
+        'role' => 'required|string|in:admin,rh,assistant', // Validation des rôles
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    // Mise à jour de l'utilisateur
+    $user->name = $validated['name'];
+    $user->email = $validated['email'];
+    $user->role = $validated['role'];
+
+    if ($request->filled('password')) {
+        $user->password = bcrypt($validated['password']);
+    }
+
+    // Mise à jour de l'image de profil
+    if ($request->hasFile('profile_image')) {
+        if ($user->profile_image) {
+            Storage::delete('public/' . $user->profile_image);
+        }
+        $path = $request->file('profile_image')->store('profiles', 'public');
+        $user->profile_image = $path;
+    }
+
+    $user->save();
+
+    return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès !');
+}
+
 
     /**
      * Supprime un utilisateur.

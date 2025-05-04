@@ -55,7 +55,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"><b>Changer la photo (logo ou autre)</b></label>
-                                <input type="file" class="form-control" name="image">           
+                                <input type="file" class="form-control" name="image">
                                 @if(!empty($apropos->image))
                                     <div class="text-center mt-2">
                                         <img src="{{ route('apropos.image', ['filename' => basename($apropos->image)]) }}" style="max-width:200px;">
@@ -126,7 +126,7 @@
                                 <i class="fas fa-plus"></i> Ajouter une valeur
                             </button>
                         </div>
-                        
+
                         <div class="row g-4">
                         @foreach($valeurs as $valeur)
                             <div class="col-md-6 col-lg-4">
@@ -205,7 +205,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Titre</label>
                                                 <input type="text" class="form-control" name="title" placeholder="Titre de la valeur" required>
-                                            </div>                
+                                            </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Description</label>
                                                 <textarea class="form-control" name="description" rows="3" placeholder="Description de la valeur" required></textarea>
@@ -319,7 +319,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div id="aboutSection-certifications" style="display:none;">
                         <p>Contenu de la section "Certifications".</p>
                     </div>

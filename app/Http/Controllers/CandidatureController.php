@@ -47,17 +47,30 @@ class CandidatureController extends Controller
         $candidature->save();
 
         // Save the candidature first!
-        $candidature = Candidature::create([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            // ... other fields ...
-        ]);
+        // Save the candidature first!
+$candidature = Candidature::create([
+    'nom' => $request->nom,
+    'email' => $request->email,
+    'telephone' => $request->telephone,  // Ensure telephone is included
+    'post' => $request->post,
+    'cv' => $cvPath,
+    'lettre_motivation' => $request->lettre_motivation,
+    'slug' => $slug
+]);
 
+<<<<<<< HEAD
         // Now send the notification with the saved candidature
         $admins = User::where('role', 'admin')->get();
         foreach ($admins as $admin) {
             $admin->notify(new NewCandidatureNotification($candidature));
         }
+=======
+// Now send the notification with the saved candidature
+$admins = User::where('role', 'admin')->get();
+foreach ($admins as $admin) {
+    $admin->notify(new \App\Notifications\NewCandidatureNotification($candidature));
+}
+>>>>>>> 87de13e6900bb7a90bf716f87f3c8727350396bf
 
         return redirect()->back()->with('success', 'Votre candidature a été envoyée avec succès.');
     }
