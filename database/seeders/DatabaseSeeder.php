@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProjetSeeder::class,
             SectionSeeder::class,
             SousSectionSeeder::class,
+             
         ]);
     }
 // ... existing code ...

@@ -201,40 +201,21 @@
 
 
 
+
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link " data-bs-toggle="dropdown">
-        <span class="dropdown-toggle">
-            <!-- <i class="fas fa-cogs me-2"></i> -->
-            NOTRE MANAGEMENT
-        </span>
+    <a href="#" class="nav-link" data-bs-toggle="dropdown">
+        <span class="dropdown-toggle">NOTRE MANAGEMENT</span>
     </a>
     <div class="dropdown-menu m-0">
-        <a href="{{ route('etudes-techniques') }}" class="dropdown-item">
-            <i class="fas fa-wrench me-2"></i> Département Études Techniques – BTP CONSULTING
-        </a>
-        <a href="{{  route('suivi-controle')}}" class="dropdown-item">
-            <i class="fas fa-cogs me-2"></i> Département Suivi & Contrôle des Travaux
-        </a>
-        <a href="{{ route('qualite-audit') }}" class="dropdown-item">
-            <i class="fas fa-check-square me-2"></i> Département Qualité & Audit Technique
-        </a>
-        <a href="{{ route('innovation-ia') }}" class="dropdown-item">
-            <i class="fas fa-leaf me-2"></i> Département Innovation & Transition Digitale
-        </a>
-        <a href="{{ route('commercial-marketing') }}" class="dropdown-item">
-            <i class="fas fa-building me-2"></i> Département Développement Commercial & Marketing
-        </a>
-        <a href="{{ route('rh-competences') }}" class="dropdown-item">
-            <i class="fas fa-users me-2"></i> Département Ressources Humaines & Gestion des Compétences
-        </a>
-        <a href="{{ route('financier-comptabilite') }}" class="dropdown-item">
-            <i class="fas fa-calculator me-2"></i> Département Financier & Comptabilité
-        </a>
-        <a href="{{ route('logistique-moyens') }}" class="dropdown-item">
-            <i class="fas fa-truck me-2"></i> Département Logistique & Moyens Généraux
-        </a>
+        @foreach($departements as $departement)
+            <a href="{{ route('front.departement.show', $departement->id) }}" class="dropdown-item">
+                <i class="{{ $departement->icon ?? 'fas fa-building' }} me-2"></i>
+                {{ $departement->title }}
+            </a>
+        @endforeach
     </div>
 </div>
+
 <style>/* Style pour le menu déroulant */
    /* Style pour le menu déroulant */
 .nav-item.dropdown {

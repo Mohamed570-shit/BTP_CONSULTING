@@ -8,6 +8,7 @@ use App\Models\Valeur;
 use App\Models\Apropos;
 use App\Models\Chiffre;
 use App\Models\Domaine;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -103,11 +104,24 @@ class AdminController extends Controller
         return view('admin.projects');
     }
 
-    public function departments()
-    {
-        return view('admin.departments');
-    }
-
+    
+        // les departements
+        public function departments()
+        {
+            $departements = Departement::with('cartDepartements')->get();
+            return view('admin.departments', compact('departements'));
+        }
+        public function showCartImage($filename)
+        {
+            $path = 'cart_images/' . $filename;
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+            return response($file, 200)->header('Content-Type', $type);
+        }
+        
     public function jobs()
     {
         return view('admin.jobs');
