@@ -39,7 +39,7 @@ use App\Http\Controllers\Admin\UserController; // Add this import
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/admin/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
 
-<<<<<<< HEAD
+
     
     
     
@@ -59,12 +59,10 @@ use App\Http\Controllers\Admin\UserController; // Add this import
 
         Route::get('/domain-image/{filename}', [AdminController::class, 'showDomainImage'])->name('admin.domain.image');
 
-=======
 
 
-    // Nos domaines
-    Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
->>>>>>> 87de13e6900bb7a90bf716f87f3c8727350396bf
+
+   
 
     // Projets
     Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');

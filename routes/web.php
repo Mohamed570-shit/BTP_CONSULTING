@@ -11,16 +11,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\OffreController;
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
+
+
 
 use App\Http\Controllers\Front\DomainFrontController;
-use App\Http\Controllers\Admin\ProjectController;
-=======
->>>>>>> 87de13e6900bb7a90bf716f87f3c8727350396bf
+
+
 use App\Http\Controllers\ProjetRecentsController;
 use App\Http\Controllers\SpontaneousApplicationController;
 use App\Mail\ContactMail;
