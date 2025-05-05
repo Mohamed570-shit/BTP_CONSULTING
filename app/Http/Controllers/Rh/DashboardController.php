@@ -9,4 +9,5 @@ class DashboardController extends Controller
     {
         return view('rh.dashboard'); // cré cette vue
     }
+    
 }

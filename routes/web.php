@@ -23,19 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::middleware(['auth', 'role:rh'])->prefix('rh')->group(function () {
-//     Route::get('/dashboard', [RHController::class, 'index'])->name('rh.dashboard');
-
-// });
-// ... existing code ...
-// Route::middleware(['auth', 'role:assistant'])->prefix('assistant')->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('assistant.dashboard');
-//     })->name('assistant.dashboard');
-//     // زيد باقي صفحات assistant هنا
-// });
-// ... existing code ...
-
 Route::get('/test-email', function() {
     $name = "BTP_CONSULTING";
     Mail::to('ahaddouchhajar8@gmail.com')->send(new ContactMail($name));
@@ -56,8 +43,35 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/rh/dashboard', [DashboardController::class, 'index'])->name('rh.dashboard');
 });
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/assistant/dashboard', [AssistantDashboardController::class, 'index'])->name('assistant.dashboard');
+
+    Route::get('/assistant/profile', [ProfileController::class, 'show'])->name('assistant.profile');
+    Route::put('/assistant/profile', [ProfileController::class, 'update'])->name('assistant.profile.update');
+    Route::get('/projects', [AssistantDashboardController::class, 'projects'])->name('assistant.projects');
+
+    Route::get('/assistant/projects', [ProjectController::class, 'index'])->name('assistant.projects');
+    Route::get('/assistant/projects/create', [ProjectController::class, 'create'])->name('assistant.projects.create');
+    Route::post('/assistant/projects', [ProjectController::class, 'store'])->name('assistant.projects.store');
+    Route::get('/assistant/projects/{id}', [ProjectController::class, 'show'])->name('assistant.projects.show');
+    Route::get('/assistant/projects/{id}/edit', [ProjectController::class, 'edit'])->name('assistant.projects.edit');
+    Route::put('/assistant/projects/{id}', [ProjectController::class, 'update'])->name('assistant.projects.update');
+    Route::delete('/assistant/projects/{id}', [ProjectController::class, 'destroy'])->name('assistant.projects.destroy');
+
+    // route pour images des projets
+    Route::get('/assistant/project-image/{filename}', function ($filename) {
+        $path = storage_path('app/public/projets/' . $filename);
+
+        if (!\Illuminate\Support\Facades\File::exists($path)) {
+            abort(404);
+        }
+        $file = \Illuminate\Support\Facades\File::get($path);
+        $type = \Illuminate\Support\Facades\File::mimeType($path);
+        return response($file, 200)->header("Content-Type", $type);
+    });
+
 });
 
 
