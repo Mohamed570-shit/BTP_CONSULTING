@@ -139,9 +139,9 @@ Route::prefix('realisations')->group(function () {
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
     Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
-/// ... existing code ...
-Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
-// ... existing code ...
+
+    Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
+
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
     Route::get('/etudes-techniques', function () {
@@ -252,7 +252,7 @@ Route::get('/domaines/image/{filename}', [App\Http\Controllers\Front\DomainFront
 
 
 Route::get('/departement/{id}', [DepartementFrontController::class, 'show'])->name('front.departement.show');
-// ... existing code ...
+
 
 //hada code li zidt db ana :
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {

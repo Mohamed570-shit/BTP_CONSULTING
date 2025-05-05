@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Departement;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ProjetSeeder::class,
             SectionSeeder::class,
             SousSectionSeeder::class,
+            DepartementSeeder::class,
+            CartDepartementSeeder::class,
              
         ]);
     }

@@ -151,11 +151,12 @@
 
             <!-- Services Grid -->
             <div class="row g-4">
+            
                 @foreach ($departement->cartDepartements as $card)
                     <div class="col-lg-4 col-md-6">
                         <div class="card-etudes h-100">
                             @if($card->image)
-                                <img src="{{ asset('storage/'.$card->image) }}" class="card-img-top" alt="{{ $card->title }}">
+                                <img src="{{ asset('storage/cart_images/'.$card->image) }}" class="card-img-top" alt="{{ $card->title }}">
                             @else
                                 <img src="https://via.placeholder.com/600x180?text=Image" class="card-img-top" alt="{{ $card->title }}">
                             @endif
@@ -173,6 +174,7 @@
                         </div>
                     </div>
                 @endforeach
+
             </div>
 
             <!-- Call to Action -->
