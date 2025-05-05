@@ -52,7 +52,11 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->role ?? 'Non défini' }}</td>
+
+                                    <td>
+                                        {{ $user->role ?? 'Non défini' }}
+                                    </td>
+
                                     <td>
                                         @if ($user->profile_image)
                                             <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Photo" class="rounded-circle" width="40">

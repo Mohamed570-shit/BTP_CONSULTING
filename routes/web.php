@@ -1,29 +1,40 @@
 <?php
-
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Assistant\AssistantDashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DepartementFrontController;
+use App\Http\Controllers\Front\DomainFrontController;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetRecentsController;
+use App\Http\Controllers\Rh\DashboardController;
+// use App\Http\Controllers\RHController;
+use App\Http\Controllers\SpontaneousApplicationController;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OffreController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\JobController;
-
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
 
 
 
-use App\Http\Controllers\Admin\ProjectController;
+// Route::middleware(['auth', 'role:rh'])->prefix('rh')->group(function () {
+//     Route::get('/dashboard', [RHController::class, 'index'])->name('rh.dashboard');
 
-
-use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\DepartementFrontController;
-use App\Http\Controllers\Front\DomainFrontController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\QuiSommesNousController;
-use App\Http\Controllers\SpontaneousApplicationController;
+// });
+// ... existing code ...
+// Route::middleware(['auth', 'role:assistant'])->prefix('assistant')->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('assistant.dashboard');
+//     })->name('assistant.dashboard');
+//     // زيد باقي صفحات assistant هنا
+// });
+// ... existing code ...
 
 Route::get('/test-email', function() {
     $name = "BTP_CONSULTING";
@@ -36,12 +47,21 @@ Route::post('/contact/submit', [ContactController::class, 'submit'])->name('cont
 // Inclure les routes admin
 require __DIR__.'/admin.php';
 
-// Inclure les routes rh
-require __DIR__.'/rh.php';
+// // Inclure les routes rh
+// require __DIR__.'/rh.php';
 // Routes protégées pour l'administration
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/rh/dashboard', [DashboardController::class, 'index'])->name('rh.dashboard');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/assistant/dashboard', [AssistantDashboardController::class, 'index'])->name('assistant.dashboard');
+});
+
+
+
 
 // Routes d'authentification
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -82,13 +102,12 @@ Route::get('/', function () {
 
 
 // Routes pour "Qui sommes-nous"
-// ... existing code ...
 Route::prefix('qui-sommes-nous')->group(function () {
 
 
-    // Add this dynamic route:
-    Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
-    Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
+// Add this dynamic route:
+Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
+Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
 
     Route::get('/directeur', [QuiSommesNousController::class, 'directeurPublic'])->name('mot-directeur');
     Route::get('/motdg/image/{filename}', [QuiSommesNousController::class, 'showMotdgImage'])->name('motdg.image');
@@ -131,17 +150,15 @@ Route::prefix('realisations')->group(function () {
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
 
-
-
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-
 
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
     Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
-/// ... existing code ...
+
+
 Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
-// ... existing code ...
+
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
     Route::get('/etudes-techniques', function () {
@@ -260,4 +277,3 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/candidatures/{id}', [CandidatureController::class, 'destroy'])->name('candidatures.destroy');
     Route::get('/candidatures/export', [CandidatureController::class, 'export'])->name('candidatures.export');
 });
-

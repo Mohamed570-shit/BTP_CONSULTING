@@ -10,11 +10,9 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Montserrat', sans-serif;
         }
-
         /* Header Styling */
         .header-marketing {
             background: linear-gradient(45deg, #b71c1c, #d32f2f);
