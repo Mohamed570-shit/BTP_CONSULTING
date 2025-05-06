@@ -2,11 +2,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
 use App\Http\Controllers\Admin\SpontaneousApplicationController;
+use App\Http\Controllers\Assistant\AssistantDashboardController;
 use App\Http\Controllers\Admin\UserController; // Add this import
 
     Route::middleware(['auth'])->group(function () {
@@ -103,9 +104,8 @@ Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->na
 Route::post('/cart-departements', [DepartmentController::class, 'storeCart'])->name('admin.cartdepartements.store');
 Route::put('/cart-departements/{id}', [DepartmentController::class, 'updateCart'])->name('admin.cartdepartements.update');
 Route::delete('/cart-departements/{id}', [DepartmentController::class, 'destroyCart'])->name('admin.cartdepartements.destroy');
-// ... existing code ...
 Route::get('/cart-image/{filename}', [App\Http\Controllers\AdminController::class, 'showCartImage'])->name('admin.cart.image');
-// ... existing code ...
+
 
 // Offres d'emploi
     Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs');
@@ -152,9 +152,7 @@ Route::post('/politiques', [QuiSommesNousController::class, 'storePolitique'])->
 Route::put('/politiques/{id}', [QuiSommesNousController::class, 'updatePolitique'])->name('admin.politiques.update');
 Route::delete('/politiques/{id}', [QuiSommesNousController::class, 'destroyPolitique'])->name('admin.politiques.destroy');
 Route::get('/politique-image/{filename}', [AdminController::class, 'politiqueImage'])->name('admin.politique.image');
-// ... existing code ...
 
-// ... existing code ...
 
 
 // Organigramme CRUD
@@ -162,5 +160,19 @@ Route::post('/organigramme', [QuiSommesNousController::class, 'storeOrganigramme
 Route::put('/organigramme/{id}', [QuiSommesNousController::class, 'updateOrganigramme'])->name('admin.organigramme.update');
 Route::delete('/organigramme/{id}', [QuiSommesNousController::class, 'destroyOrganigramme'])->name('admin.organigramme.destroy');
 Route::get('/organigramme-image/{filename}', [AdminController::class, 'organigrammeImage'])->name('admin.organigramme.image');
-// ... existing code ...
+
+
+
+
+
+// Assistance Projects Routes
+Route::prefix('assistant')->middleware(['auth'])->group(function () {
+    Route::get('/projects', [AssistantDashboardController::class, 'index'])->name('assistant.projects');
+    Route::get('/projects/create', [AssistantDashboardController::class, 'create'])->name('assistant.projects.create');
+    Route::post('/projects', [AssistantDashboardController::class, 'store'])->name('assistant.projects.store');
+    Route::get('/projects/{id}', [AssistantDashboardController::class, 'show'])->name('assistant.projects.show');
+    Route::get('/projects/{id}/edit', [AssistantDashboardController::class, 'edit'])->name('assistant.projects.edit');
+    Route::put('/projects/{id}', [AssistantDashboardController::class, 'update'])->name('assistant.projects.update');
+    Route::delete('/projects/{id}', [AssistantDashboardController::class, 'destroy'])->name('assistant.projects.destroy');
+});
 });

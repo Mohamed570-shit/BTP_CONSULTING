@@ -142,7 +142,7 @@ class AdminController extends Controller
     {
         return view('admin.jobs');
     }
-
+    //users
     public function createUser()
     {
         return view('admin.users.create');

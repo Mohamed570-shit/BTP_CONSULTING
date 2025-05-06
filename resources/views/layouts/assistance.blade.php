@@ -1,250 +1,100 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>@yield('title', 'Assistance Layout')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>@yield('title') - BTP Consulting assistant</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-    <!-- Icon Fonts -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- External Libraries CSS -->
-    <link rel="stylesheet" href="{{ asset('asset/lib/animate/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset/lib/lightbox/css/lightbox.min.css') }}">
-
-    <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
-
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #FF6F0F;
-            --secondary-color: #FFFFFF;
-            --text-color: #333333;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+        body { background: #f7f7f7; }
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 20px 0;
         }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            overflow-x: hidden;
-            margin: 0;
-        }
-        .assistant-container {
+        .header-content {
             display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            position: fixed;
-            height: 100vh;
-            transition: margin-left 0.3s ease;
-            z-index: 1000;
-            box-shadow: 2px 0 5px var(--shadow-color);
-        }
-        .sidebar-header {
-            padding: 20px 15px;
-            background-color: rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-        .sidebar-header img {
-            max-width: 150px;
-            height: auto;
-        }
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0 0;
-        }
-        .sidebar-menu li {
-            margin-bottom: 5px;
-        }
-        .sidebar-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border-left: 4px solid var(--text-color);
-        }
-        .sidebar-menu i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-        .navbar-assistant {
-            background-color: var(--secondary-color);
-            box-shadow: 0 2px 5px var(--shadow-color);
-            padding: 15px 20px;
-            border-radius: 5px;
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .notification-area {
-            position: relative;
-        }
-        .notification-bell {
-            font-size: 20px;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
+        .projects-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 18px 32px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 12px;
+            gap: 16px;
         }
-        .navbar-assistant .logout-icon,
-        .navbar-assistant .profile-icon {
-            font-size: 20px;
-            color: var(--primary-color);
-            cursor: pointer;
-            text-decoration: none;
-            margin-left: 15px;
+        .projects-card .icon {
+            font-size: 2rem;
+            color: #ff6200;
         }
-        .assistant-footer {
-            background-color: var(--secondary-color);
-            padding: 15px 20px;
-            text-align: center;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 -2px 5px var(--shadow-color);
+        .projects-card .count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
         }
-        .toggle-sidebar {
-            display: none;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
+        .projects-card .label {
+            font-size: 1rem;
+            color: #666;
+        }
+        .profile-btn {
+            background: #ff6200;
+            color: #fff;
             border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
+            border-radius: 25px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        @media (max-width: 991.98px) {
-            .sidebar { margin-left: -250px; }
-            .sidebar.active { margin-left: 0; }
-            .main-content { margin-left: 0; }
-            .main-content.active { margin-left: 250px; }
-            .toggle-sidebar { display: block; }
+        .profile-btn:hover {
+            background: #e55a00;
         }
-        @media (max-width: 767.98px) {
-            .sidebar.active { width: 100%; }
-            .main-content.active { margin-left: 0; }
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 18px 0;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <div class="assistant-container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <img src="{{ asset('asset/img/logo-2.png') }}" alt="BTP Consulting" class="img-fluid">
+    <header>
+        <div class="header-content">
+            <div class="projects-card">
+                <span class="icon"><i class="fas fa-folder-open"></i></span>
+                <span class="count">12</span>
+                <span class="label">Total Projects</span>
             </div>
-            <ul class="sidebar-menu">
-                <li><a href="{{ route('assistant.dashboard') }}" class="{{ request()->routeIs('assistant.dashboard') ? 'active' : '' }}"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
-                <li><a href="{{ route('assistant.projects') }}" class="{{ request()->routeIs('assistant.projects*') ? 'active' : '' }}"><i class="fas fa-project-diagram"></i> Projets</a></li>
-            </ul>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content" id="main-content">
-        <header class="navbar-assistant">
-    <button class="toggle-sidebar" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
-    <h4 class="mb-0">@yield('title')</h4>
-    <div class="d-flex align-items-center">
-        <!-- User Name -->
-        <span class="me-2">{{ Auth::user()->name }}</span>
-        <!-- Profile Icon -->
-        <div class="me-3">
-            <a href="{{ route('assistant.profile') }}" class="profile-icon" title="Profil">
-                <i class="fas fa-user"></i>
-            </a>
+            <button class="profile-btn">
+                <i class="fas fa-user-circle"></i>
+                Profile
+            </button>
         </div>
+    </header>
 
-        <!-- Logout -->
-        <div class="me-3">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-icon">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+    <main>
+        <div class="container py-4">
+            @yield('content')
         </div>
-    </div>
-</header>
+    </main>
 
-            <section class="content-wrapper">
-                @yield('content')
-            </section>
-
-            <footer class="assistant-footer">
-                <p class="mb-0">© {{ date('Y') }} BTP Consulting. Tous droits réservés.</p>
-            </footer>
-        </main>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('asset/lib/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('asset/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('asset/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('asset/lib/counterup/counterup.min.js') }}"></script>
-    <script src="{{ asset('asset/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('asset/lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('asset/js/main.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            const $sidebar = $('#sidebar');
-            const $mainContent = $('#main-content');
-            $('#toggle-sidebar').on('click', function() {
-                $sidebar.toggleClass('active');
-                $mainContent.toggleClass('active');
-            });
-            $(document).on('click', function(e) {
-                if ($(window).width() < 992) {
-                    if (!$(e.target).closest('#sidebar, #toggle-sidebar').length) {
-                        $sidebar.removeClass('active');
-                        $mainContent.removeClass('active');
-                    }
-                }
-            });
-        });
-    </script>
-
-    <script src="{{ asset('asset/lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('asset/js/main.js') }}"></script>
-    <!-- ADD THIS LINE FOR AXIOS -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    @stack('scripts')
-</body>
+    <footer>
+        &copy; {{ date('Y') }} BTP Consulting. All rights reserved.
+    </footer>
+    <!-- Bootstrap JS (optional, for modals etc) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
