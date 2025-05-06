@@ -31,20 +31,41 @@ class DepartmentController extends Controller
         return back()->with('success', 'Département supprimé');
     }
 
+    
     // Ajouter carte
     public function storeCart(Request $request)
     {
-        CartDepartement::create($request->only(['departement_id', 'title', 'icon', 'description', 'image']));
+        $data = $request->only(['departement_id', 'title', 'icon', 'description']);
+
+        // Check if image is uploaded
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('cart_images', 'public');
+            $data['image'] = basename($imagePath);
+        }
+
+        CartDepartement::create($data);
         return back()->with('success', 'Carte ajoutée');
     }
+
+// ... existing code ...
 
     // Modifier carte
     public function updateCart(Request $request, $id)
     {
         $carte = CartDepartement::findOrFail($id);
-        $carte->update($request->only(['title', 'icon', 'description', 'image']));
+        $data = $request->only(['title', 'icon', 'description']);
+
+        // Check if image is uploaded
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('cart_images', 'public');
+            $data['image'] = basename($imagePath);
+        }
+
+        $carte->update($data);
         return back()->with('success', 'Carte modifiée');
     }
+
+// ... existing code ...
 
     // Supprimer carte
     public function destroyCart($id)

@@ -8,7 +8,9 @@ use App\Models\Valeur;
 use App\Models\Apropos;
 use App\Models\Chiffre;
 use App\Models\Domaine;
+use App\Models\Politique;
 use App\Models\Departement;
+use App\Models\Organigramme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +50,8 @@ class AdminController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+
+
         // quisommenous (admin)
         
         public function about()
@@ -56,31 +60,46 @@ class AdminController extends Controller
             $motdg = Motdg::first();
             $valeurs = Valeur::all();
             $chiffres = Chiffre::all();
+            $politiques = Politique::all();
+            $organigramme = Organigramme::first();
 
-            return view('admin.about', compact('apropos', 'motdg', 'valeurs', 'chiffres'));
+            return view('admin.about', compact('apropos', 'motdg', 'valeurs', 'chiffres','politiques', 'organigramme'));
         }
         public function showAproposImage($filename) //image de propos
         {
-            $path = 'apropos/' . $filename;
-            if (!Storage::disk('public')->exists($path)) {
+            $path = storage_path('app/public/apropos/' . $filename);
+            if (!file_exists($path)) {
                 abort(404);
             }
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-            return response($file, 200)->header('Content-Type', $type);
-        }     
-        public function showMotdgImage($filename) //image du mot du directeur
-        {
-            $path = 'motdg/' . $filename;
-            if (!Storage::disk('public')->exists($path)) {
-                abort(404);
-            }
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-            return response($file, 200)->header('Content-Type', $type);
+            return response()->file($path);
         }
 
-   
+        public function showMotdgImage($filename) //image mot de directeure
+        {
+            $path = storage_path('app/public/motdg/' . $filename);
+            if (!file_exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        }
+        public function politiqueImage($filename) //image des politiques
+        {
+            $path = storage_path('app/public/politiques/' . $filename);
+            if (!file_exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        }
+        public function organigrammeImage($filename) //image de l'organigramme
+        {
+            $path = storage_path('app/public/organigrammes/' . $filename);
+            if (!file_exists($path)) {
+                abort(404);
+            }
+            return response()->file($path);
+        }
+
+        
         // les domaine
         public function domains()
         {
@@ -89,13 +108,11 @@ class AdminController extends Controller
         }
         public function showDomainImage($filename)
         {
-            $path = 'domaines/' . $filename;
-            if (!Storage::disk('public')->exists($path)) {
+            $path = storage_path('app/public/domaines/' . $filename);
+            if (!file_exists($path)) {
                 abort(404);
             }
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-            return response($file, 200)->header('Content-Type', $type);
+            return response()->file($path);
         }
 
 
@@ -113,14 +130,13 @@ class AdminController extends Controller
         }
         public function showCartImage($filename)
         {
-            $path = 'cart_images/' . $filename;
-            if (!Storage::disk('public')->exists($path)) {
+            $path = storage_path('app/public/cart_images/' . $filename);
+            if (!file_exists($path)) {
                 abort(404);
             }
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-            return response($file, 200)->header('Content-Type', $type);
+            return response()->file($path);
         }
+
         
     public function jobs()
     {

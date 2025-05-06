@@ -142,4 +142,25 @@ Route::get('/cart-image/{filename}', [App\Http\Controllers\AdminController::clas
         Route::put('/chiffres/{id}', [QuiSommesNousController::class, 'updateChiffre'])->name('admin.chiffres.update');
         Route::delete('/chiffres/{id}', [QuiSommesNousController::class, 'destroyChiffre'])->name('admin.chiffres.destroy');
 
+        // ... existing code ...
+
+
+Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
+
+// Politique CRUD
+Route::post('/politiques', [QuiSommesNousController::class, 'storePolitique'])->name('admin.politiques.store');
+Route::put('/politiques/{id}', [QuiSommesNousController::class, 'updatePolitique'])->name('admin.politiques.update');
+Route::delete('/politiques/{id}', [QuiSommesNousController::class, 'destroyPolitique'])->name('admin.politiques.destroy');
+Route::get('/politique-image/{filename}', [AdminController::class, 'politiqueImage'])->name('admin.politique.image');
+// ... existing code ...
+
+// ... existing code ...
+
+
+// Organigramme CRUD
+Route::post('/organigramme', [QuiSommesNousController::class, 'storeOrganigramme'])->name('admin.organigramme.store');
+Route::put('/organigramme/{id}', [QuiSommesNousController::class, 'updateOrganigramme'])->name('admin.organigramme.update');
+Route::delete('/organigramme/{id}', [QuiSommesNousController::class, 'destroyOrganigramme'])->name('admin.organigramme.destroy');
+Route::get('/organigramme-image/{filename}', [AdminController::class, 'organigrammeImage'])->name('admin.organigramme.image');
+// ... existing code ...
 });

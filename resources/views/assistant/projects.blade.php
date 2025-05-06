@@ -1,5 +1,5 @@
 
-
+@extends('layouts.assistance')
 @section('title', 'Gestion des Projets')
 
 @section('content')

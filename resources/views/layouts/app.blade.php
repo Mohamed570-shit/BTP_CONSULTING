@@ -133,13 +133,14 @@
     <div class="dropdown-menu custom-dropdown m-6 p-lg-10">
         <div class="dropdown-container">
             <div class="dropdown-column">
-                <p style="color: #007bff;">Domaines de compétences</p>
+
                 @foreach($domaines as $domaine)
                     <a href="{{ route('Front.domain.show', $domaine->id) }}" class="dropdown-item">
                         <i class="{{ $domaine->icon ?? 'fas fa-cube' }} icon"></i> {{ $domaine->title }}
                     </a>
                 @endforeach
             </div>
+
 
 
             {{-- <div class="dropdown-column">
@@ -181,6 +182,8 @@
                 <p>BTP Consulting assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>
                 <img src="{{ asset('asset/img/carousel-3.jpg') }}" alt=""  width="300px" height="200px">
             </div> --}}
+
+
         </div>
     </div>
 </div>

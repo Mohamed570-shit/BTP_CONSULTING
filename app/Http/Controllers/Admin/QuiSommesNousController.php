@@ -6,6 +6,8 @@ use App\Models\Motdg;
 use App\Models\Valeur;
 use App\Models\Apropos;
 use App\Models\Chiffre;
+use App\Models\Politique;
+use App\Models\Organigramme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -172,14 +174,13 @@ class QuiSommesNousController extends Controller
            
             public function showAproposImage($filename)
             {
-                $path = 'apropos/' . $filename;
-                if (!Storage::disk('public')->exists($path)) {
+                $path = storage_path('app/public/apropos/' . $filename);
+                if (!file_exists($path)) {
                     abort(404);
                 }
-                $file = Storage::disk('public')->get($path);
-                $type = Storage::disk('public')->mimeType($path);
-                return response($file, 200)->header('Content-Type', $type);
+                return response()->file($path);
             }
+
             
             public function directeurPublic()
             {
@@ -189,15 +190,120 @@ class QuiSommesNousController extends Controller
 
             public function showMotdgImage($filename)
             {
-                $path = 'motdg/' . $filename;
-                if (!Storage::disk('public')->exists($path)) {
+                $path = storage_path('app/public/motdg/' . $filename);
+                if (!file_exists($path)) {
                     abort(404);
                 }
-                $file = Storage::disk('public')->get($path);
-                $type = Storage::disk('public')->mimeType($path);
-                return response($file, 200)->header('Content-Type', $type);
+                return response()->file($path);
+            }
+
+
+            public function storePolitique(Request $request)
+            {
+                $data = $request->only(['title', 'description']);
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image')->store('politiques', 'public');
+                    $data['image'] = basename($data['image']);
+                }
+                Politique::create($data);
+                return back()->with('success', 'Politique ajoutée avec succès');
+            }
+
+            public function updatePolitique(Request $request, $id)
+            {
+                $politique = Politique::findOrFail($id);
+                $data = $request->only(['title', 'description']);
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image')->store('politiques', 'public');
+                    $data['image'] = basename($data['image']);
+                }
+                $politique->update($data);
+                return back()->with('success', 'Politique modifiée avec succès');
+            }
+
+            public function destroyPolitique($id)
+            {
+                $politique = Politique::findOrFail($id);
+                $politique->delete();
+                return back()->with('success', 'Politique supprimée avec succès');
             }
 
 
 
+            public function storeOrganigramme(Request $request)
+            {
+                // Only allow if no image exists
+                if (Organigramme::count() > 0) {
+                    return back()->with('error', 'Vous ne pouvez ajouter qu\'une seule image.');
+                }
+                $request->validate([
+                    'image' => 'required|image|max:2048'
+                ]);
+                $data = [];
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image')->store('organigrammes', 'public');
+                    $data['image'] = basename($data['image']);
+                }
+                Organigramme::create($data);
+                return back()->with('success', 'Image ajoutée avec succès');
+            }
+
+            public function updateOrganigramme(Request $request, $id)
+            {
+                $organigramme = Organigramme::findOrFail($id);
+                $request->validate([
+                    'image' => 'required|image|max:2048'
+                ]);
+                $data = [];
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image')->store('organigrammes', 'public');
+                    $data['image'] = basename($data['image']);
+                }
+                $organigramme->update($data);
+                return back()->with('success', 'Image modifiée avec succès');
+            }
+
+            public function destroyOrganigramme($id)
+            {
+                $organigramme = Organigramme::findOrFail($id);
+                $organigramme->delete();
+                return back()->with('success', 'Image supprimée avec succès');
+            }
+            public function organigrammePage()
+{
+    $organigramme = Organigramme::first();
+    return view('pages.qui-sommes-nous.organigramme', compact('organigramme'));
 }
+
+// ... existing code ...
+public function showOrganigrammeImage($filename)
+{
+    $path = storage_path('app/public/organigrammes/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+}
+// ... existing code ...
+// ... existing code ...
+
+
+public function politiquesHumainesPage()
+{
+    $politiques = Politique::all();
+    return view('pages.realisations.politiques-humaines', compact('politiques'));
+}
+
+    public function showPolitiqueImage($filename)
+    {
+        $path = storage_path('app/public/politiques/' . $filename);
+        if (!file_exists($path)) {
+            abort(404);
+        }
+        return response()->file($path);
+    }
+
+    // ... existing code ...
+}
+
+
