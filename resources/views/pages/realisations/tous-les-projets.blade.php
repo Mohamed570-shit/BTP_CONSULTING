@@ -142,8 +142,8 @@
                         <div style="text-align:center;min-width:140px;">
                             <img src="${imgUrl}" alt="${proj.titre}" style="width:120px;height:80px;object-fit:cover;border-radius:6px;margin-bottom:6px;">
                             <div><strong>${proj.titre}</strong></div>
+                            <div><strong>${proj.description}</strong></div>
                             <div style="font-size:0.95em;color:#555;">${proj.domaine}</div>
-                            <button class="btn btn-primary btn-sm mt-2" onclick="voirDetailsProjet(${proj.id})">Voir détails</button>
                         </div>
                     `;
 

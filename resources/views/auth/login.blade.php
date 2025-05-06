@@ -188,6 +188,7 @@
 
                 <div class="form-group">
                     <label for="email">Email</label>
+
                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                         id="email" name="email" value="{{ old('email') }}" placeholder="Entrez votre e-mail" required autofocus>
                     @error('email')
