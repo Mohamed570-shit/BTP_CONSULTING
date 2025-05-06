@@ -33,7 +33,7 @@
 
             <div class="row g-5">
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.2s">
-                // ... existing code ...
+
 <div class="organigramme-container">
     @if($organigramme && $organigramme->image)
         <img src="{{ url('qui-sommes-nous/organigramme-image/' . $organigramme->image) }}" class="img-fluid rounded shadow-sm" alt="Organigramme BTP Consulting">
@@ -41,7 +41,7 @@
         <img src="https://via.placeholder.com/800x400?text=Organigramme+Non+Disponible" class="img-fluid rounded shadow-sm" alt="Organigramme Non Disponible">
     @endif
 </div>
-// ... existing code ...
+
                     <p class="mt-4 text-center text-muted">
                         *Cet organigramme est un exemple fictif. Pour plus de détails, <a href="{{ url('/contact') }}" class="text-primary">contactez-nous</a>.
                     </p>

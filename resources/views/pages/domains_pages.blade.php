@@ -4,7 +4,7 @@
 
 <!-- Banner Image Section -->
 <div class="domain-banner" style="position: relative; width: 100%; height: 220px; overflow: hidden;">
-    <img src="{{ asset('asset/img/domain-banner.jpg') }}" alt="Banner {{ $domaine->title }}" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
+    <img src="{{ asset('asset/img/Hydraulique_Urbaine.jpeg') }}" alt="Banner {{ $domaine->title }}" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
         <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
             <h1 class="text-white fw-bold" style="letter-spacing: 2px;">{{ strtoupper($domaine->title) }}</h1>
@@ -60,7 +60,7 @@
         <div class="divider mx-auto" style="width:60px;height:4px;background:#007bff;"></div>
     </div>
 
-    
+
     <!-- Dynamic Images -->
     <div class="row g-4 project-gallery mb-5">
         @foreach($domaine->images as $image)

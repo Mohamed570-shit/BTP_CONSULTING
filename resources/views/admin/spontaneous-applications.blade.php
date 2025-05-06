@@ -3,8 +3,8 @@
 @section('title', 'Candidatures Spontanées')
 
 @section('content')
-<<<<<<< HEAD
-<div class="container-fluid py-5">
+
+{{-- <div class="container-fluid py-5">
     <div class="row">
         <!-- Sidebar: Offres d'emploi -->
         <div class="col-md-3 mb-4">
@@ -87,8 +87,8 @@
         </div>
     </div>
 </div>
-@endsection 
-=======
+@endsection --}}
+
     <div class="container-fluid py-5">
         <div class="row">
             <!-- Sidebar: Offres d'emploi -->
@@ -181,4 +181,4 @@
         </div>
     </div>
 @endsection
->>>>>>> 87de13e6900bb7a90bf716f87f3c8727350396bf
+

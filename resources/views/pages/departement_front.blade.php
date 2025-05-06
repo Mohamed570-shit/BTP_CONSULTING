@@ -5,7 +5,7 @@
 @section('content')
     <style>
         .header-etudes {
-            background: linear-gradient(90deg, #388e3c 0%, #d4a017 100%);
+            background: linear-gradient(90deg, #3014cb 0%, #225bd7 100%);
             padding: 40px 0 20px 0;
             color: #fff;
             text-align: center;
@@ -17,7 +17,7 @@
             letter-spacing: 1px;
         }
         .breadcrumb-etudes {
-            color: #d4a017;
+            color: #225bd7;
             font-size: 1rem;
             margin-bottom: 0;
         }
@@ -34,7 +34,7 @@
             margin-bottom: 40px;
         }
         .intro-etudes h2 {
-            color: #2e7d32;
+            color: #3014cb;
             font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 10px;
@@ -46,7 +46,7 @@
         }
         .card-etudes {
             background: #fff;
-            border: 2px solid #d4a017;
+            border: 2px solid #225bd7;
             border-radius: 12px;
             padding: 25px;
             min-height: 370px;
@@ -72,7 +72,7 @@
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #2e7d32;
+            color: #3014cb;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -80,7 +80,7 @@
         }
         .card-title svg, .card-title i {
             margin-right: 10px;
-            color: #4caf50;
+            color: #6597f5;
             width: 24px;
             height: 24px;
         }
@@ -95,7 +95,7 @@
         }
         .cta-button {
             display: inline-block;
-            background: linear-gradient(to right, #2e7d32, #d4a017);
+            background: linear-gradient(to right, #3014cb, #225bd7);
             color: #fff;
             padding: 15px 30px;
             text-decoration: none;
@@ -126,7 +126,7 @@
     </style>
 
     <!-- Header Start -->
-    <header class="header-etudes">
+    <header class="header-etudes ">
         <div class="container">
             <h1 class="header-title">{{ $departement->title }}</h1>
             <nav class="breadcrumb-etudes">
@@ -151,7 +151,7 @@
 
             <!-- Services Grid -->
             <div class="row g-4">
-            
+
                 @foreach ($departement->cartDepartements as $card)
                     <div class="col-lg-4 col-md-6">
                         <div class="card-etudes h-100">
