@@ -135,7 +135,7 @@ Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAp
     })->name('certifications');
 
 
-   
+
 
     // ... existing code ...
 Route::get('/organigramme', [QuiSommesNousController::class, 'organigrammePage'])->name('organigramme.page');
