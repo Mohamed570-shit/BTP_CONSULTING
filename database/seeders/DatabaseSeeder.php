@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
             ProjetSeeder::class,
             SectionSeeder::class,
             SousSectionSeeder::class,
-            DepartementSeeder::class,
-            CartDepartementSeeder::class,
              
         ]);
     }

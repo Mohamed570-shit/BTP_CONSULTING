@@ -133,54 +133,13 @@
     <div class="dropdown-menu custom-dropdown m-6 p-lg-10">
         <div class="dropdown-container">
             <div class="dropdown-column">
-                <p style="color: #007bff;">Domaines de compétences</p>
+                
                 @foreach($domaines as $domaine)
                     <a href="{{ route('Front.domain.show', $domaine->id) }}" class="dropdown-item">
                         <i class="{{ $domaine->icon ?? 'fas fa-cube' }} icon"></i> {{ $domaine->title }}
                     </a>
                 @endforeach
             </div>
-<<<<<<< HEAD
-
-            <div class="dropdown-column">
-                <a href="routes-autoroutes-transport.html" class="dropdown-item">
-                    <i class="fas fa-road icon"></i> Routes, autoroutes, transport
-                </a>
-                <a href="barrages.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i> Barrages
-                </a>
-                <a href="barrages.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i>  Ordonnancement, Pilotage et Coordination
-                </a>
-
-                <a href="genie-defense.html" class="dropdown-item">
-                    <i class="fas fa-shield-alt icon"></i> Travaux du génie de défense
-                </a>
-                <a href="industrie-energie.html" class="dropdown-item">
-                    <i class="fas fa-bolt icon"></i> Industrie et énergie
-                </a>
-                <a href="calcul-structures-batiments.html" class="dropdown-item">
-                    <i class="fas fa-building icon"></i> Calcul de structures pour bâtiments
-                </a>
-                <a href="reseaux-fluides-batiments.html" class="dropdown-item">
-                    <i class="fas fa-water icon"></i> Réseaux des fluides pour bâtiments
-                </a>
-                <a href="reseau-electricite-telephonique.html" class="dropdown-item">
-                    <i class="fas fa-broadcast-tower icon"></i> Réseau d’électricité et téléphoniques
-                </a>
-                <a href="geologie-geophysique-hydrogie.html" class="dropdown-item">
-                    <i class="fas fa-mountain icon"></i> Géologie, géophysique, hydrogéologie
-                </a>
-            </div>
-
-            {{-- <div>
-=======
-            <div>
->>>>>>> 1f153bac5ca904a4a80d92e0ef6bd865e5dba5ea
-                <h4 style="color: #333;">Prestations</h4>
-                <p>BTP Consulting assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>
-                <img src="{{ asset('asset/img/carousel-3.jpg') }}" alt=""  width="300px" height="200px">
-            </div> --}}
         </div>
     </div>
 </div>

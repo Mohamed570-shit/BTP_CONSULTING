@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Apropos;
+use App\Models\Organigramme;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class QuiSommesNousController extends Controller
 {
@@ -30,4 +31,6 @@ class QuiSommesNousController extends Controller
 
         return redirect()->back()->with('success', 'Section À propos mise à jour avec succès.');
     }
+    
+
 }

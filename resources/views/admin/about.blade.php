@@ -25,7 +25,11 @@
                         <a class="nav-link" data-section="chiffres" href="#">Chiffres clés</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link" data-section="certifications" href="#">Certifications</a>
+                        <a class="nav-link" data-section="politique" href="#">politique</a>
+                    </li>
+                    <!-- New Organigramme Link -->
+                    <li class="nav-item mb-2">
+                        <a class="nav-link" data-section="organigramme" href="#">Organigramme</a>
                     </li>
                 </ul>
             </div>
@@ -320,9 +324,195 @@
                         </div>
                     </div>
 
-                    <div id="aboutSection-certifications" style="display:none;">
-                        <p>Contenu de la section "Certifications".</p>
+                    <!-- // politique -->
+                        <div id="aboutSection-politique" style="display:none;">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Liste des politiques</h5>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPolitiqueModal">
+                                    <i class="fas fa-plus"></i> Ajouter une politique
+                                </button>
+                            </div>
+                            <div class="row g-4">
+                                @foreach($politiques as $politique)
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card shadow-sm p-3 text-center">
+                                            @if($politique->image)
+                                                <div class="mb-2">
+                                                    <img src="{{ route('admin.politique.image', $politique->image) }}" alt="Image" class="img-fluid rounded" style="max-height:180px;">
+                                                </div>
+                                            @endif
+                                            <h5 class="fw-bold mb-2">{{ $politique->title }}</h5>
+                                            <p>{{ $politique->description }}</p>
+                                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                                <!-- Modifier Button -->
+                                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editPolitiqueModal{{ $politique->id }}">
+                                                    <i class="fas fa-edit"></i> Modifier
+                                                </button>
+                                                <!-- Supprimer Button -->
+                                                <form action="{{ route('admin.politiques.destroy', $politique->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette politique ?')">
+                                                        <i class="fas fa-trash"></i> Supprimer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Modifier Politique -->
+                                    <div class="modal fade" id="editPolitiqueModal{{ $politique->id }}" tabindex="-1" aria-labelledby="editPolitiqueModalLabel{{ $politique->id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{ route('admin.politiques.update', $politique->id) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editPolitiqueModalLabel{{ $politique->id }}">Modifier la politique</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Titre</label>
+                                                            <input type="text" class="form-control" name="title" value="{{ $politique->title }}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Description</label>
+                                                            <textarea class="form-control" name="description" rows="3" required>{{ $politique->description }}</textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Image</label>
+                                                            <input type="file" class="form-control" name="image">
+                                                            @if($politique->image)
+                                                                <img src="{{ route('admin.politique.image', $politique->image) }}" class="img-fluid rounded mt-2" style="max-height:100px;">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        <!-- Modal Ajouter Politique -->
+                        <div class="modal fade" id="addPolitiqueModal" tabindex="-1" aria-labelledby="addPolitiqueModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('admin.politiques.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addPolitiqueModalLabel">Ajouter une politique</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Titre</label>
+                                                <input type="text" class="form-control" name="title" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Description</label>
+                                                <textarea class="form-control" name="description" rows="3" required></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Image</label>
+                                                <input type="file" class="form-control" name="image">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <!-- Place this new section with the other aboutSection-* divs -->
+                     <!-- organigramme --> 
+                    <div id="aboutSection-organigramme" style="display:none;">
+                        <h5 class="text-orange mb-2">Organigramme</h5>
+                        @if(!$organigramme)
+                            <!-- Show Add Button if no image -->
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addOrganigrammeModal">
+                                <i class="fas fa-plus"></i> Ajouter une image
+                            </button>
+                        @else
+                            <!-- Show Image and Edit/Delete Buttons -->
+                            <div class="text-center mb-3">
+                                <img src="{{ route('admin.organigramme.image', $organigramme->image) }}" alt="Organigramme" class="img-fluid rounded" style="max-height:300px;">
+                            </div>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editOrganigrammeModal">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </button>
+                                <form action="{{ route('admin.organigramme.destroy', $organigramme->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette image ?')">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+
+                        <!-- Modal Ajouter Organigramme -->
+                        <div class="modal fade" id="addOrganigrammeModal" tabindex="-1" aria-labelledby="addOrganigrammeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('admin.organigramme.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addOrganigrammeModalLabel">Ajouter une image d'organigramme</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Image</label>
+                                                <input type="file" class="form-control" name="image" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Modifier Organigramme -->
+                        @if($organigramme)
+                        <div class="modal fade" id="editOrganigrammeModal" tabindex="-1" aria-labelledby="editOrganigrammeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('admin.organigramme.update', $organigramme->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editOrganigrammeModalLabel">Modifier l'image d'organigramme</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Image</label>
+                                                <input type="file" class="form-control" name="image" required>
+                                                <img src="{{ route('admin.organigramme.image', $organigramme->image) }}" class="img-fluid rounded mt-2" style="max-height:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -335,7 +525,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const navLinks = document.querySelectorAll('#aboutNav .nav-link');
         const sections = [
-            'apropos', 'motdg', 'valeurs', 'chiffres', 'certifications'
+            'apropos', 'motdg', 'valeurs', 'chiffres', 'politique', 'organigramme' // <-- add 'organigramme'
         ];
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {

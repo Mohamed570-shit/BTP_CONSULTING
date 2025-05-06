@@ -160,6 +160,7 @@
                             @else
                                 <img src="https://via.placeholder.com/600x180?text=Image" class="card-img-top" alt="{{ $card->title }}">
                             @endif
+
                             <div class="card-body">
                                 <h5 class="card-title">
                                     @if($card->icon && str_starts_with($card->icon, '<svg'))

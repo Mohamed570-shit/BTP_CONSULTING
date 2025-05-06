@@ -134,17 +134,24 @@ Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAp
         return view('pages.qui-sommes-nous.certifications');
     })->name('certifications');
 
-    Route::get('/rayonnement', function () {
-        return view('pages.qui-sommes-nous.rayonnement');
-    })->name('rayonnement');
 
-    Route::get('/gouvernance', function () {
-        return view('pages.qui-sommes-nous.gouvernance');
-    })->name('gouvernance');
+   
 
-    Route::get('/organigramme', function () {
-        return view('pages.qui-sommes-nous.organigramme');
-    })->name('organigramme');
+    // ... existing code ...
+Route::get('/organigramme', [QuiSommesNousController::class, 'organigrammePage'])->name('organigramme.page');
+// Add this alias if you want to keep route('organigramme') working:
+Route::get('/organigramme-alias', function() {
+    return redirect()->route('organigramme.page');
+})->name('organigramme');
+// ... existing code ...
+
+// ... existing code ...
+Route::prefix('qui-sommes-nous')->group(function () {
+    // ... existing code ...
+    Route::get('/organigramme-image/{filename}', [QuiSommesNousController::class, 'showOrganigrammeImage'])->name('organigramme.image');
+    // ... existing code ...
+});
+// ... existing code ...
 });
 
 // Routes pour "Domaines"
@@ -157,9 +164,14 @@ Route::prefix('domaines')->group(function () {
 
 // Routes pour "Réalisations"
 Route::prefix('realisations')->group(function () {
-    Route::get('/politiques-humaines', function () {
-        return view('pages.realisations.politiques-humaines');
-    })->name('politiques-humaines');
+    // ... existing code ...
+Route::prefix('qui-sommes-nous')->group(function () {
+    // ... existing code ...
+    Route::get('/politiques-humaines', [QuiSommesNousController::class, 'politiquesHumainesPage'])->name('politiques-humaines');
+    Route::get('/politique-image/{filename}', [QuiSommesNousController::class, 'showPolitiqueImage'])->name('politique.image');
+    // ... existing code ...
+});
+// ... existing code ...
 
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
@@ -285,7 +297,9 @@ Route::get('/domaines/image/{filename}', [App\Http\Controllers\Front\DomainFront
 
 Route::get('/departement/{id}', [DepartementFrontController::class, 'show'])->name('front.departement.show');
 
-
+// ... existing code ...
+Route::get('/departement-image/{filename}', [DepartementFrontController::class, 'showDepartementImage'])->name('departement.image');
+// ... existing code ...
 //hada code li zidt db ana :
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/candidatures', [CandidatureController::class, 'index'])->name('candidatures.index');
