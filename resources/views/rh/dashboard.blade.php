@@ -1,5 +1,9 @@
-@extends('layouts.app')
+<h1>Bienvenue au tableau de bord RH</h1>
 
-@section('content')
-    <h1>Bienvenue au tableau de bord RH</h1>
-@endsection
+
+
+
+
+
+
+

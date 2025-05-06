@@ -1,29 +1,27 @@
 <?php
-
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Assistant\AssistantDashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DepartementFrontController;
+use App\Http\Controllers\Front\DomainFrontController;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetRecentsController;
+use App\Http\Controllers\Rh\DashboardController;
+// use App\Http\Controllers\RHController;
+use App\Http\Controllers\SpontaneousApplicationController;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OffreController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\JobController;
-
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
 
 
-
-use App\Http\Controllers\Admin\ProjectController;
-
-
-use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\DepartementFrontController;
-use App\Http\Controllers\Front\DomainFrontController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\QuiSommesNousController;
-use App\Http\Controllers\SpontaneousApplicationController;
 
 Route::get('/test-email', function() {
     $name = "BTP_CONSULTING";
@@ -36,12 +34,48 @@ Route::post('/contact/submit', [ContactController::class, 'submit'])->name('cont
 // Inclure les routes admin
 require __DIR__.'/admin.php';
 
-// Inclure les routes rh
-require __DIR__.'/rh.php';
+// // Inclure les routes rh
+// require __DIR__.'/rh.php';
 // Routes protégées pour l'administration
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/rh/dashboard', [DashboardController::class, 'index'])->name('rh.dashboard');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/assistant/dashboard', [AssistantDashboardController::class, 'index'])->name('assistant.dashboard');
+
+    Route::get('/assistant/profile', [ProfileController::class, 'show'])->name('assistant.profile');
+    Route::put('/assistant/profile', [ProfileController::class, 'update'])->name('assistant.profile.update');
+    Route::get('/projects', [AssistantDashboardController::class, 'projects'])->name('assistant.projects');
+
+    Route::get('/assistant/projects', [ProjectController::class, 'index'])->name('assistant.projects');
+    Route::get('/assistant/projects/create', [ProjectController::class, 'create'])->name('assistant.projects.create');
+    Route::post('/assistant/projects', [ProjectController::class, 'store'])->name('assistant.projects.store');
+    Route::get('/assistant/projects/{id}', [ProjectController::class, 'show'])->name('assistant.projects.show');
+    Route::get('/assistant/projects/{id}/edit', [ProjectController::class, 'edit'])->name('assistant.projects.edit');
+    Route::put('/assistant/projects/{id}', [ProjectController::class, 'update'])->name('assistant.projects.update');
+    Route::delete('/assistant/projects/{id}', [ProjectController::class, 'destroy'])->name('assistant.projects.destroy');
+
+    // route pour images des projets
+    Route::get('/assistant/project-image/{filename}', function ($filename) {
+        $path = storage_path('app/public/projets/' . $filename);
+
+        if (!\Illuminate\Support\Facades\File::exists($path)) {
+            abort(404);
+        }
+        $file = \Illuminate\Support\Facades\File::get($path);
+        $type = \Illuminate\Support\Facades\File::mimeType($path);
+        return response($file, 200)->header("Content-Type", $type);
+    });
+
+});
+
+
+
 
 // Routes d'authentification
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -82,13 +116,12 @@ Route::get('/', function () {
 
 
 // Routes pour "Qui sommes-nous"
-// ... existing code ...
 Route::prefix('qui-sommes-nous')->group(function () {
 
 
-    // Add this dynamic route:
-    Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
-    Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
+// Add this dynamic route:
+Route::get('/apropos', [QuiSommesNousController::class, 'aproposPublic'])->name('a-propos');
+Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAproposImage'])->name('apropos.image');
 
     Route::get('/directeur', [QuiSommesNousController::class, 'directeurPublic'])->name('mot-directeur');
     Route::get('/motdg/image/{filename}', [QuiSommesNousController::class, 'showMotdgImage'])->name('motdg.image');
@@ -131,16 +164,15 @@ Route::prefix('realisations')->group(function () {
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
 
-
-
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
-
 
 });
     Route::get('/secure-image/{id}', [ProjetRecentsController::class, 'secureImage']);
     Route::get('/ajax/projet/{id}', [ProjetRecentsController::class, 'ajaxShow']);
 
-    Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
+
+
+Route::get('/tous-les-projets', [ProjetRecentsController::class, 'carteProjets'])->name('tous-les-projets');
 
 // Routes pour "Management"
 Route::prefix('management')->group(function () {
@@ -260,4 +292,3 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/candidatures/{id}', [CandidatureController::class, 'destroy'])->name('candidatures.destroy');
     Route::get('/candidatures/export', [CandidatureController::class, 'export'])->name('candidatures.export');
 });
-
