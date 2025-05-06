@@ -47,13 +47,13 @@
                     @php $delay += 0.2; @endphp
                 @endforeach
             </div>
-            
+
 
     <!-- Styles CSS -->
     <style>
         /* Background Header with BTP Consulting Logo */
         .bg-breadcrumb {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(' https://images.unsplash.com/photo-1591696205602-2f950c417cb9');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('asset/img/img3.jpg')}}');
             background-size: cover;
             background-position: center;
             min-height: 300px;

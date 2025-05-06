@@ -140,9 +140,9 @@
                     </a>
                 @endforeach
             </div>
-<<<<<<< HEAD
 
-            <div class="dropdown-column">
+
+            {{-- <div class="dropdown-column">
                 <a href="routes-autoroutes-transport.html" class="dropdown-item">
                     <i class="fas fa-road icon"></i> Routes, autoroutes, transport
                 </a>
@@ -171,12 +171,12 @@
                 <a href="geologie-geophysique-hydrogie.html" class="dropdown-item">
                     <i class="fas fa-mountain icon"></i> Géologie, géophysique, hydrogéologie
                 </a>
-            </div>
+            </div> --}}
 
             {{-- <div>
-=======
+
             <div>
->>>>>>> 1f153bac5ca904a4a80d92e0ef6bd865e5dba5ea
+
                 <h4 style="color: #333;">Prestations</h4>
                 <p>BTP Consulting assure l’ensemble des processus des métiers de l’ingénierie, depuis les études de faisabilité jusqu’à l’assistance à la réalisation et à l’exploitation.</p>
                 <img src="{{ asset('asset/img/carousel-3.jpg') }}" alt=""  width="300px" height="200px">

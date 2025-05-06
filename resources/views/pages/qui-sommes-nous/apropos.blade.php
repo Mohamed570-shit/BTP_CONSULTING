@@ -78,7 +78,7 @@
     <style>
         /* Background Header */
         .bg-breadcrumb {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('asset/img/img4.jpg')}}');
             background-size: cover;
             background-position: center;
             min-height: 300px;

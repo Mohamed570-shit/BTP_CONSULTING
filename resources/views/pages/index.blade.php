@@ -356,7 +356,7 @@
     <div class="header-carousel owl-carousel">
         <!-- Slide 1 -->
         <div class="header-carousel-item">
-            <img src="{{ asset('asset/img/carousel-3.jpg') }}" class="img-fluid w-100" alt="Image">
+            <img src="{{ asset('asset/img/dom2.jpg') }}" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row gy-0 gx-5">
@@ -369,14 +369,14 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 me-2" href="contact.html">Contactez-nous</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 ms-2" href="etudes-techniques.html">Nos services</a>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center justify-content-md-start"> <!-- Changé de justify-content-md-end à justify-content-md-start -->
+                                {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start"> <!-- Changé de justify-content-md-end à justify-content-md-start -->
                                     <div class="d-flex justify-content-start ms-2"> <!-- Changé de justify-content-end à justify-content-start -->
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href="https://www.linkedin.com/company/btpconsulting"><i class="fab fa-linkedin-in"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-instagram"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-twitter"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-lg-0 col-xl-5"></div>
@@ -387,7 +387,7 @@
 
         <!-- Slide 2 -->
         <div class="header-carousel-item">
-            <img src="{{ asset('asset/img/carousel-4.jpg') }}" class="img-fluid w-100" alt="Image">
+            <img src="{{ asset('asset/img/carousel-9.jpg') }}" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row gy-0 gx-5">
@@ -400,14 +400,14 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="realisations.html">Nos projets</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="a-propos.html">En savoir plus</a>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                                {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-instagram"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-twitter"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-lg-0 col-xl-5"></div>
@@ -418,7 +418,7 @@
 
         <!-- Slide 3 -->
         <div class="header-carousel-item">
-            <img src="{{ asset('asset/img/carousel-6.jpg') }}" class="img-fluid w-100" alt="Image">
+            <img src="{{ asset('asset/img/dom4.png') }}" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row gy-0 gx-5">
@@ -431,14 +431,14 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="certifications.html">Nos certifications</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="nos-valeurs.html">Nos valeurs</a>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                                {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-instagram"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-twitter"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-lg-0 col-xl-5"></div>
@@ -449,7 +449,7 @@
 
         <!-- Slide 4 -->
         <div class="header-carousel-item">
-            <img src="{{ asset('asset/img/carousel-7.jpg') }}" class="img-fluid w-100" alt="Image">
+            <img src="{{ asset('asset/img/img1.jpg') }}" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row gy-0 gx-5">
@@ -462,14 +462,14 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Nos métiers</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">Rencontrez-nous</a>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                                {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-instagram"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-twitter"></i></a>
                                         <a class="btn btn-md-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-lg-0 col-xl-5"></div>
@@ -639,7 +639,7 @@
                 <!-- FAQ Image -->
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
                     <div class="bg-primary rounded">
-                        <img src="{{ asset('asset/img/Q1.jpg') }}" class="img-fluid w-100" alt="Projet de génie civil">
+                        <img src="{{ asset('asset/img/img2.jpg') }}" class="img-fluid w-100" alt="Projet de génie civil">
                     </div>
                 </div>
             </div>

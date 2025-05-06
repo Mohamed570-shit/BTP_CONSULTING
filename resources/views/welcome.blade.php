@@ -513,7 +513,7 @@
             <div class="header-carousel owl-carousel">
                 <!-- Slide 1 -->
                 <div class="header-carousel-item">
-                    <img src="img/carousel-3.jpg" class="img-fluid w-100" alt="Image">
+                    <img src="img/carousel-7.jpg" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="container">
                             <div class="row gy-0 gx-5">

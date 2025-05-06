@@ -30,7 +30,7 @@
                 <p class="mb-0">
                     Chez <strong>BTP Consulting</strong>, nous plaçons nos clients et partenaires au cœur de nos préoccupations, en nous appuyant sur des valeurs d’excellence et de responsabilité pour garantir des projets d’ingénierie de qualité.
                 </p>
-            </div>           
+            </div>
             <div class="row g-4">
                 @php $delay = 0.2; @endphp
                 @foreach($valeurs as $valeur)
@@ -51,7 +51,7 @@
     <!-- Style CSS personnalisé -->
     <style>
         .bg-breadcrumb {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop'); /* Image de fond professionnelle */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('asset/img/img5.jpg')}}');
             background-size: cover;
             background-position: center;
             min-height: 300px;
