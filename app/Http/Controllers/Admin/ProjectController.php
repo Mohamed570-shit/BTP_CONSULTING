@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Domaine;
 use App\Models\Projet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 
 class ProjectController extends Controller
 {
@@ -25,7 +27,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projets = Projet::all();
-        return view('admin.projects', compact('projets'));
+        $domains = Domaine::all();
+        return view('admin.projects', compact('projets', 'domains'));
     }
 
     /**
@@ -72,18 +75,18 @@ public function store(Request $request)
 
     $projet = new Projet();
     $projet->titre = $validated['titre'];
-    
+
     // Génération d'un slug unique
     $baseSlug = Str::slug($validated['titre']);
     $slug = $baseSlug;
     $counter = 1;
-    
+
     // Vérifier si le slug existe déjà et ajouter un compteur si nécessaire
     while (Projet::where('slug', $slug)->exists()) {
         $slug = $baseSlug . '-' . $counter;
         $counter++;
     }
-    
+
     $projet->slug = $slug;
     $projet->description = $validated['description'];
     $projet->status = $validated['status'];

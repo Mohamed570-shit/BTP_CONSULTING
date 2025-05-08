@@ -70,18 +70,18 @@ public function store(Request $request)
 
     $projet = new Projet();
     $projet->titre = $validated['titre'];
-    
+
     // Génération d'un slug unique
     $baseSlug = Str::slug($validated['titre']);
     $slug = $baseSlug;
     $counter = 1;
-    
+
     // Vérifier si le slug existe déjà et ajouter un compteur si nécessaire
     while (Projet::where('slug', $slug)->exists()) {
         $slug = $baseSlug . '-' . $counter;
         $counter++;
     }
-    
+
     $projet->slug = $slug;
     $projet->description = $validated['description'];
     $projet->status = $validated['status'];
@@ -218,4 +218,3 @@ public function update(Request $request, $id)
         return redirect()->route('assistant.projects')->with('success', 'Projet supprimé avec succès !');
     }
 }
-

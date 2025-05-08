@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('spontaneous_applications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('cv_path');
             $table->text('message')->nullable();
             $table->timestamps();
