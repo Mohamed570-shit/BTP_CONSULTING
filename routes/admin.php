@@ -175,4 +175,10 @@ Route::prefix('assistant')->middleware(['auth'])->group(function () {
     Route::put('/projects/{id}', [AssistantDashboardController::class, 'update'])->name('assistant.projects.update');
     Route::delete('/projects/{id}', [AssistantDashboardController::class, 'destroy'])->name('assistant.projects.destroy');
 });
+
+
+// ... existing code ...
+
+
+// ... existing code ...
 });

@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+
 @section('title', 'Gestion des Projets')
 
 @section('content')

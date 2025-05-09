@@ -67,6 +67,7 @@ class UserController extends Controller
 
         // Create the user
         User::create($userData);
+        // dd($request->all());
 
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur ajouté avec succès');
     }
@@ -94,9 +95,9 @@ class UserController extends Controller
         'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    dd($request->all()); // Vérifiez les données envoyées
+     // Vérifiez les données envoyées
 
-    // ...
+
 }
     /**
      * Affiche le formulaire pour modifier un utilisateur.
