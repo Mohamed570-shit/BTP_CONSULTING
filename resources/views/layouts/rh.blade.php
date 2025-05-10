@@ -162,7 +162,6 @@
             .main-content.active { margin-left: 0; }
         }
     </style>
-     @stack('styles')
 </head>
 <body>
     <div class="admin-container">
@@ -173,52 +172,41 @@
             </div>
             <ul class="sidebar-menu">
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
-                <li><a href="{{ route('admin.users') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}"><i class="fas fa-users"></i> Utilisateurs</a></li>
-                <li><a href="{{ route('admin.about') }}" class="{{ request()->routeIs('admin.about*') ? 'active' : '' }}"><i class="fas fa-info-circle"></i> Qui sommes-nous</a></li>
-                <li><a href="{{ route('admin.domains') }}" class="{{ request()->routeIs('admin.domains*') ? 'active' : '' }}"><i class="fas fa-globe"></i> Nos domaines</a></li>
-                <li><a href="{{ route('admin.projects') }}" class="{{ request()->routeIs('admin.projects*') ? 'active' : '' }}"><i class="fas fa-project-diagram"></i> Projets</a></li>
-                <li><a href="{{ route('admin.departments') }}" class="{{ request()->routeIs('admin.departments*') ? 'active' : '' }}"><i class="fas fa-building"></i> Départements</a></li>
                 <li><a href="{{ route('admin.jobs') }}" class="{{ request()->routeIs('admin.jobs*') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> Offres d'emploi</a></li>
                 <li><a href="{{ route('admin.spontaneous-applications') }}" class="{{ request()->routeIs('admin.spontaneous-applications*') ? 'active' : '' }}"><i class="fas fa-file-upload"></i> Candidatures Spontanées</a></li>
-                
-<li>
-    <a href="{{ route('admin.a_la_une_admin') }}" class="{{ request()->routeIs('admin.a_la_une_admin') ? 'active' : '' }}">
-        <i class="fas fa-star"></i> A la une
-    </a>
-</li>
-
             </ul>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content" id="main-content">
-        <header class="navbar-admin">
-    <button class="toggle-sidebar" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
-    <h4 class="mb-0">@yield('title')</h4>
-    <div class="d-flex align-items-center">
-        <!-- User Name -->
-        <span class="me-2">{{ Auth::user()->name }}</span>
-        <!-- Profile Icon -->
-        <div class="me-3">
-            <a href="{{ route('admin.profile') }}" class="profile-icon" title="Profil">
-                <i class="fas fa-user"></i>
-            </a>
-        </div>
-        <!-- Notifications -->
-        <div class="notification-area me-3">
-            <a href="{{ route('admin.notifications') }}" class="notification-bell">
-                <i class="fas fa-bell"></i>
-                
-<span class="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>        </div>
-        <!-- Logout -->
-        <div class="me-3">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-icon">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-        </div>
-    </div>
-</header>
+            <header class="navbar-admin">
+                <button class="toggle-sidebar" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
+                <h4 class="mb-0">@yield('title')</h4>
+                <div class="d-flex align-items-center">
+                    <!-- User Name -->
+                    <span class="me-2">{{ Auth::user()->name }}</span>
+                    <!-- Profile Icon -->
+                    <div class="me-3">
+                        <a href="{{ route('admin.profile') }}" class="profile-icon" title="Profil">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    <!-- Notifications -->
+                    <div class="notification-area me-3">
+                        <a href="{{ route('admin.notifications') }}" class="notification-bell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>
+                        </a>
+                    </div>
+                    <!-- Logout -->
+                    <div class="me-3">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                    </div>
+                </div>
+            </header>
 
             <section class="content-wrapper">
                 @yield('content')
@@ -240,6 +228,7 @@
     <script src="{{ asset('asset/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('asset/lib/lightbox/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('asset/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         $(document).ready(function() {
             const $sidebar = $('#sidebar');
@@ -258,12 +247,6 @@
             });
         });
     </script>
-        // ... existing code ...
-    <script src="{{ asset('asset/lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('asset/js/main.js') }}"></script>
-    <!-- ADD THIS LINE FOR AXIOS -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @stack('scripts')
 </body>
-
 </html>

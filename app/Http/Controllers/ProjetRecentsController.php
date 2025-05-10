@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Domaine;
 use App\Models\Projet;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class ProjetRecentsController extends Controller
     public function index()
     {
         $projects = Projet::all();
-        return view('pages.realisations.projets-recents', compact('projects'));
+        $domains = Domaine::all();
+        return view('pages.realisations.projets-recents', compact('projects', 'domains'));
     }
 
     /**
@@ -60,7 +62,7 @@ class ProjetRecentsController extends Controller
     {
         $projects = Projet::whereNotNull('coordonnee_x')
             ->whereNotNull('coordonnee_y')
-            ->get(['id', 'titre', 'domaine', 'coordonnee_x as x', 'coordonnee_y as y', 'image']);
+            ->get(['id', 'titre', 'domaine', 'coordonnee_x as x', 'coordonnee_y as y', 'image', 'description']);
         return view('pages.realisations.tous-les-projets', compact('projects'));
     }
 }

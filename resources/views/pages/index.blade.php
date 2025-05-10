@@ -350,6 +350,68 @@
                 font-size: 0.95rem;
             }
         }
+                /* Classes utilitaires */
+                .text-primary {
+            color: #f4511e !important; /* Orange vif */
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #f4511e, #ff8f00);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        /* Style pour le bouton À LA UNE */
+        .btn-a-la-une {
+            background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%);
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 8, 68, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .btn-a-la-une:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 8, 68, 0.6);
+            color: white;
+        }
+
+        .btn-a-la-une::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-a-la-une:hover::before {
+            left: 100%;
+        }
+
+        .btn-light {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
     </style>
 
     <!-- Carousel Start -->
@@ -365,10 +427,16 @@
                                 <h4 class="text-primary text-uppercase fw-bold mb-4">Bienvenue chez BTP Consulting</h4>
                                 <h1 class="display-4 text-uppercase text-white mb-4">Solutions innovantes pour vos projets</h1>
                                 <p class="mb-5 fs-5">Nous vous accompagnons avec expertise dans vos projets de construction et d’ingénierie.</p>
-                                <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4"> <!-- Changé de justify-content-md-end à justify-content-md-start -->
+                                <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 me-2" href="contact.html">Contactez-nous</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 ms-2" href="etudes-techniques.html">Nos services</a>
                                 </div>
+                                <div class="d-flex justify-content-center justify-content-md-start mb-4">
+                                <a class="btn rounded-pill py-2 px-4 px-md-5 btn-a-la-une" href="{{ route('a_la_une') }}">
+    <i class="fas fa-star me-2"></i> À LA UNE
+</a>
+                                </div>
+                                
                                 {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start"> <!-- Changé de justify-content-md-end à justify-content-md-start -->
                                     <div class="d-flex justify-content-start ms-2"> <!-- Changé de justify-content-end à justify-content-start -->
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href="https://www.linkedin.com/company/btpconsulting"><i class="fab fa-linkedin-in"></i></a>
@@ -399,6 +467,11 @@
                                 <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="realisations.html">Nos projets</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="a-propos.html">En savoir plus</a>
+                                </div>
+                                <div class="d-flex justify-content-center justify-content-md-start mb-4">
+                                <a class="btn rounded-pill py-2 px-4 px-md-5 btn-a-la-une" href="{{ route('a_la_une') }}">
+    <i class="fas fa-star me-2"></i> À LA UNE
+</a>
                                 </div>
                                 {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
@@ -431,6 +504,12 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="certifications.html">Nos certifications</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="nos-valeurs.html">Nos valeurs</a>
                                 </div>
+                                <div class="d-flex justify-content-center justify-content-md-start mb-4">
+                                <a class="btn rounded-pill py-2 px-4 px-md-5 btn-a-la-une" href="{{ route('a_la_une') }}">
+    <i class="fas fa-star me-2"></i> À LA UNE
+</a>
+                                </div>
+                                
                                 {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
@@ -462,6 +541,12 @@
                                     <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Nos métiers</a>
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">Rencontrez-nous</a>
                                 </div>
+                                <div class="d-flex justify-content-center justify-content-md-start mb-4">
+                                <a class="btn rounded-pill py-2 px-4 px-md-5 btn-a-la-une" href="{{ route('a_la_une') }}">
+    <i class="fas fa-star me-2"></i> À LA UNE
+</a>
+                                </div>
+                    
                                 {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                                     <div class="d-flex justify-content-start ms-2">
                                         <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>

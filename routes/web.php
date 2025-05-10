@@ -22,6 +22,13 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
+// Route pour la page À la une
+Route::get('/a-la-une', function () {
+    return view('pages.a_la_une');
+})->name('a_la_une');
+
+
+
 
 Route::get('/test-email', function() {
     $name = "BTP_CONSULTING";
@@ -137,21 +144,21 @@ Route::get('/apropos/image/{filename}', [QuiSommesNousController::class, 'showAp
 
 
 
-    // ... existing code ...
+
 Route::get('/organigramme', [QuiSommesNousController::class, 'organigrammePage'])->name('organigramme.page');
 // Add this alias if you want to keep route('organigramme') working:
 Route::get('/organigramme-alias', function() {
     return redirect()->route('organigramme.page');
 })->name('organigramme');
-// ... existing code ...
 
-// ... existing code ...
+
+
 Route::prefix('qui-sommes-nous')->group(function () {
-    // ... existing code ...
+
     Route::get('/organigramme-image/{filename}', [QuiSommesNousController::class, 'showOrganigrammeImage'])->name('organigramme.image');
-    // ... existing code ...
+
 });
-// ... existing code ...
+
 });
 
 // Routes pour "Domaines"
@@ -164,14 +171,14 @@ Route::prefix('domaines')->group(function () {
 
 // Routes pour "Réalisations"
 Route::prefix('realisations')->group(function () {
-    // ... existing code ...
+
 Route::prefix('qui-sommes-nous')->group(function () {
-    // ... existing code ...
+
     Route::get('/politiques-humaines', [QuiSommesNousController::class, 'politiquesHumainesPage'])->name('politiques-humaines');
     Route::get('/politique-image/{filename}', [QuiSommesNousController::class, 'showPolitiqueImage'])->name('politique.image');
-    // ... existing code ...
+
 });
-// ... existing code ...
+
 
 
     Route::get('/projets-recents', [ProjetRecentsController::class, 'index'])->name('projets-recents');
@@ -249,15 +256,15 @@ Route::get('/recrutement/offres-stage', function () {
 })->name('offres-stage');
 
 
-// ... existing code ...
+
 
 // Les offres d'emploi (keep this one)
 Route::get('/recrutement/offres-emploi', [JobController::class, 'offresEmploi'])->name('offres-emploi');
 Route::post('/recrutement/offres/{id}/apply', [OffreController::class, 'apply'])->name('offres.apply');
 
-// ... existing code ...
 
-/// ... existing code ...
+
+
 
 Route::prefix('recrutement')->group(function () {
     // Afficher le formulaire (GET)
@@ -266,7 +273,7 @@ Route::prefix('recrutement')->group(function () {
     Route::post('/candidature-spontanee', [CandidatureController::class, 'store'])->name('candidature.store');
 });
 
-// ... existing code ...
+
 
 
 Route::prefix('admin')->group(function () {
@@ -285,21 +292,21 @@ Route::delete('/projects/{projet}', [ProjectController::class, 'destroy']);
 
 
 
-Route::get('/admin/spontaneous-applications', [SpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
-Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'downloadCv'])->name('admin.cv.download');
+// Route::get('/admin/spontaneous-applications', [SpontaneousApplicationController::class, 'index'])->name('admin.spontaneous-applications');
+// Route::get('/admin/cv/{filename}', [SpontaneousApplicationController::class, 'downloadCv'])->name('admin.cv.download');
 
 // les domaines front
 Route::get('/domaines/{id}', [DomainFrontController::class, 'show'])->name('Front.domain.show');
 Route::get('/domaines/image/{filename}', [App\Http\Controllers\Front\DomainFrontController::class, 'showDomainImage'])->name('front.domain.image');
 
-// ... existing code ...
+
 
 
 Route::get('/departement/{id}', [DepartementFrontController::class, 'show'])->name('front.departement.show');
 
-// ... existing code ...
+
 Route::get('/departement-image/{filename}', [DepartementFrontController::class, 'showDepartementImage'])->name('departement.image');
-// ... existing code ...
+
 //hada code li zidt db ana :
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/candidatures', [CandidatureController::class, 'index'])->name('candidatures.index');

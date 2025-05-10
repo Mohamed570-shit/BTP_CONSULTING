@@ -91,10 +91,7 @@
                                 <a href="{{ route('chiffres-cles') }}" class="dropdown-item">
                                     <i class="fas fa-chart-line me-2"></i> Chiffres clés
                                 </a>
-                                <a href="{{ route('certifications') }}" class="dropdown-item">
-
-                                    <i class="fas fa-certificate me-2"></i> Certifications
-                                </a>
+                        
                             </div>
 
                             <style>

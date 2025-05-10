@@ -22,7 +22,7 @@
         }
 
         .bgtop-btp {
-            background: linear-gradient(to right,rgb(19, 7, 244), #6366f1);
+            background: linear-gradient(to right,rgb(241, 241, 244), #fdfdff);
             height: 99px;
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
@@ -235,45 +235,13 @@
                 <div class="list-group sticky-top" id="domainSidebar">
                     <input type="text" id="searchDomainInput" class="form-control mb-2" placeholder="Rechercher un domaine...">
                     <button class="list-group-item list-group-item-action active" data-domain="all">Tous les domaines</button>
-                    @php
-                        $domains = [
-                            'Bâtiments & Structures',
-                            'Béton Armé & Charpentes Spéciales',
-                            'Ouvrages Souterrains',
-                            'Ouvrages d\'Art',
-                            'Géotechnique Appliquée',
-                            'Fluides de Bâtiment & Réseaux de Bâtiments',
-                            'Assainissement & Drainage Urbain',
-                            'Traitement & Réutilisation des Eaux',
-                            'Réseaux d\'Eau Potable & Distribution',
-                            'Gestion des Risques Hydrologiques',
-                            'Études et Conception de Stations de Pompage',
-                            'Études d\'Impact Environnemental (EIE)',
-                            'Audits & Certifications Environnementales',
-                            'Écologie Urbaine & Paysagère',
-                            'Aménagement Rural Intégré',
-                            'Petite et Moyenne Hydraulique (PMH)',
-                            'Aménagements Hydro-Agricoles',
-                            'Traitement des Ressources en Eau',
-                            'Irrigation Avancée',
-                            'Aménagement Urbain Durable',
-                            'Réseaux Secs & Électricité Urbaine',
-                            'Ingénierie Économique & Financière',
-                            'BIM & Ingénierie Digitale',
-                            'Infrastructures Hydrauliques Routières',
-                            'Pistes & Routes Non Classées',
-                            'Routes Classées',
-                            'Ouvrages Hydrauliques Routiers',
-                            'Smart City & Smart Building',
-                            'Éco-Conception & Ingénierie Bas Carbone',
-                            'Intelligence Artificielle & Automatisation des Études',
-                            'Levés Topographiques & Bathymétriques',
-                            'Implantation & Récolement d\'Ouvrages',
-                        ];
-                    @endphp
+
                     @foreach($domains as $domain)
-                        <button class="list-group-item list-group-item-action" data-domain="{{ Str::slug($domain) }}">{{ $domain }}</button>
-                    @endforeach
+    <button class="list-group-item list-group-item-action" data-domain="{{ Str::slug($domain->title) }}">
+        {{ $domain->title }}
+    </button>
+@endforeach
+
                 </div>
             </div>
 

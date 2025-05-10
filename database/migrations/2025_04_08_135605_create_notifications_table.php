@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id(); // Utiliser `id()` pour une clé primaire auto-incrémentée
+            $table->uuid('id')->primary(); // هذا أهم تعديل // Utiliser `id()` pour une clé primaire auto-incrémentée
             $table->string('type');
             $table->morphs('notifiable'); // Les colonnes notifiable_id et notifiable_type
             $table->text('data');

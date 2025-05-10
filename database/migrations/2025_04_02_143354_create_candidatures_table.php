@@ -16,6 +16,9 @@ class CreateCandidaturesTable extends Migration
            $table->string('telephone')->nullable();
            $table->string('post')->nullable();
            $table->string('cv')->nullable();
+           $table->string('diplome')->nullable();
+           $table->string('domaine')->nullable();
+           $table->string('type')->nullable();
            $table->text('lettre_motivation')->nullable();
            $table->string('slug')->nullable(); // <-- Add this line
            $table->foreignId('offre_id')->nullable()->constrained('offre_emplois')->onDelete('cascade');

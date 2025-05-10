@@ -152,38 +152,9 @@
                             <div class="col-md-4">
                                 <label for="domaine" class="form-label">Domaine</label>
                                 <select class="form-select" id="domaine" name="domaine">
-                                <option value="Bâtiments & Structures">Bâtiments & Structures</option>
-                                    <option value="Béton Armé & Charpentes Spéciales">Béton Armé & Charpentes Spéciales</option>
-                                    <option value="Ouvrages Souterrains">Ouvrages Souterrains</option>
-                                    <option value="Ouvrages dArt">Ouvrages dArt</option>
-                                    <option value="Géotechnique Appliquée">Géotechnique Appliquée</option>
-                                    <option value="Fluides de Bâtiment & Réseaux de Bâtiments">Fluides de Bâtiment & Réseaux de Bâtiments</option>
-                                    <option value="Assainissement & Drainage Urbain">Assainissement & Drainage Urbain</option>
-                                    <option value="Traitement & Réutilisation des Eaux">Traitement & Réutilisation des Eaux</option>
-                                    <option value="Réseaux dEau Potable & Distribution">Réseaux dEau Potable & Distribution</option>
-                                    <option value="Gestion des Risques Hydrologiques">Gestion des Risques Hydrologiques</option>
-                                    <option value="Études et Conception de Stations de Pompage">Études et Conception de Stations de Pompage</option>
-                                    <option value="Études dImpact Environnemental (EIE)">Études dImpact Environnemental (EIE)</option>
-                                    <option value="Audits & Certifications Environnementales">Audits & Certifications Environnementales</option>
-                                    <option value="Écologie Urbaine & Paysagère">Écologie Urbaine & Paysagère</option>
-                                    <option value="Aménagement Rural Intégré">Aménagement Rural Intégré</option>
-                                    <option value="Petite et Moyenne Hydraulique (PMH)">Petite et Moyenne Hydraulique (PMH)</option>
-                                    <option value="Aménagements Hydro-Agricoles">Aménagements Hydro-Agricoles</option>
-                                    <option value="Traitement des Ressources en Eau">Traitement des Ressources en Eau</option>
-                                    <option value="Irrigation Avancée">Irrigation Avancée</option>
-                                    <option value="Aménagement Urbain Durable">Aménagement Urbain Durable</option>
-                                    <option value="Réseaux Secs & Électricité Urbaine">Réseaux Secs & Électricité Urbaine</option>
-                                    <option value="Ingénierie Économique & Financière">Ingénierie Économique & Financière</option>
-                                    <option value="BIM & Ingénierie Digitale">BIM & Ingénierie Digitale</option>
-                                    <option value="Infrastructures Hydrauliques Routières">Infrastructures Hydrauliques Routières</option>
-                                    <option value="Pistes & Routes Non Classées">Pistes & Routes Non Classées</option>
-                                    <option value="Routes Classées">Routes Classées</option>
-                                    <option value="Ouvrages Hydrauliques Routiers">Ouvrages Hydrauliques Routiers</option>
-                                    <option value="Smart City & Smart Building">Smart City & Smart Building</option>
-                                    <option value="Éco-Conception & Ingénierie Bas Carbone">Éco-Conception & Ingénierie Bas Carbone</option>
-                                    <option value="Intelligence Artificielle & Automatisation des Études">Intelligence Artificielle & Automatisation des Études</option>
-                                    <option value="Levés Topographiques & Bathymétriques">Levés Topographiques & Bathymétriques</option>
-                                    <option value="Implantation & Récolement dOuvrages">Implantation & Récolement dOuvrages</option>
+                                    @foreach($domains as $domain)
+                                    <option value="{{ $domain->title }}">{{ $domain->title }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -369,39 +340,9 @@
                                     <th>Domaine</th>
                                     <td>
                                         <select class="form-select" id="edit_domaine" name="domaine">
-                                            <option value="Bâtiments & Structures">Bâtiments & Structures</option>
-                                            <option value="Béton Armé & Charpentes Spéciales">Béton Armé & Charpentes Spéciales</option>
-                                            <option value="Ouvrages Souterrains">Ouvrages Souterrains</option>
-                                            <option value="Ouvrages dArt">Ouvrages dArt</option>
-                                            <option value="Géotechnique Appliquée">Géotechnique Appliquée</option>
-                                            <option value="Fluides de Bâtiment & Réseaux de Bâtiments">Fluides de Bâtiment & Réseaux de Bâtiments</option>
-                                            <option value="Assainissement & Drainage Urbain">Assainissement & Drainage Urbain</option>
-                                            <option value="Traitement & Réutilisation des Eaux">Traitement & Réutilisation des Eaux</option>
-                                            <option value="Réseaux dEau Potable & Distribution">Réseaux dEau Potable & Distribution</option>
-                                            <option value="Gestion des Risques Hydrologiques">Gestion des Risques Hydrologiques</option>
-                                            <option value="Études et Conception de Stations de Pompage">Études et Conception de Stations de Pompage</option>
-                                            <option value="Études dImpact Environnemental (EIE)">Études dImpact Environnemental (EIE)</option>
-                                            <option value="Audits & Certifications Environnementales">Audits & Certifications Environnementales</option>
-                                            <option value="Écologie Urbaine & Paysagère">Écologie Urbaine & Paysagère</option>
-                                            <option value="Aménagement Rural Intégré">Aménagement Rural Intégré</option>
-                                            <option value="Petite et Moyenne Hydraulique (PMH)">Petite et Moyenne Hydraulique (PMH)</option>
-                                            <option value="Aménagements Hydro-Agricoles">Aménagements Hydro-Agricoles</option>
-                                            <option value="Traitement des Ressources en Eau">Traitement des Ressources en Eau</option>
-                                            <option value="Irrigation Avancée">Irrigation Avancée</option>
-                                            <option value="Aménagement Urbain Durable">Aménagement Urbain Durable</option>
-                                            <option value="Réseaux Secs & Électricité Urbaine">Réseaux Secs & Électricité Urbaine</option>
-                                            <option value="Ingénierie Économique & Financière">Ingénierie Économique & Financière</option>
-                                            <option value="BIM & Ingénierie Digitale">BIM & Ingénierie Digitale</option>
-                                            <option value="Infrastructures Hydrauliques Routières">Infrastructures Hydrauliques Routières</option>
-                                            <option value="Pistes & Routes Non Classées">Pistes & Routes Non Classées</option>
-                                            <option value="Routes Classées">Routes Classées</option>
-                                            <option value="Ouvrages Hydrauliques Routiers">Ouvrages Hydrauliques Routiers</option>
-                                            <option value="Smart City & Smart Building">Smart City & Smart Building</option>
-                                            <option value="Éco-Conception & Ingénierie Bas Carbone">Éco-Conception & Ingénierie Bas Carbone</option>
-                                            <option value="Intelligence Artificielle & Automatisation des Études">Intelligence Artificielle & Automatisation des Études</option>
-                                            <option value="Levés Topographiques & Bathymétriques">Levés Topographiques & Bathymétriques</option>
-                                            <option value="Implantation & Récolement dOuvrages">Implantation & Récolement dOuvrages</option>
-                                            <option value="Études de Proximités">Études de Proximités</option>
+                                            @foreach($domains as $domain)
+                                            <option value="{{ $domain->title }}">{{ $domain->title }}</option>
+                                            @endforeach
                                         </select>
                                     </td>
                                 </tr>

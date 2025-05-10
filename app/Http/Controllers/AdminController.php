@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Motdg;
+use App\Models\ALaUne;
 use App\Models\Valeur;
 use App\Models\Apropos;
 use App\Models\Chiffre;
 use App\Models\Domaine;
 use App\Models\Politique;
+use App\Models\Candidature;
 use App\Models\Departement;
+use App\Models\OffreEmploi;
 use App\Models\Organigramme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,19 +40,44 @@ class AdminController extends Controller
         return view('admin.notifications'); // À créer
     }
 
-    // Méthode pour la page des candidatures spontanées
-    public function spontaneousApplications()
-    {
-        $applications = SpontaneousApplication::latest()->get();
-        return view('admin.spontaneous-applications', compact('applications'));
-    }
-    
+        // Méthode pour la page des candidatures spontanées
+       
+
+
+    // ... existing code ...
+// ... existing code ...
+public function spontaneousApplications(Request $request)
+{
+    $types = ['emploi', 'stage'];
+    $offres = \App\Models\OffreEmploi::all();
+    $domainescn = \App\Models\Candidature::whereNotNull('domaine')
+        ->where('domaine', '!=', '')
+        ->distinct()
+        ->pluck('domaine');
+    $candidatures = \App\Models\Candidature::orderBy('created_at', 'desc')->get();
+    return view('admin.spontaneous-applications', compact('types', 'offres', 'domainescn', 'candidatures'));
+}
+// ... existing code ...
+
     public function users()
     {
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
+    
+
+public function aLaUne()
+{
+    $aLaUnes = ALaUne::all();
+    return view('admin.a_la_une_admin', compact('aLaUnes'));
+}
+
+public function showALaUne($id)
+{
+    $aLaUne = \App\Models\ALaUne::with('images')->findOrFail($id);
+    return view('admin.partials.a_la_une_details', compact('aLaUne'))->render();
+}
 
 
         // quisommenous (admin)

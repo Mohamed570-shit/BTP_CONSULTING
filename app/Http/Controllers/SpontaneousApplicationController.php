@@ -1,35 +1,34 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Candidature;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\AdminActionNotification;
+use App\Models\Candidature;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CandidaturesExport;
 
 class SpontaneousApplicationController extends Controller
 {
-    public function index()
-{
-    $offres = \App\Models\OffreEmploi::all();
-    $candidatures = \App\Models\Candidature::all();
-    return view('admin.spontaneous-applications', compact('offres', 'candidatures'));
-}
+    // ... existing code ...
 
-public function downloadCv($filename)
-{
-    $fullPath = storage_path('app/public/cvs/' . $filename);
 
-    if (!file_exists($fullPath)) {
-        abort(404, 'File not found');
+    public function deleteSelected(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        if (!empty($ids)) {
+            Candidature::whereIn('id', $ids)->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 
-    return response()->file($fullPath, [
-        'Content-Type' => mime_content_type($fullPath),
-        'Content-Disposition' => 'inline; filename="' . $filename . '"'
-    ]);
-}
 
+
+public function exportSelected(Request $request)
+{
+    $ids = $request->input('ids', []);
+    if (empty($ids)) {
+        return back()->with('error', 'Aucune candidature sélectionnée.');
+    }
+    return Excel::download(new CandidaturesExport($ids), 'candidatures_export.xlsx');
+}
 }

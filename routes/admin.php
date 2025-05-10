@@ -2,32 +2,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
-use App\Http\Controllers\Admin\SpontaneousApplicationController;
+use App\Http\Controllers\SpontaneousApplicationController;
+use App\Http\Controllers\CandidatureController; // Bedelt hadi
 use App\Http\Controllers\Assistant\AssistantDashboardController;
-use App\Http\Controllers\Admin\UserController; // Add this import
 
-    Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-
-    // Route::middleware(['auth', 'role:admin'])->group(function () {
-    //     Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
-    //     Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
-    //     Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    //     Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
-
-    // Route::middleware(['auth', 'role:admin'])->group(function () {
-    //     // User management routes
-    //     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-    //     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
-    //     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
-    //     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    //     Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
-
 
     // Gestion des utilisateurs
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
@@ -39,36 +24,25 @@ use App\Http\Controllers\Admin\UserController; // Add this import
     Route::get('/users/{user}/code', [AdminController::class, 'showUserCode'])->name('admin.users.show-code');
 
     Route::get('/admin/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
-    Route::get('/admin/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
-
-
+    Route::get('/admin/spontaneous-applications', [CandidatureController::class, 'index'])->name('admin.spontaneous-applications'); // Bedelt hadi
     
-    
-    
-        // Nos domaines
-        Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
-        Route::post('/domaines', [DomaineController::class, 'store'])->name('admin.domaines.store');
-        Route::put('/domaines/{id}', [DomaineController::class, 'update'])->name('admin.domaines.update');
-        Route::delete('/domaines/{id}', [DomaineController::class, 'destroy'])->name('admin.domaines.destroy');
+    // Nos domaines
+    Route::get('/domains', [AdminController::class, 'domains'])->name('admin.domains');
+    Route::post('/domaines', [DomaineController::class, 'store'])->name('admin.domaines.store');
+    Route::put('/domaines/{id}', [DomaineController::class, 'update'])->name('admin.domaines.update');
+    Route::delete('/domaines/{id}', [DomaineController::class, 'destroy'])->name('admin.domaines.destroy');
 
-        Route::post('/cartes', [DomaineController::class, 'storeCarte'])->name('admin.cartes.store');
-        Route::put('/cartes/{id}', [DomaineController::class, 'updateCarte'])->name('admin.cartes.update');
-        Route::delete('/cartes/{id}', [DomaineController::class, 'destroyCarte'])->name('admin.cartes.destroy');
+    Route::post('/cartes', [DomaineController::class, 'storeCarte'])->name('admin.cartes.store');
+    Route::put('/cartes/{id}', [DomaineController::class, 'updateCarte'])->name('admin.cartes.update');
+    Route::delete('/cartes/{id}', [DomaineController::class, 'destroyCarte'])->name('admin.cartes.destroy');
 
-        Route::post('/images', [DomaineController::class, 'storeImage'])->name('admin.images.store');
-        Route::put('/images/{id}', [DomaineController::class, 'updateImage'])->name('admin.images.update');
-        Route::delete('/images/{id}', [DomaineController::class, 'destroyImage'])->name('admin.images.destroy');
+    Route::post('/images', [DomaineController::class, 'storeImage'])->name('admin.images.store');
+    Route::put('/images/{id}', [DomaineController::class, 'updateImage'])->name('admin.images.update');
+    Route::delete('/images/{id}', [DomaineController::class, 'destroyImage'])->name('admin.images.destroy');
 
-        Route::get('/domain-image/{filename}', [AdminController::class, 'showDomainImage'])->name('admin.domain.image');
-
-
-
-
-   
+    Route::get('/domain-image/{filename}', [AdminController::class, 'showDomainImage'])->name('admin.domain.image');
 
     // Projets
-    Route::get('/projects', [AdminController::class, 'projects'])->name('admin.projects');
-
     Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
     Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
@@ -88,26 +62,20 @@ use App\Http\Controllers\Admin\UserController; // Add this import
         $type = \Illuminate\Support\Facades\File::mimeType($path);
         return response($file, 200)->header("Content-Type", $type);
     });
-       // les routes pour projets recents
 
     // Départements
     Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
-// ... existing code ...
+    Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
+    Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('admin.departments.update');
+    Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 
-// Départements
-Route::get('/departments', [AdminController::class, 'departments'])->name('admin.departments');
-Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
-Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('admin.departments.update');
-Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
+    // Cartes Département
+    Route::post('/cart-departements', [DepartmentController::class, 'storeCart'])->name('admin.cartdepartements.store');
+    Route::put('/cart-departements/{id}', [DepartmentController::class, 'updateCart'])->name('admin.cartdepartements.update');
+    Route::delete('/cart-departements/{id}', [DepartmentController::class, 'destroyCart'])->name('admin.cartdepartements.destroy');
+    Route::get('/cart-image/{filename}', [AdminController::class, 'showCartImage'])->name('admin.cart.image');
 
-// Cartes Département
-Route::post('/cart-departements', [DepartmentController::class, 'storeCart'])->name('admin.cartdepartements.store');
-Route::put('/cart-departements/{id}', [DepartmentController::class, 'updateCart'])->name('admin.cartdepartements.update');
-Route::delete('/cart-departements/{id}', [DepartmentController::class, 'destroyCart'])->name('admin.cartdepartements.destroy');
-Route::get('/cart-image/{filename}', [App\Http\Controllers\AdminController::class, 'showCartImage'])->name('admin.cart.image');
-
-
-// Offres d'emploi
+    // Offres d'emploi
     Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs');
     Route::get('/jobs/create', [JobController::class, 'create'])->name('admin.jobs.create');
     Route::post('/jobs', [JobController::class, 'store'])->name('admin.jobs.store');
@@ -116,69 +84,75 @@ Route::get('/cart-image/{filename}', [App\Http\Controllers\AdminController::clas
     Route::delete('/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('admin.jobs.show');
 
+    // Qui sommes-nous admin
+    //propos
+    Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
+    Route::get('/apropos-image/{filename}', [AdminController::class, 'showAproposImage'])->name('apropos.image');
+    Route::put('/admin/apropos/update', [QuiSommesNousController::class, 'update'])->name('admin.apropos.update');
 
+    //mot directeur général
+    Route::put('/motdg/update', [QuiSommesNousController::class, 'updateMotdg'])->name('admin.motdg.update');
+    Route::get('/motdg-image/{filename}', [AdminController::class, 'showMotdgImage'])->name('motdg.image');
 
+    // valeurs
+    Route::post('/valeurs/store', [QuiSommesNousController::class, 'storeValeur'])->name('admin.valeurs.store');
+    Route::delete('/valeurs/{id}', [QuiSommesNousController::class, 'destroyValeur'])->name('admin.valeurs.destroy');
+    Route::put('/valeurs/{id}', [QuiSommesNousController::class, 'updateValeur'])->name('admin.valeurs.update');
 
-// Qui sommes-nous admin
-        //propos
-        Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
-        Route::get('/apropos-image/{filename}', [AdminController::class, 'showAproposImage'])->name('apropos.image');
-        Route::put('/admin/apropos/update', [QuiSommesNousController::class, 'update'])->name('admin.apropos.update');
+    // chiffres
+    Route::post('/chiffres/store', [QuiSommesNousController::class, 'storeChiffre'])->name('admin.chiffres.store');
+    Route::put('/chiffres/{id}', [QuiSommesNousController::class, 'updateChiffre'])->name('admin.chiffres.update');
+    Route::delete('/chiffres/{id}', [QuiSommesNousController::class, 'destroyChiffre'])->name('admin.chiffres.destroy');
 
+    // Politique CRUD
+    Route::post('/politiques', [QuiSommesNousController::class, 'storePolitique'])->name('admin.politiques.store');
+    Route::put('/politiques/{id}', [QuiSommesNousController::class, 'updatePolitique'])->name('admin.politiques.update');
+    Route::delete('/politiques/{id}', [QuiSommesNousController::class, 'destroyPolitique'])->name('admin.politiques.destroy');
+    Route::get('/politique-image/{filename}', [AdminController::class, 'politiqueImage'])->name('admin.politique.image');
 
-    // Khlli hadchi:
+    // Organigramme CRUD
+    Route::post('/organigramme', [QuiSommesNousController::class, 'storeOrganigramme'])->name('admin.organigramme.store');
+    Route::put('/organigramme/{id}', [QuiSommesNousController::class, 'updateOrganigramme'])->name('admin.organigramme.update');
+    Route::delete('/organigramme/{id}', [QuiSommesNousController::class, 'destroyOrganigramme'])->name('admin.organigramme.destroy');
+    Route::get('/organigramme-image/{filename}', [AdminController::class, 'organigrammeImage'])->name('admin.organigramme.image');
 
-        //mot directeur général
-        Route::put('/motdg/update', [QuiSommesNousController::class, 'updateMotdg'])->name('admin.motdg.update');
-        Route::get('/motdg-image/{filename}', [AdminController::class, 'showMotdgImage'])->name('motdg.image');
+    // Routes pour les candidatures spontanées
+    Route::get('/candidatures', [CandidatureController::class, 'index'])->name('admin.candidatures.index');
+    Route::delete('/candidatures/{candidature}', [CandidatureController::class, 'destroy'])->name('admin.candidatures.destroy');
+    Route::post('/candidatures/toggle-selection', [CandidatureController::class, 'toggleSelection'])->name('admin.candidatures.toggle-selection');
+    Route::get('/candidatures/clear-selection', [CandidatureController::class, 'clearSelection'])->name('admin.candidatures.clear-selection');
+    Route::delete('/candidatures', [CandidatureController::class, 'destroySelected'])->name('admin.candidatures.destroy-selected');
+    Route::get('/candidatures/export', [CandidatureController::class, 'export'])->name('admin.candidatures.export');
+    Route::get('/cv/download/{filename}', [CandidatureController::class, 'downloadCV'])->name('admin.cv.download');
+    Route::get('/diplome/download/{filename}', [CandidatureController::class, 'downloadDiplome'])->name('admin.diplome.download');
 
-        // valeurs
-        Route::post('/valeurs/store', [QuiSommesNousController::class, 'storeValeur'])->name('admin.valeurs.store');
-        Route::delete('/valeurs/{id}', [QuiSommesNousController::class, 'destroyValeur'])->name('admin.valeurs.destroy');
-        Route::put('/valeurs/{id}', [QuiSommesNousController::class, 'updateValeur'])->name('admin.valeurs.update');
+    // Assistance Projects Routes
+    Route::prefix('assistant')->middleware(['auth'])->group(function () {
+        Route::get('/projects', [AssistantDashboardController::class, 'index'])->name('assistant.projects');
+        Route::get('/projects/create', [AssistantDashboardController::class, 'create'])->name('assistant.projects.create');
+        Route::post('/projects', [AssistantDashboardController::class, 'store'])->name('assistant.projects.store');
+        Route::get('/projects/{id}', [AssistantDashboardController::class, 'show'])->name('assistant.projects.show');
+        Route::get('/projects/{id}/edit', [AssistantDashboardController::class, 'edit'])->name('assistant.projects.edit');
+        Route::put('/projects/{id}', [AssistantDashboardController::class, 'update'])->name('assistant.projects.update');
+        Route::delete('/projects/{id}', [AssistantDashboardController::class, 'destroy'])->name('assistant.projects.destroy');
+    });
 
-        // chiffres
-        Route::post('/chiffres/store', [QuiSommesNousController::class, 'storeChiffre'])->name('admin.chiffres.store');
-        Route::put('/chiffres/{id}', [QuiSommesNousController::class, 'updateChiffre'])->name('admin.chiffres.update');
-        Route::delete('/chiffres/{id}', [QuiSommesNousController::class, 'destroyChiffre'])->name('admin.chiffres.destroy');
-
-        // ... existing code ...
-
-
-Route::get('/about', [AdminController::class, 'about'])->name('admin.about');
-
-// Politique CRUD
-Route::post('/politiques', [QuiSommesNousController::class, 'storePolitique'])->name('admin.politiques.store');
-Route::put('/politiques/{id}', [QuiSommesNousController::class, 'updatePolitique'])->name('admin.politiques.update');
-Route::delete('/politiques/{id}', [QuiSommesNousController::class, 'destroyPolitique'])->name('admin.politiques.destroy');
-Route::get('/politique-image/{filename}', [AdminController::class, 'politiqueImage'])->name('admin.politique.image');
-
-
-
-// Organigramme CRUD
-Route::post('/organigramme', [QuiSommesNousController::class, 'storeOrganigramme'])->name('admin.organigramme.store');
-Route::put('/organigramme/{id}', [QuiSommesNousController::class, 'updateOrganigramme'])->name('admin.organigramme.update');
-Route::delete('/organigramme/{id}', [QuiSommesNousController::class, 'destroyOrganigramme'])->name('admin.organigramme.destroy');
-Route::get('/organigramme-image/{filename}', [AdminController::class, 'organigrammeImage'])->name('admin.organigramme.image');
-
-
-
-
-
-// Assistance Projects Routes
-Route::prefix('assistant')->middleware(['auth'])->group(function () {
-    Route::get('/projects', [AssistantDashboardController::class, 'index'])->name('assistant.projects');
-    Route::get('/projects/create', [AssistantDashboardController::class, 'create'])->name('assistant.projects.create');
-    Route::post('/projects', [AssistantDashboardController::class, 'store'])->name('assistant.projects.store');
-    Route::get('/projects/{id}', [AssistantDashboardController::class, 'show'])->name('assistant.projects.show');
-    Route::get('/projects/{id}/edit', [AssistantDashboardController::class, 'edit'])->name('assistant.projects.edit');
-    Route::put('/projects/{id}', [AssistantDashboardController::class, 'update'])->name('assistant.projects.update');
-    Route::delete('/projects/{id}', [AssistantDashboardController::class, 'destroy'])->name('assistant.projects.destroy');
-});
-
-
+    // ... existing code ...
+Route::get('/a_la_une_admin', [AdminController::class, 'aLaUne'])->name('admin.a_la_une_admin');
 // ... existing code ...
-
-
+    // ... existing code ...
+Route::get('/a_la_une_admin', [AdminController::class, 'aLaUne'])->name('admin.a_la_une_admin');
+Route::post('/a_la_une_admin', [App\Http\Controllers\Admin\ALaUneController::class, 'store'])->name('admin.a_la_une_admin.store');
+Route::get('/a_la_une_admin/{id}', [AdminController::class, 'showALaUne']); // AJAX details
+Route::post('/a_la_une_admin/{id}', [App\Http\Controllers\Admin\ALaUneController::class, 'update'])->middleware('web'); // AJAX update (with X-HTTP-Method-Override: PUT)
+Route::post('/a_la_une_admin/{id}/images', [App\Http\Controllers\Admin\ALaUneController::class, 'addImage']);
+Route::post('/a_la_une_admin/images/{imageId}', [App\Http\Controllers\Admin\ALaUneController::class, 'deleteImage']);
+Route::post('/a_la_une_admin/{id}/delete', [App\Http\Controllers\Admin\ALaUneController::class, 'destroy']); // Not used, we use DELETE below
+Route::delete('/a_la_une_admin/{id}', [App\Http\Controllers\Admin\ALaUneController::class, 'destroy'])->name('admin.a_la_une_admin.delete');
 // ... existing code ...
+    
+Route::get('/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
+Route::get('/spontaneous-applications/filter', [AdminController::class, 'filterSpontaneousApplications'])->name('admin.spontaneous-applications.filter');
+Route::post('/spontaneous-applications/delete', [SpontaneousApplicationController::class, 'deleteSelected'])->name('admin.spontaneous-applications.delete');
+Route::post('/spontaneous-applications/export', [SpontaneousApplicationController::class, 'exportSelected'])->name('admin.spontaneous-applications.export');
 });
