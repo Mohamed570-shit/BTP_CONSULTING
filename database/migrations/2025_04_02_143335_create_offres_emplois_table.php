@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // ... existing code ...
+    
 public function up()
 {
     Schema::create('offre_emplois', function (Blueprint $table) {

@@ -1,9 +1,13 @@
+
 @extends('layouts.admin')
+
 
 
 @section('title', 'Gestion des Projets')
 
 @section('content')
+
+
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
             <h5 class="mb-0"><i class="fas fa-project-diagram me-2"></i> Projets</h5>

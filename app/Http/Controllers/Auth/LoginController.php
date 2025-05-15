@@ -79,7 +79,7 @@ class LoginController extends Controller
             } elseif ($user->role === 'rh') {
                 return redirect()->intended('rh/dashboard');
             } elseif ($user->role === 'assistant') {
-                return redirect()->intended('assistant/dashboard');
+                return redirect()->intended('/admin/projects');
             } else {
                 Auth::logout();
                 return back()->withErrors([

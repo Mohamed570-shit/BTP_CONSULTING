@@ -150,6 +150,12 @@
             padding: 8px 12px;
             cursor: pointer;
         }
+        
+        .main-content.w-100 {
+            margin-left: 0 !important;
+            width: 100% !important;
+        }
+
         @media (max-width: 991.98px) {
             .sidebar { margin-left: -250px; }
             .sidebar.active { margin-left: 0; }
@@ -167,59 +173,24 @@
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <img src="{{ asset('asset/img/logo-2.png') }}" alt="BTP Consulting" class="img-fluid">
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
-                <li><a href="{{ route('admin.users') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}"><i class="fas fa-users"></i> Utilisateurs</a></li>
-                <li><a href="{{ route('admin.about') }}" class="{{ request()->routeIs('admin.about*') ? 'active' : '' }}"><i class="fas fa-info-circle"></i> Qui sommes-nous</a></li>
-                <li><a href="{{ route('admin.domains') }}" class="{{ request()->routeIs('admin.domains*') ? 'active' : '' }}"><i class="fas fa-globe"></i> Nos domaines</a></li>
-                <li><a href="{{ route('admin.projects') }}" class="{{ request()->routeIs('admin.projects*') ? 'active' : '' }}"><i class="fas fa-project-diagram"></i> Projets</a></li>
-                <li><a href="{{ route('admin.departments') }}" class="{{ request()->routeIs('admin.departments*') ? 'active' : '' }}"><i class="fas fa-building"></i> Départements</a></li>
-                <li><a href="{{ route('admin.jobs') }}" class="{{ request()->routeIs('admin.jobs*') ? 'active' : '' }}"><i class="fas fa-briefcase"></i> Offres d'emploi</a></li>
-                <li><a href="{{ route('admin.spontaneous-applications') }}" class="{{ request()->routeIs('admin.spontaneous-applications*') ? 'active' : '' }}"><i class="fas fa-file-upload"></i> Candidatures Spontanées</a></li>
-                
-<li>
-    <a href="{{ route('admin.a_la_une_admin') }}" class="{{ request()->routeIs('admin.a_la_une_admin') ? 'active' : '' }}">
-        <i class="fas fa-star"></i> A la une
-    </a>
-</li>
-
-            </ul>
-        </aside>
+         @if(Auth()->user()->role == 'admin')
+            @include('layouts.partial.sidebaradmin')
+        @endif
+        @if(Auth()->user()->role == 'rh')
+            @include('layouts.partial.sidebarerh')
+        @endif
+       
 
         <!-- Main Content -->
-        <main class="main-content" id="main-content">
-        <header class="navbar-admin">
-    <button class="toggle-sidebar" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
-    <h4 class="mb-0">@yield('title')</h4>
-    <div class="d-flex align-items-center">
-        <!-- User Name -->
-        <span class="me-2">{{ Auth::user()->name }}</span>
-        <!-- Profile Icon -->
-        <div class="me-3">
-            <a href="{{ route('admin.profile') }}" class="profile-icon" title="Profil">
-                <i class="fas fa-user"></i>
-            </a>
-        </div>
-        <!-- Notifications -->
-        <div class="notification-area me-3">
-            <a href="{{ route('admin.notifications') }}" class="notification-bell">
-                <i class="fas fa-bell"></i>
-                
-<span class="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>        </div>
-        <!-- Logout -->
-        <div class="me-3">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-icon">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-        </div>
-    </div>
-</header>
-
+        <main class="main-content{{ Auth()->user()->role == 'assistant' ? ' w-100 no-sidebar' : '' }}" id="main-content">
+         
+            <!-- header -->
+        @if(Auth()->user()->role == 'admin' || Auth()->user()->role == 'rh')
+            @include('layouts.partial.headerRHadmin')
+        @endif
+        @if(Auth()->user()->role == 'assistant')
+            @include('layouts.partial.headerassist')
+        @endif
             <section class="content-wrapper">
                 @yield('content')
             </section>
