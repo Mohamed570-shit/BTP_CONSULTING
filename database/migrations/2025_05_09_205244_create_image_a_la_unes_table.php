@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('a_la_une_id')->constrained('a_la_unes')->onDelete('cascade');
             $table->string('image_path');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

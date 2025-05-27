@@ -1,31 +1,33 @@
 <?php
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\QuiSommesNousController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\Assistant\AssistantDashboardController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CandidatureController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DepartementFrontController;
-use App\Http\Controllers\Front\DomainFrontController;
-use App\Http\Controllers\OffreController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProjetRecentsController;
-use App\Http\Controllers\Rh\DashboardController;
-// use App\Http\Controllers\RHController;
-use App\Http\Controllers\SpontaneousApplicationController;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ALaUneFrontController;
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\Rh\DashboardController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\ProjetRecentsController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\DepartementFrontController;
+// use App\Http\Controllers\RHController;
+use App\Http\Controllers\Front\DomainFrontController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\QuiSommesNousController;
+use App\Http\Controllers\SpontaneousApplicationController;
+use App\Http\Controllers\Assistant\AssistantDashboardController;
 
 
 // Route pour la page À la une
-Route::get('/a-la-une', function () {
-    return view('pages.a_la_une');
-})->name('a_la_une');
+
+Route::get('/a-la-une', [ALaUneFrontController::class, 'index'])->name('a_la_une');
+Route::get('/a-la-une/{id}', [ALaUneFrontController::class, 'show'])->name('a_la_une.detail');
+Route::get('/a-la-une-image/{filename}', [ALaUneFrontController::class, 'showImage'])->name('a_la_une.front.image');
 
 
 
@@ -52,34 +54,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/assistant/dashboard', [AssistantDashboardController::class, 'index'])->name('assistant.dashboard');
 
-    Route::get('/assistant/profile', [ProfileController::class, 'show'])->name('assistant.profile');
-    Route::put('/assistant/profile', [ProfileController::class, 'update'])->name('assistant.profile.update');
-    Route::get('/projects', [AssistantDashboardController::class, 'projects'])->name('assistant.projects');
-
-    Route::get('/assistant/projects', [ProjectController::class, 'index'])->name('assistant.projects');
-    Route::get('/assistant/projects/create', [ProjectController::class, 'create'])->name('assistant.projects.create');
-    Route::post('/assistant/projects', [ProjectController::class, 'store'])->name('assistant.projects.store');
-    Route::get('/assistant/projects/{id}', [ProjectController::class, 'show'])->name('assistant.projects.show');
-    Route::get('/assistant/projects/{id}/edit', [ProjectController::class, 'edit'])->name('assistant.projects.edit');
-    Route::put('/assistant/projects/{id}', [ProjectController::class, 'update'])->name('assistant.projects.update');
-    Route::delete('/assistant/projects/{id}', [ProjectController::class, 'destroy'])->name('assistant.projects.destroy');
-
-    // route pour images des projets
-    Route::get('/assistant/project-image/{filename}', function ($filename) {
-        $path = storage_path('app/public/projets/' . $filename);
-
-        if (!\Illuminate\Support\Facades\File::exists($path)) {
-            abort(404);
-        }
-        $file = \Illuminate\Support\Facades\File::get($path);
-        $type = \Illuminate\Support\Facades\File::mimeType($path);
-        return response($file, 200)->header("Content-Type", $type);
-    });
-
-});
+   
 
 
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\Admin\ALaUneController;
 use App\Http\Controllers\Admin\DomaineController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuiSommesNousController;
@@ -126,31 +127,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cv/download/{filename}', [CandidatureController::class, 'downloadCV'])->name('admin.cv.download');
     Route::get('/diplome/download/{filename}', [CandidatureController::class, 'downloadDiplome'])->name('admin.diplome.download');
 
-    // Assistance Projects Routes
-    Route::prefix('assistant')->middleware(['auth'])->group(function () {
-        Route::get('/projects', [AssistantDashboardController::class, 'index'])->name('assistant.projects');
-        Route::get('/projects/create', [AssistantDashboardController::class, 'create'])->name('assistant.projects.create');
-        Route::post('/projects', [AssistantDashboardController::class, 'store'])->name('assistant.projects.store');
-        Route::get('/projects/{id}', [AssistantDashboardController::class, 'show'])->name('assistant.projects.show');
-        Route::get('/projects/{id}/edit', [AssistantDashboardController::class, 'edit'])->name('assistant.projects.edit');
-        Route::put('/projects/{id}', [AssistantDashboardController::class, 'update'])->name('assistant.projects.update');
-        Route::delete('/projects/{id}', [AssistantDashboardController::class, 'destroy'])->name('assistant.projects.destroy');
-    });
 
-    // ... existing code ...
-Route::get('/a_la_une_admin', [AdminController::class, 'aLaUne'])->name('admin.a_la_une_admin');
+
+   // ... existing code ...
+Route::get('a_la_une_admin', [AdminController::class, 'aLaUne'])->name('admin.a_la_une_admin');
+Route::post('a_la_une_admin', [ALaUneController::class, 'store'])->name('admin.a_la_une_admin.store');
+Route::put('a_la_une_admin/{id}', [ALaUneController::class, 'update'])->name('admin.a_la_une_admin.update');
+Route::delete('a_la_une_admin/{id}', [ALaUneController::class, 'destroy'])->name('admin.a_la_une_admin.delete');
 // ... existing code ...
-    // ... existing code ...
-Route::get('/a_la_une_admin', [AdminController::class, 'aLaUne'])->name('admin.a_la_une_admin');
-Route::post('/a_la_une_admin', [App\Http\Controllers\Admin\ALaUneController::class, 'store'])->name('admin.a_la_une_admin.store');
-Route::get('/a_la_une_admin/{id}', [AdminController::class, 'showALaUne']); // AJAX details
-Route::post('/a_la_une_admin/{id}', [App\Http\Controllers\Admin\ALaUneController::class, 'update'])->middleware('web'); // AJAX update (with X-HTTP-Method-Override: PUT)
-Route::post('/a_la_une_admin/{id}/images', [App\Http\Controllers\Admin\ALaUneController::class, 'addImage']);
-Route::post('/a_la_une_admin/images/{imageId}', [App\Http\Controllers\Admin\ALaUneController::class, 'deleteImage']);
-Route::post('/a_la_une_admin/{id}/delete', [App\Http\Controllers\Admin\ALaUneController::class, 'destroy']); // Not used, we use DELETE below
-Route::delete('/a_la_une_admin/{id}', [App\Http\Controllers\Admin\ALaUneController::class, 'destroy'])->name('admin.a_la_une_admin.delete');
-// ... existing code ...
-    
+Route::post('a_la_une_admin/{id}/images', [ALaUneController::class, 'addImage'])->name('admin.a_la_une_admin.images.add');
+Route::put('a_la_une_admin/images/{imageId}', [ALaUneController::class, 'updateImage'])->name('admin.a_la_une_admin.images.update');
+Route::delete('a_la_une_admin/images/{imageId}', [ALaUneController::class, 'deleteImage'])->name('admin.a_la_une_admin.images.delete');
+// Add this route with your other image routes
+Route::get('a_la_une_images/{filename}', [AdminController::class, 'showALaUneImage'])->name('a_la_une.image');
+
+
+
 Route::get('/spontaneous-applications', [AdminController::class, 'spontaneousApplications'])->name('admin.spontaneous-applications');
 Route::get('/spontaneous-applications/filter', [AdminController::class, 'filterSpontaneousApplications'])->name('admin.spontaneous-applications.filter');
 Route::post('/spontaneous-applications/delete', [SpontaneousApplicationController::class, 'deleteSelected'])->name('admin.spontaneous-applications.delete');
