@@ -16,13 +16,11 @@ class ALaUne extends Model
         'presentation',
         'image',
         'date',
-        'active',
         'slug',
     ];
 
     protected $casts = [
         'date' => 'date',
-        'active' => 'boolean',
     ];
 
     /**
@@ -44,6 +42,6 @@ class ALaUne extends Model
      */
     public function images()
     {
-        return $this->hasMany(ImageALaUne::class, 'a_la_une_id')->orderBy('order');
+        return $this->hasMany(ImageALaUne::class, 'a_la_une_id')->orderBy('id', 'asc');
     }
 }

@@ -12,9 +12,6 @@ class ImageALaUne extends Model
     protected $fillable = [
         'a_la_une_id',
         'image_path',
-        'title',
-        'description',
-        'order',
     ];
 
     /**

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('presentation');
             $table->string('image')->nullable(); // Image principale
             $table->date('date');
-            $table->boolean('active')->default(true);
             $table->string('slug')->unique();
             $table->timestamps();
         });

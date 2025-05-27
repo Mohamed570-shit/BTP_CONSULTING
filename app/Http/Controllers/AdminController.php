@@ -67,19 +67,34 @@ public function spontaneousApplications(Request $request)
 
     
 
-public function aLaUne()
+    
+
+// ... existing code ...
+public function aLaUne(Request $request)
 {
-    $aLaUnes = ALaUne::all();
-    return view('admin.a_la_une_admin', compact('aLaUnes'));
+    $aLaUnes = ALaUne::with('images')->get(); // Eager load images for all "A la une"
+    $selectedALaUne = null;
+    if ($request->has('id')) {
+        $selectedALaUne = $aLaUnes->where('id', $request->id)->first();
+    }
+    if (!$selectedALaUne && $aLaUnes->count()) {
+        $selectedALaUne = $aLaUnes->first();
+    }
+    
+    return view('admin.a_la_une_admin', compact('aLaUnes', 'selectedALaUne'));
+}
+// ... existing code ...
+
+public function showALaUneImage($filename) //image de a la une
+{
+    $path = storage_path('app/public/a_la_une_images/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
 }
 
-public function showALaUne($id)
-{
-    $aLaUne = \App\Models\ALaUne::with('images')->findOrFail($id);
-    return view('admin.partials.a_la_une_details', compact('aLaUne'))->render();
-}
-
-
+// ... existing code ...
         // quisommenous (admin)
         
         public function about()

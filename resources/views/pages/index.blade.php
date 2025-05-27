@@ -507,8 +507,8 @@
                                 </div>
                                 <div class="d-flex justify-content-center justify-content-md-start mb-4">
                                 <a class="btn rounded-pill py-2 px-4 px-md-5 btn-a-la-une" href="{{ route('a_la_une') }}">
-    <i class="fas fa-star me-2"></i> À LA UNE
-</a>
+                                    <i class="fas fa-star me-2"></i> À LA UNE
+                                </a>
                                 </div>
 
                                 {{-- <div class="d-flex align-items-center justify-content-center justify-content-md-start">
