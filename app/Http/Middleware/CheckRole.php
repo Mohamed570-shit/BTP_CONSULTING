@@ -13,7 +13,6 @@ class CheckRole
         if (!$request->user() || $request->user()->role !== $role) {
             return redirect('/');
         }
-
         return $next($request);
     }
 }

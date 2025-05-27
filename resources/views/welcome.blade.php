@@ -133,7 +133,7 @@
                             }
 
                             .custom-dropdown .dropdown-item i {
-                                color: #ff6f00;
+                                color: 	#EE82EE;
                                 width: 20px;
                                 text-align: center;
                             }
@@ -257,19 +257,19 @@
 
     .dropdown-item:hover {
         background-color: #fff3e6;
-        color: #ff6f00;
+        color: 	#EE82EE;
         padding-left: 20px;
     }
 
     .icon {
-        color: #ff6f00;
+        color: 	#EE82EE;
         margin-right: 10px;
         width: 20px;
         text-align: center;
     }
 
     .dropdown-item:hover .icon {
-        color: #ff6f00;
+        color: 	#EE82EE;
     }
 </style>
 
@@ -418,13 +418,13 @@
     align-items: center;
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
-    color: #ff6f00; /* Couleur #ff6f00 pour le texte */
+    color: 	#EE82EE; /* Couleur 	#EE82EE pour le texte */
 }
 
 /* Style pour le texte avec icône */
 .nav-item .nav-link i {
     font-size: 1.2rem;
-    color: #ff6f00; /* Couleur #ff6f00 pour l'icône */
+    color: 	#EE82EE; /* Couleur 	#EE82EE pour l'icône */
 }
 
 /* Style pour les éléments du menu déroulant */
@@ -448,18 +448,18 @@
 /* Style pour l'élément survolé */
 .dropdown-item:hover {
     background-color: #f1f1f1;
-    color: #ff6f00; /* Couleur #ff6f00 au survol */
+    color: 	#EE82EE; /* Couleur 	#EE82EE au survol */
 }
 
 /* Espacement entre les icônes et les textes */
 .dropdown-item i {
     margin-right: 10px;
-    color: #ff6f00; /* Couleur #ff6f00 pour l'icône */
+    color: 	#EE82EE; /* Couleur 	#EE82EE pour l'icône */
 }
 
 /* Style pour le lien sélectionné */
 .nav-item .dropdown-toggle {
-    color: #ff6f00; /* Couleur #ff6f00 pour le lien sélectionné */
+    color: 	#EE82EE; /* Couleur 	#EE82EE pour le lien sélectionné */
     font-weight: bold;
 }
 
@@ -1357,7 +1357,7 @@
 
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-            <div class="container py-5 border-start-0 border-end-0" style="border: 1px solid; border-color: #ff6f00;">
+            <div class="container py-5 border-start-0 border-end-0" style="border: 1px solid; border-color: 	#EE82EE;">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-6 col-xl-4">
                         <div class="footer-item">
