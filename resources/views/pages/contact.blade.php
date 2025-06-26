@@ -44,15 +44,35 @@
                         <div class="mb-4">
                             <input type="email" name="email" class="form-control rounded" placeholder="Votre Email" required>
                         </div>
-                        <div class="mb-4">
-                            <select name="subject" class="form-control rounded" required>
-                                <option value="" disabled selected>Sélectionner un sujet</option>
-                                <option value="consultation">Demande de consultation</option>
-                                <option value="devis">Demande de devis</option>
-                                <option value="reclamation">Demande de réclamation</option>
-                                <option value="join">Rejoindre notre équipe</option>
-                            </select>
-                        </div>
+                      <div class="mb-4">
+    <select name="subject" class="form-control rounded" required>
+        <option value="" disabled selected>Sélectionner un sujet</option>
+        <option value="consultation">Demande de consultation</option>
+        <option value="devis">Demande de devis</option>
+        <option value="reclamation">Demande de réclamation</option>
+        <option value="join">Rejoindre notre équipe</option>
+    </select>
+</div>
+
+
+
+<!-- Nouveau champ : Demande vient d'une entreprise ? -->
+<div class="mb-4">
+    <label for="from_company" class="form-label">
+        Cette demande provient-elle d'une entreprise ?
+    </label>
+    <select name="from_company" id="from_company" class="form-control rounded" required>
+        <option value="" disabled selected>Choisissez une option</option>
+        <option value="oui">Oui</option>
+        <option value="non">Non</option>
+    </select>
+</div>
+
+<!-- Nom de l'entreprise, affiché seulement si "Oui" est sélectionné -->
+<div class="mb-4 d-none" id="company_name_container">
+    <input type="text" name="company_name" class="form-control rounded" placeholder="Nom de l'entreprise">
+</div>
+
                         <div class="mb-4">
                             <textarea name="message" class="form-control rounded" rows="5" placeholder="Votre Message" required></textarea>
                         </div>
@@ -186,4 +206,20 @@
             }
         }
     </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const companySelect = document.getElementById('from_company');
+        const companyInputContainer = document.getElementById('company_name_container');
+
+        companySelect.addEventListener('change', function () {
+            if (companySelect.value === 'oui') {
+                companyInputContainer.classList.remove('d-none');
+            } else {
+                companyInputContainer.classList.add('d-none');
+            }
+        });
+    });
+</script>
+
 @endsection

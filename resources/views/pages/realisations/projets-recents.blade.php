@@ -355,7 +355,7 @@
                             ? projet.similar.map(p => `
                                 <li class="list-group-item d-flex align-items-center similar-project-item" data-id="${p.id}">
                                     <img src="${p.image ? '/secure-image/' + p.id : 'https://via.placeholder.com/60x40?text=Projet'}"
-                                         alt="" style="width:60px;height:40px;object-fit:cover;margin-right:10px;">
+                                        alt="" style="width:60px;height:40px;object-fit:cover;margin-right:10px;">
                                     <span>${p.titre}</span>
                                 </li>`).join('')
                             : '<li class="list-group-item">Aucun autre projet dans ce domaine.</li>';

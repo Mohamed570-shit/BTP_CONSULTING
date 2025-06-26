@@ -1,83 +1,96 @@
-<div style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #2b2b2b; line-height: 1.8; padding: 30px; max-width: 700px; margin: 25px auto; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff6200, #ff8c00); border-radius: 14px 14px 0 0;"></div>
-    <h2 style="color: #ff6200; font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 28px; transition: transform 0.2s ease;">📬</span>
-        Nouveau Message de Contact
-    </h2>
-
-    <div style="padding: 0 5px;">
-        <p style="margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px;">
-            <strong style="color: #ff6200; font-weight: 600; min-width: 80px;">👤 Nom :</strong>
-            <span style="color: #333; font-weight: 500; background: #fff8f0; padding: 6px 12px; border-radius: 6px; border: 1px solid #ffe0b3;">{{ $name }}</span>
-        </p>
-        <p style="margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px;">
-            <strong style="color: #ff6200; font-weight: 600; min-width: 80px;">📧 Email :</strong>
-            <span style="color: #333; font-weight: 500; background: #fff8f0; padding: 6px 12px; border-radius: 6px; border: 1px solid #ffe0b3;">{{ $email }}</span>
-        </p>
-        <p style="margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px;">
-            <strong style="color: #ff6200; font-weight: 600; min-width: 80px;">📌 Sujet :</strong>
-            <span style="color: #333; font-weight: 500; background: #fff8f0; padding: 6px 12px; border-radius: 6px; border: 1px solid #ffe0b3;">{{ $subject }}</span>
-        </p>
-
-        <hr style="margin: 25px 0; border: none; border-top: 1px solid #f0f0f0;">
-
-        <p style="margin-bottom: 10px; font-size: 16px; font-weight: 600; color: #ff6200;">
-            💬 Message :
-        </p>
-        <p style="background: #fff; padding: 20px; border-radius: 8px; font-size: 15px; color: #333; line-height: 1.9; border: 1px solid #f0f0f0; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);">
-            {{ $messageContent }}
-        </p>
-    </div>
-</div>
-
-<style>
-    /* Fade-In Animation */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    div {
-        animation: fadeIn 0.5s ease-out;
-    }
-
-    /* Hover Effect */
-    div:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Icon Hover */
-    h2 span:hover {
-        transform: scale(1.15);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 600px) {
-        div {
-            padding: 20px;
-            max-width: 95%;
-            margin: 15px auto;
-        }
-
-        h2 {
-            font-size: 20px;
-        }
-
-        h2 span {
-            font-size: 24px;
-        }
-
-        p {
-            font-size: 14px;
-        }
-
-        p strong {
-            min-width: 70px;
-        }
-
-        p span {
-            padding: 5px 10px;
-        }
-    }
-</style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouveau Message de Contact</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f6f6f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333;">
+    <!-- Wrapper -->
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 30px auto;">
+        <tr>
+            <td style="padding: 0;">
+                <!-- Header -->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-bottom: 2px solid #003087;">
+                
+                    <tr>
+                        <td style="padding: 0 20px 20px 20px; text-align: left;">
+                            <h1 style="margin: 0; font-size: 22px; font-weight: bold; color: #003087;">Nouveau Message de Contact</h1>
+                        </td>
+                    </tr>
+                </table>
+                <!-- Content -->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; padding: 20px;">
+                    <tr>
+                        <td style="padding: 20px;">
+                            <!-- Name -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                <tr>
+                                    <td style="width: 100px; font-weight: bold; font-size: 15px; color: #333333; vertical-align: top;">Nom :</td>
+                                    <td style="font-size: 15px; color: #333333; background-color: #f8faff; padding: 10px; border: 1px solid #e0e7ff; border-radius: 4px;">{{ $name }}</td>
+                                </tr>
+                            </table>
+                            <!-- Email -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                <tr>
+                                    <td style="width: 100px; font-weight: bold; font-size: 15px; color: #333333; vertical-align: top;">Email :</td>
+                                    <td style="font-size: 15px; color: #333333; background-color: #f8faff; padding: 10px; border: 1px solid #e0e7ff; border-radius: 4px;">{{ $email }}</td>
+                                </tr>
+                            </table>
+                            <!-- Subject -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                <tr>
+                                    <td style="width: 100px; font-weight: bold; font-size: 15px; color: #333333; vertical-align: top;">Sujet :</td>
+                                    <td style="font-size: 15px; color: #333333; background-color: #f8faff; padding: 10px; border: 1px solid #e0e7ff; border-radius: 4px;">{{ $subject }}</td>
+                                </tr>
+                            </table>
+                            <!-- Company -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                <tr>
+                                    <td style="width: 100px; font-weight: bold; font-size: 15px; color: #333333; vertical-align: top;">Entreprise :</td>
+                                    <td style="font-size: 15px; color: #333333; background-color: #f8faff; padding: 10px; border: 1px solid #e0e7ff; border-radius: 4px;">
+                                        @if ($fromCompany === 'oui')
+                                            {{ $companyName ? $companyName : 'Nom non précisé' }}
+                                        @else
+                                            Non
+                                        @endif
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Divider -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 15px 0;">
+                                <tr>
+                                    <td style="border-top: 1px solid #e0e7ff;"></td>
+                                </tr>
+                            </table>
+                            <!-- Message -->
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="font-weight: bold; font-size: 15px; color: #333333; margin-bottom: 10px;">Message :</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 15px; color: #333333; background-color: #f8faff; padding: 15px; border: 1px solid #e0e7ff; border-radius: 4px;">{{ $messageContent }}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- Footer -->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #003087; padding: 20px; text-align: center; font-size: 13px; color: #ffffff;">
+                    <tr>
+                        <td>
+                            <p style="margin: 0;">BTP Consulting</p>
+                            <p style="margin: 5px 0;">AV. Ali Yarta, Wilaya Centaer, 3<sup>ème</sup> Étage, N° 029, Tétouan</p>
+                            <p style="margin: 5px 0;">
+                                <a href="mailto:contact@btpconsulting.ma" style="color: #ffffff; text-decoration: underline;">contact@btpconsulting.ma</a> |
+                                <a href="tel:+212708080807" style="color: #ffffff; text-decoration: underline;">+212 708 080 807</a>
+                            </p>
+                            <p style="margin: 5px 0;">Ce message a été envoyé depuis le formulaire de contact de BTP Consulting.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

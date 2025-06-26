@@ -24,6 +24,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // 1. Drop la contrainte FK explicitement
+        Schema::table('image_a_la_unes', function (Blueprint $table) {
+            $table->dropForeign(['a_la_une_id']);
+        });
+
+        // 2. Puis drop la table
         Schema::dropIfExists('image_a_la_unes');
     }
 };
